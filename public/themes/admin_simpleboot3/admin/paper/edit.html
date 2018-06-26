@@ -1,0 +1,149 @@
+<include file="public@header" />
+ <link href="__TMPL__/public/assets/simpleboot3/css/zzinfo.css" rel="stylesheet">
+</head>
+<body>
+	<div class="wrap">
+		<ul class="nav nav-tabs">
+			<li class=""><a href="{:url('index')}">所有{$flag}</a></li>
+        
+			<li class="active"><a href="{:url('edit',['id'=>$info.id])}">{$flag}详情</a></li>
+		</ul>
+		<form method="post"
+			class="form-horizontal js-ajax-form margin-top-20"
+			action="{:url('editPost')}">
+			<div class="form-group fleft">
+				<label class="col-sm-2 control-label">借款人</label>
+				<div class="col-md-6 col-sm-10">
+					<input type="text" class="form-control"  value="{$info.borrower_name}"
+						readonly /> 
+						<a href="{:url('user/AdminIndex/info',['id'=>$info.borrower_id])}">查看个人资料</a>
+				</div>
+			</div>
+			<div class="form-group fleft">
+				<label class="col-sm-2 control-label">借款人身份证</label>
+				<div class="col-md-6 col-sm-10">
+					<input type="text" class="form-control"  value="{$info.borrower_idcard}" readonly />
+					 
+				</div>
+			</div>
+			
+			<div class="form-group fleft">
+				<label class="col-sm-2 control-label">借款人手机</label>
+				<div class="col-md-6 col-sm-10">
+					<input type="text" class="form-control"  value="{$info.borrower_mobile}" readonly />
+				</div>
+			</div>
+			
+			<div style="clear: both"></div>
+			<div class="form-group fleft">
+				<label class="col-sm-2 control-label">出借人</label>
+				<div class="col-md-6 col-sm-10">
+					<input type="text" class="form-control"  value="{$info.lender_name}" readonly />
+					<a href="{:url('user/AdminIndex/info',['id'=>$info.lender_id])}">查看个人资料</a>
+				</div>
+			</div>
+			<div class="form-group fleft">
+				<label class="col-sm-2 control-label">出借人省份证</label>
+				<div class="col-md-6 col-sm-10">
+					<input type="text" class="form-control"  value="{$info.lender_idcard}" readonly />
+				</div>
+			</div>
+			 <div class="form-group fleft">
+				<label class="col-sm-2 control-label">出借人手机号</label>
+				<div class="col-md-6 col-sm-10">
+					<input type="text" class="form-control"  value="{$info.lender_mobile}" readonly />
+				</div>
+			</div>
+			<div style="clear: both"></div>
+		 	<div class="form-group fleft">
+				<label class="col-sm-2 control-label">借条单号</label>
+				<div class="col-md-6 col-sm-10">
+					<input type="text" class="form-control"  value="{$info.oid}" readonly />
+				</div>
+			</div>
+			<div class="form-group fleft">
+				<label class="col-sm-2 control-label">借条发起时间</label>
+				<div class="col-md-6 col-sm-10">
+					<input type="text" class="form-control"  value="{$info.insert_time|date='Y-m-d H:i',###}" readonly /> 
+				</div>
+			</div>
+			<div class="form-group fleft">
+				<label class="col-sm-2 control-label">借条最后更新时间</label>
+				<div class="col-md-6 col-sm-10">
+					<input type="text" class="form-control"  value="{$info.update_time|date='Y-m-d H:i',###}" readonly /> 
+				</div>
+			</div>
+			<div style="clear: both"></div>
+			<div class="form-group fleft">
+				<label class="col-sm-2 control-label">借款日期</label>
+				<div class="col-md-6 col-sm-10">
+					<input type="text" class="form-control"  value="{$info.start_time|date='Y-m-d',###}" readonly /> 
+				</div>
+			</div>
+			<div class="form-group fleft">
+				<label class="col-sm-2 control-label">还款期限</label>
+				<div class="col-md-6 col-sm-10">
+					<input type="text" class="form-control"  value="{$info.end_time|date='Y-m-d',###}" readonly /> 
+				</div>
+			</div>
+			<div class="form-group fleft">
+				<label class="col-sm-2 control-label">借条状态</label>
+				<div class="col-md-6 col-sm-10">
+				<select name="status" id="">
+				<foreach name="paper_status" item="vo" k="key">
+					<option value="{$key}" <if condition="$key eq $info.status">selected</if>>{$vo}</option>
+				</foreach>
+					
+				</select>
+					 <neq name="info.overdue_day" value="0">
+						<span style="color:red;">已逾期{$info.overdue_day}天</span>
+						</neq> 
+				</div>
+			</div>
+			<div style="clear: both"></div>
+			<div class="form-group fleft">
+				<label class="col-sm-2 control-label">借款用途</label>
+				<div class="col-md-6 col-sm-10">
+					<input type="text" class="form-control"  value="{$info.use}" readonly />
+				</div>
+			</div>
+			<div class="form-group fleft">
+				<label class="col-sm-2 control-label">借款金额</label>
+				<div class="col-md-6 col-sm-10">
+					<input type="text" class="form-control"  value="￥{$info.money}" readonly /> 
+				</div>
+			</div>
+			<div class="form-group fleft">
+				<label class="col-sm-2 control-label">借款利率</label>
+				<div class="col-md-6 col-sm-10">
+					<input type="text" class="form-control"  value="{$info.rate}%" readonly /> 
+				</div>
+			</div>
+			<div class="form-group fleft">
+				<label class="col-sm-2 control-label">到期应还金额</label>
+				<div class="col-md-6 col-sm-10">
+					<input type="text" class="form-control"  value="￥{$info.real_money}" readonly /> 
+				</div>
+			</div>
+			 
+			 
+			<div style="clear:both"></div>
+			 
+			<div class="form-group">
+				<div class="col-sm-offset-2 col-sm-10">
+				<input type="hidden" name="id" value="{$info.id}"/>
+					<button type="submit" class="btn btn-primary js-ajax-submit">{:lang('SAVE')}</button>
+					<a class="btn btn-default" href="javascript:history.go(-1);">{:lang('BACK')}</a>
+				</div>
+			</div>
+			 <div class="form-group">
+				<div class="col-sm-offset-2 col-sm-10">
+				 <p>状态更改只作为备用，在特殊情况如用户失联等情况下使用，请谨慎操作</p>
+				</div>
+			</div>
+		</form>
+	</div>
+	<script src="__STATIC__/js/admin.js"></script>
+	 
+</body>
+</html>

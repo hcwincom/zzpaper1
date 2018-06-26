@@ -1,0 +1,104 @@
+<include file="public@head"/> 
+</head>
+<body>
+    <div class="hasNav">
+        <form action="{:url('user/info/do_avatar')}" method="post" enctype="multipart/form-data">
+            <ul class='box form-box' style='background-color:#fff;'>
+                <li class="box-li padding-all">
+                    <p class='center-p'>修改头像</p>
+                </li>
+                <li class="box-li padding-all photo-li">
+                    <div class="pic_photo">
+                        <div id="photo">
+                               <img src="{:cmf_get_image_url($user.avatar)}" alt="头像">
+                        </div>
+                        <label for="img" class='label-img'>
+                            <input type="file" name="avatar" value='上传头像' id='img' accept="image/*">
+                            <span>上传头像</span>
+                        </label> 
+                    </div>
+                </li>
+                 
+                  <p class='error-tip box-p red padding-all'></p>
+            </ul>   
+            <div class="main">
+                
+                <div class="btn-red  btn-middle border-radius-10 ">
+                    <button type="button" />确认修改</button>
+                </div>
+            </div>
+            
+        </form>
+    </div>
+    
+   <include file="public@user_foot"/> 
+    <script>
+       var click=1;
+         $('#img').change(function() {
+             var file = this.files[0];
+            var size=parseInt("{$Think.config.avatar_size}");
+             if(file.size>size){
+            	 click=1;
+            	 $('.error-tip').text('图片大小不能超过2M');
+             }else{
+            	 click=0;
+             }
+             var r = new FileReader();
+             r.readAsDataURL(file);
+             $(r).load(function() {
+                 $('#photo').html('<img src="' + this.result + '" alt="" />');
+             });
+         });
+         // 去除ios上传图片的问题
+         var file = document.querySelector('#img');
+         if (getIos()) {
+             file.removeAttribute("capture");
+         }
+         function getIos() {
+             var ua = navigator.userAgent.toLowerCase();
+             if (ua.match(/iPhone\sOS/i) == "iphone os") {
+                 return true;
+             } else {
+                 return false;
+             }
+         }
+         /*ajax上传文件*/
+     	$("button").click(function(){
+     		if(click==0){
+     			click=1;
+     		}else{
+     			return false;
+     		}
+     		//获取上传文件对象
+     		var file=$("#img").get(0).files[0];
+     		
+     		//组装表单数据
+     		var fordata=new FormData();
+     		fordata.append("avatar1",file);
+     		$('.error-tip').text('上传中，请勿操作');
+     		//ajax
+     		$.ajax({
+     			"url":"{:url('user/info/ajax_avatar')}",
+     			"type":"POST",
+     			"processData":false,
+     			"contentType":false,
+     			"data":fordata,
+     			"dataType":"json",
+     			"error":function(){
+     				 $('.error-tip').text('服务器连接失败');
+     				click=0;
+     			},
+     			"success":function(data){
+     				$('.error-tip').text(data.msg);
+     				if(data.url!=''){
+                		 location.href=data.url; 
+                	}
+     				click=0;
+     			}
+     		});
+     		
+     	});
+
+        
+    </script>
+ 

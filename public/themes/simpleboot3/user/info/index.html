@@ -1,0 +1,86 @@
+<include file="public@head" />
+</head>
+<body>
+     <!-- 个人中心 -->
+      <include file="public@person_head" />
+    <div class="person_con">
+        <ul class="group-person-second">
+            <li>
+            <a href="{:url('user/info/borrower')}">
+                <span class='icon icon_arr'></span>
+                	待还<strong>{$user.back}</strong>
+             </a>
+            </li>
+            <li>
+             <a href="{:url('user/info/lender')}">
+                <span class='icon icon_arr'></span>
+                                        待收<strong>{$user.send}</strong>
+             </a>
+            </li>
+        </ul>
+        <ul class="group-person-mess">
+         
+            <li>
+                <a href="{:url('user/info/bind')}">
+                    <span class="icon icon-mess icon-mess1"></span>
+                    绑定信息
+                    <span class='icon icon-mess icon-mess6'></span>
+                </a>
+            </li>
+            <li>
+                <a href="{:url('user/info/avatar')}">
+                    <span class="icon icon-mess icon-mess2"></span>
+                    修改头像
+                    <span class='icon icon-mess icon-mess6'></span>
+                </a>
+            </li>
+            <li>
+                <a href="{:url('user/info/psw')}">
+                    <span class="icon icon-mess icon-mess3"></span>
+                    修改密码
+                    <span class='icon icon-mess icon-mess6'></span>
+                </a>
+            </li>
+             <li>
+                <a href="{:url('user/login/findPass')}">
+                    <span class="icon icon-mess icon-mess3"></span>
+                    忘记密码
+                    <span class='icon icon-mess icon-mess6'></span>
+                </a>
+            </li>
+            <li>
+                <a href="{:url('user/info/guide')}">
+                    <span class="icon icon-mess icon-mess4"></span>
+                    使用手册
+                    <span class='icon icon-mess icon-mess6'></span>
+                </a>
+            </li>
+            <li>
+                <a href="javascript:void(0);" class='btn-quit'>
+                    <span class="icon icon-mess icon-mess5 "></span>
+                    退出
+                   
+                </a>
+            </li>
+        </ul>    
+    </div>
+    
+    
+    <div class="pop_up border-radius-10" style='display:none;'>
+        <p>提示</p>
+        <p>你确定要退出吗？</p>
+        <ul class="pop_up_ul">
+            <li><a href="javascript:psw_hide();" class='blue-text'>取消</a></li>
+            <li><a href="{:url('user/index/logout')}" class='blue-text'>确定</a></li>
+        </ul>
+    </div>  
+      <include file="public@user_foot" />  
+   
+    <script>
+        // 点击退出
+        $('.btn-quit').click(function(){
+            $('.border-radius-10').show();
+        });
+       
+    </script>
+ 

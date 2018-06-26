@@ -1,0 +1,23 @@
+@CHARSET "UTF-8";
+.fleft {
+	float: left;
+	width: 500px;
+	height: 50px;
+}
+
+.control-label {
+	width: 150px;
+}
+
+.fleft input{
+	width: 200px;
+	height: 30px;
+}
+.fleft input[type=radio]{
+	width: 12px;
+	height: 12px; 
+}
+.fleft select, .fleft option {
+	width: 200px;
+	height: 30px;
+}

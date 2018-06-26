@@ -1,0 +1,38 @@
+<include file="public@head" />
+</head>
+<body>
+     <!-- 个人中心 -->
+     <div class="hasNav">
+        <form action="{:url('search')}" method="post">
+            <ul class='box form-box pad-top-1' >
+                <li class="box-li padding-all backg-white">
+                    <div class='box-tit'>身份证：</div>
+                    <div class='box-con'><input type="text" name='identity_num' value="{$idcard|default=''}" placeholder='请输入身份证号' required></div>
+                </li>
+                
+                 <p class='box-p  padding-all'>&nbsp;&nbsp;<span class="error-tip red">{$error}</span></p>
+            </ul>
+            
+            <div class="btn-red  btn-middle border-radius-10 ">
+                <button type="submit" onClick="return formIdentity(this.form);"/>查询</button>
+            </div>
+        </form>
+     
+     </div>
+  <include file="public@user_foot"  /> 
+    <script>
+       
+        // 查信用
+
+        function formIdentity(form){
+            if($.trim($('input[name="identity_num"]').val()) == '' || isCardNo($('input[name="identity_num"]').val()) == false){
+
+                $('input[name="identity_num"]').focus();
+
+                $('.error-tip').html('提示：请输入正确的身份证号码');
+                
+                return false;
+            }
+        }
+    </script>
+ 

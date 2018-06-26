@@ -1,0 +1,72 @@
+<include file="public@header" />
+</head>
+<body>
+	<div class="wrap">
+		<ul class="nav nav-tabs">
+		<li ><a href="{:url('index')}">数据备份列表</a></li>
+			<li><a href="{:url('add')}">新数据备份</a></li>
+			<li class="active"><a href="{:url('query')}">sql语句</a></li>
+		 
+		</ul>
+		<form method="post" class="form-horizontal js-ajax-form2 margin-top-20" action="{:url('query')}">
+			 
+			<div class="form-group">
+				<label for="input-description" class="col-sm-2 control-label">sql语句</label>
+				<div class="col-md-6 col-sm-10">
+					<textarea class="form-control" name="sql" id="input-description" required>{$data.sql}</textarea>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label">sql语句</label>
+				<div class="col-md-6 col-sm-10">
+					 <input type="radio" name="type" value="0" <eq name="data.type" value="0">checked</eq>/>查询
+					  <input type="radio" name="type" value="1" <eq name="data.type" value="1">checked</eq>/>更新
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label">sql结果</label>
+				<div class="col-md-6 col-sm-10">
+				 <notempty name="data.sql">
+				 	 <notempty name="msg">
+				 	 	{$msg}
+				 	 <else/>
+					 	 <eq name="data.type" value="1">
+					 		影响了{$row}行
+					 	<else/>
+					 		得到了{$row}条数据<br/>
+					 		<table class="table table-hover table-bordered table-list">
+								 
+								<tbody>
+					 		<foreach name="list" item="vo" key="k">
+					 		<eq name="k" value="0">
+					 			<tr>
+					 				<foreach name="vo" item="vv" key="k">
+					 				<td>{$k}</td>
+					 				</foreach>
+					 			</tr>
+					 		</eq>
+					 			<tr>
+					 				<foreach name="vo" item="vv">
+					 				<td>{$vv}</td>
+					 				</foreach>
+					 			</tr>
+					 		</foreach>
+					 		</tbody>
+					 		</table>
+					 	</eq>
+				 	 </notempty>
+				 	
+				 </notempty>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-offset-2 col-sm-10">
+					<button type="submit" class="btn btn-primary js-ajax-submit">执行</button>
+					<a class="btn btn-default" href="javascript:history.back(-1);">{:lang('BACK')}</a>
+				</div>
+			</div>
+		</form>
+	</div>
+	<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>

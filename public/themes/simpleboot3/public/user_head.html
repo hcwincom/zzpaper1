@@ -1,0 +1,24 @@
+<include file="public@head" />
+</head>
+<body>
+     <!-- 个人中心 -->
+<!-- 个人中心 -->
+    <div class="hasNav">
+        <include file="public@person_head" />
+        <div class="backg-blue daihuai">
+            <ul class="group-person-second group-white">
+                <li>
+                 <a href="{:url('user/info/borrower')}">
+                    <span class='text'>待还金额</span>    
+                    <b>{$user.back}</b>
+                 </a>
+                </li>
+                <li>
+                 <a href="{:url('user/info/lender')}">
+                    <span class='text'>待收金额</span>    
+                    <b>{$user.send}</b>
+                  </a>
+                </li>
+            </ul>
+        </div>
+        

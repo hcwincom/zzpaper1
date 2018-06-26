@@ -1,0 +1,63 @@
+<include file="public@head"/>
+</head>
+<body>
+    <section class='main'>
+        <form action="">
+            <ul class='box form-box'>
+                <li class="box-li padding-all">
+                    <div class='box-tit'>QQ号：</div>
+                    <div class='box-con'>
+                        <input type="text" name='qq' value='{$user.qq}' placeholder='请输入QQ号' >
+                    </div>
+                </li>
+                <li class="box-li padding-all">
+                    <div class='box-tit'>密码：</div>
+                    <div class='box-con'>
+                        <input type="password" name='password'  value='' placeholder='请输入6位数字密码'>
+                    </div>
+                </li>
+                <p class='error-tip box-p red'></p>
+            </ul>
+            <div class="btn-red  btn-middle border-radius-10 ">
+                <button type="submit" onClick="return formQq(this.form);" class='border-radius-10'/>确认修改</button>
+            </div>
+        </form>
+    </section>
+     <include file="public@user_foot"/>
+  <script>
+
+    //   验证QQ
+    function formQq(form){
+    	var qq=$.trim($('input[name="qq"]').val());
+    	var psw=$.trim($('input[name="password"]').val());
+        if(qq == '' || isQq(qq) == false){
+            $('input[name="qq"]').focus();
+            $('.error-tip').html('提示：请输入正确QQ号');
+            return false;
+        }else  if(psw== '' || isPassword(psw) == false){
+            $('input[name="password"]').focus();
+            $('.error-tip').html('提示：请输入6位数字密码');
+            return false;
+        }
+      //ajax提交
+        $.ajax({
+            type: 'POST',
+            url: "{:url('user/info/ajax_qq')}",
+            dataType: 'json',
+            data:{'psw':psw,'qq':qq},
+            success: function(data){
+            	$('.error-tip').text(data.msg);
+            	if(data.url!=''){
+            	     location.href=data.url; 
+            	} 
+            },
+            error: function(xhr, type){
+            	$('.error_tip').text('服务器连接失败'); 
+            	 
+            }
+        });
+        return false;
+    }
+    
+  </script>
+ 

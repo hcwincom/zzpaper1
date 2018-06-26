@@ -1,0 +1,83 @@
+<include file="public@header" />
+</head>
+<body>
+
+	<div class="wrap js-check-wrap">
+		<ul class="nav nav-tabs"> 
+			<li class="active"><a href="{:url('index')}">所有{$flag}</a></li> 
+		</ul>
+		<form class="well form-inline margin-top-20" method="post"
+			action="{:url('index')}">
+			 
+			借款人身份证号: 
+			<input type="text" name="borrower_idcard" value="{$data.borrower_idcard}"/>
+			  &nbsp;&nbsp;
+			  出借人身份证号: 
+			<input type="text" name="lender_idcard" value="{$data.lender_idcard}"/>
+			  &nbsp;&nbsp; 
+			
+			<input type="submit"
+				class="btn btn-primary" value="搜索" /> <a class="btn btn-danger"
+				href="{:url('index')}">清空</a>
+				&nbsp;&nbsp; &nbsp;&nbsp; 
+			 
+		</form>
+		<form method="post" class="js-ajax-form margin-top-20" action="">
+
+
+			<table class="table table-hover table-bordered table-list">
+				<thead>
+					<tr>
+						<th width="50">ID</th>
+						<th>借条单号</th> 
+						<th>借款人</th> 
+						<th>借款人省份证</th>  
+						<th>出借人</th>
+						<th>出借人省份证</th> 
+						<th>借款金额</th> 
+						<th>借款时间</th>
+						<th>还款期限</th>
+						 <th>补借条时间</th>
+						 <th>实际还款时间</th>
+						<th>到期应还金额</th>
+						<th>实际还款金额</th>
+						<th>操作</th>
+						 
+					</tr>
+				</thead>
+				<tbody>
+					<foreach name="list" item="vo">
+					<tr>
+
+						<td>{$vo.id}</td>
+						<td>{$vo.oid}</td>
+						<td>{$vo.borrower_name}</td>
+						<td>{$vo.borrower_idcard}</td>
+						<td>{$vo.lender_name}</td>
+						<td>{$vo.lender_idcard}</td>
+						<td>￥{$vo.money}</td> 
+						<td>{$vo.start_time|date='Y-m-d',###}</td> 
+						<td>{$vo.end_time|date='Y-m-d',###}</td> 
+						<td>{$vo.insert_time|date='Y-m-d H:i',###}</td>
+						 
+						<td>
+						{$vo.update_time|date='Y-m-d H:i',###}
+						<neq name="vo.overdue_day" value="0">
+						<span style="color:red;">|逾期{$vo.overdue_day}天</span>
+						</neq>
+						</td>
+						<td>￥{$vo.real_money}</td> 
+						<td>￥{$vo.final_money}</td> 
+						 <td><a href="{:url('edit',['id'=>$vo.id])}">查看详情</a></td> 
+					</tr>
+					</foreach>
+				</tbody>
+
+			</table>
+
+		</form>
+		<div class="pagination">{$page}</div>
+	</div>
+	<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>

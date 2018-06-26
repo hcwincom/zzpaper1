@@ -1,0 +1,39 @@
+<include file="public@head" />
+</head>
+<body>
+    <section class='main'>
+   
+            <form action="">
+                <ul class='box form-box'>
+                    <li class="box-li padding-all">
+                        <div class='box-tit'>手机号：</div>
+                        <div class='box-con'>
+                            <a href="{:url('user/info/mobile')}">
+                                <input type="text" name='tel' value='{$user.mobile}' readonly >
+                            </a>
+                        </div>
+                    </li>
+                    <li class="box-li padding-all">
+                        <div class='box-tit'>微信号：</div>
+                        <div class='box-con'>
+                             <a href="{:url('user/info/weixin')}">
+                                <input type="text" name='微信' value='{$user.weixin}' readonly>
+                            </a>
+                        </div>
+                    </li>
+                    <li class="box-li padding-all">
+                        <div class='box-tit'>QQ号：</div>
+                        <div class='box-con'>
+                            <a href="{:url('user/info/qq')}">
+                                <input type="text" name='qq'  value='{$user.qq}' readonly>
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+               
+               
+            </form>
+       
+
+    </section>
+    <include file="public@user_foot" />

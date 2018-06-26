@@ -1,0 +1,80 @@
+<include file="public@header" />
+</head>
+<body>
+
+	<div class="wrap js-check-wrap">
+		<ul class="nav nav-tabs"> 
+		 
+			<li  class="active"><a href="{:url('search')}">出入库统计查询</a></li> 
+		</ul>
+		<form class="well form-inline margin-top-20" method="post"
+			action="{:url('search')}">
+			 
+			借款人身份证号: 
+			<input type="text" name="borrower_idcard" value="{$data.borrower_idcard}"/>
+			  &nbsp;&nbsp;
+			  出借人身份证号: 
+			<input type="text" name="lender_idcard" value="{$data.lender_idcard}"/>
+			  &nbsp;&nbsp; 
+			   时间:
+        <input type="text" class="form-control js-bootstrap-datetime" name="start_time"
+               value="{$data.start_time}"
+               style="width: 140px;" autocomplete="off">-
+        <input type="text" class="form-control js-bootstrap-datetime" name="end_time"
+               value="{$data.end_time}"
+               style="width: 140px;" autocomplete="off"> &nbsp; &nbsp;
+			<input type="submit"
+				class="btn btn-primary" value="搜索" /> 
+			<a class="btn btn-danger"
+				href="{:url('search')}">清空</a>
+				&nbsp;&nbsp;&nbsp;
+		 
+		</form>
+		<div>新增注册用户{$count['user']}</div>
+		 <table class="table table-hover table-bordered table-list">
+            <thead>
+            <tr> 
+            	<th></th>
+            	 <th>借款总计</th>
+                <th>待还款</th>
+                <th>今日到期</th>
+                <th>逾期</th>
+                <th>已还无逾期</th>
+                <th>已还有逾期</th>
+                 <th>还款总计</th>
+                 <th>无逾期</th>
+                <th>有逾期</th>
+            </tr>
+            </thead>
+            <tbody> 
+                <tr>
+                 	<td>借条单数</td>
+                 	<td>{$count['send_count']}</td>
+                 	<td>{$count['intime_count']}</td>
+                 	<td>{$count['ontime_count']}</td>
+                 	<td>{$count['overdue1_count']}</td>
+                 	<td>{$count['old0_count']}</td>
+                 	<td>{$count['old1_count']}</td>
+                 	<td>{$count['back_count']}</td>
+                 	<td>{$count['back0_count']}</td>
+                  	<td>{$count['back1_count']}</td>
+                </tr>
+                 <tr>
+                 	<td>借条金额（￥）</td>
+                 	<td>{$count['send_money']}</td>
+                 	<td>{$count['intime_money']}</td>
+                 	<td>{$count['ontime_money']}</td>
+                 	<td>{$count['overdue1_money']}</td>
+                 	<td>{$count['old0_money']}</td>
+                 	<td>{$count['old1_money']}</td>
+                 	<td>{$count['back_money']}</td>
+                 	<td>{$count['back0_money']}</td>
+                  	<td>{$count['back1_money']}</td>
+                </tr>
+                  
+              </tbody>
+           </table>
+		 </div>
+	<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>

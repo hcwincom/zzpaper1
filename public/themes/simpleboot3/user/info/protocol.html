@@ -1,0 +1,39 @@
+<include file="public@head" />
+</head>
+<body> 
+    <div class="agreements">
+        <h1 style='font-size:18px;font-weight:bold;text-align:center;'>{$zztitle}借款协议</h1>
+        <div style="margin:1rem auto;width:100%;">
+            <p style="font-size:12px;line-height:1.8;">甲方（借款人）：{$info.borrower_name|default=''}</p>
+            <p style="font-size:12px;line-height:1.8;">注册手机号：{$info.borrower_mobile|default=''}</p>
+            <p style="font-size:12px;line-height:1.8;">身份证号:{$info.borrower_idcard|default=''}</p>
+            <p style="font-size:12px;line-height:1.8;">乙方（出借人）：{$info.lender_name|default=''}</p>
+            <p style="font-size:12px;line-height:1.8;">注册手机号：{$info.lender_mobile|default=''}</p>
+            <p style="font-size:12px;line-height:1.8;">身份证号:{$info.lender_idcard|default=''}</p>
+            <p style="font-size:12px;line-height:1.8;">丙方（居间服务商）：{$Think.config.company}</p>
+        </div>
+        <div style="margin:1rem auto;width:100%;">
+                <p style="font-size:12px;line-height:1.8;">
+                中间平台服务商（本合同丙方）为{$zztitle}平台的运营管理人，为借贷双方提供
+                中间服务。
+            </p>
+        </div>
+        <div style="margin:1rem auto;width:100%;">
+                <p style="font-size:12px;line-height:1.8;">
+                    甲乙双方均已在丙方平台注册，同意遵守丙方平台的
+                    各项行为准则。在
+                    充分阅读理解本文情形下，本着诚信自愿原则签订本
+                    《借款协议》。本协议内容如下：
+            </p>
+        </div>
+
+        <div>
+            <h3 style="font-size:15px;font-weight:nomral;line-height:2;">一、借款主要内容</h3>
+            <p style="font-size:12px;line-height:1.8;">借款人民币金额：{$info.money|default=''}元</p>
+            <p style="font-size:12px;line-height:1.8;">借款日期：<notempty name="info.start_time">{$info.start_time|date='y-m-d',###}</notempty></p>
+            <p style="font-size:12px;line-height:1.8;">还款日期:<notempty name="info.end_time">{$info.end_time|date='y-m-d',###}</notempty></p>
+            <p style="font-size:12px;line-height:1.8;">年利率：{$info.rate|default=''}%</p>
+        </div>
+        {$info.content|default=''}
+    </div>
+ <include file="public@foot" /> 

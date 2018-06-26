@@ -1,0 +1,121 @@
+<include file="public@head" />
+</head>
+<body>
+    <section class='main'>
+        <form action="" method="post" accept-charset="utf-8" id="custorm_dates">
+            <ul class='box form-box'>
+                <li class="box-li padding-all">
+                    <div class='box-tit'>身份证姓名：</div>
+                    <div class='box-con'><input type="text" name='identity_name' placeholder='请输入身份证姓名' required></div>
+                </li>
+                <li class="box-li padding-all">
+                    <div class='box-tit'>身份证号码：</div>
+                    <div class='box-con'><input type="text" name='identity_num' placeholder='请输入身份证号码' required></div>
+                </li>
+                <li class="box-li padding-all">
+                    <div class='box-tit'>设置密码：</div>
+                    <div class='box-con'><input type="text" name='password' placeholder='请输入6位数字密码' maxlength="6" required></div>
+                </li>
+                <li class="box-li padding-all">
+                    <div class='box-tit'>确认密码</div>
+                    <div class='box-con'><input type="text" name='password_repeat' placeholder='请再次填写密码' maxlength="6" required></div>
+                </li>
+                <li class="box-li padding-all">
+                    <div class='box-tit'>微信号：</div>
+                    <div class='box-con'><input type="text" name='weixin' placeholder='请输入微信号'></div>
+                </li>
+                <li class="box-li padding-all">
+                    <div class='box-tit'>QQ号：</div>
+                    <div class='box-con'><input type="text" name='qq' placeholder='请输入QQ号'></div>
+                </li>
+                <li class="box-li padding-all">
+                    <div class='box-tit'>手机号：</div>
+                    <div class='box-con'><input type="text" name='tel' placeholder='请输入正确手机号' required></div>
+                </li>
+                 <li class="box-li padding-all box-con-relative">
+                    <div class='box-tit'>短信验证码：</div>
+                    <div class='box-con '>
+                        <input type="text" name='sms' placeholder='请输入验证码' required>
+                        <div class="identifying">
+                           
+                           <a href="javascript:void(0);" class="btn-small btn-red">发送短信</a>  
+                           <a href="javascript:void(0);" class="btn-small backg-gray" style="display:none;">已发送<span id="sms_msg">120</span>s</a>    
+                        </div>
+                    </div>
+                </li>
+                <p class='tip '>根据国家规定，为了您的信息安全，请填写实名信息，请阅读
+                	<a href="{:url('user/public/protocol',['name'=>'user'])}">《用户协议》</a>
+                	<br/>
+                	已有账号请<a style="color:green;" href="{:url('user/login/login')}">点击登录</a>
+                </p>
+                <p class='error-tip box-p red'></p>
+            </ul>
+            
+            <div class="btn-red  btn-big">
+                <button type="submit" for="custorm_dates" onClick="return formValidate(this.form);"/>提交</button>
+            </div>
+        </form>
+    </section>
+   
+<include file="public@foot" />
+<script>
+ 
+$('a.btn-red').click(function(){ 
+	$('.error-tip').text('');
+	var tel=$.trim($('input[name=tel]').val()); 
+	send_msg(tel);
+});
+function send_msg(tel){ 
+	if(tel=='' || isPhoneNo(tel) == false){ 
+		$('.error-tip').text('请先填写正确的手机号码');
+		return false;
+	}
+	$.ajax({
+        type: 'POST',
+        url: "{:url('user/register/sendmsg')}",
+        dataType: 'json',
+        data:{'tel':tel},
+        success: function(data){
+        	if(data.msg=='success'){
+        		$('.btn-small').hide();
+        		$('.backg-gray').show();
+        		 sms_msg();
+        	}else{
+        		$('.error-tip').text(data.msg); 
+        	} 
+        },
+        error: function(){
+        	$('.error-tip').text('服务器连接失败'); 
+        }
+    });
+	return false; 
+}
+
+$('#custorm_dates').submit(function(){ 
+	var username=$.trim($('input[name=identity_name]').val());
+	var idcard=$.trim($('input[name=identity_num]').val());
+	var password=$.trim($('input[name=password]').val());
+	var qq=$.trim($('input[name=qq]').val());
+	var weixin=$.trim($('input[name=weixin]').val());
+	var tel=$.trim($('input[name=tel]').val());
+	var sms=$.trim($('input[name=sms]').val());
+    if(sms=='' || isSms(sms)==false){
+    	$('.error-tip').text('短信验证码错误');
+    	return false;
+    }
+    
+    $('.error-tip').text('正在注册');
+    $.post("{:url('user/register/ajaxRegister')}",
+		 {'username':username,'idcard':idcard,'password':password,'qq':qq,'tel':tel,'sms':sms,'weixin':weixin},
+		 function(data){ 
+		  	 if(data.code==1){
+				//返回上一页并刷新
+				self.location="{:url('user/index/index')}";
+			}else{ 
+				$('.error-tip').text(data.msg);  
+			} 
+	});
+	return false;
+});
+</script>
+ 

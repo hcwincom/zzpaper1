@@ -1,0 +1,216 @@
+<include file="public@head" />
+</head>
+<body>
+    <section class='main'>
+        <form action="">
+            <ul class='box form-box box-right'>
+                <li class="box-li padding-all">
+                    <div class='box-tit'>借款金额：</div>
+                    <div class='box-con box-con-danwei'>
+                        <input type="text" name='borrowing_balance' placeholder='' required>
+                        <span>元</span>
+                    </div>
+                </li>
+                
+                <li class="box-li padding-all">
+                    <div class='box-tit'>还款期限：</div>
+                    <div class='box-con'><input type="text" name='repayment_date' id='date2'  readonly></div>
+                </li>
+                <li class="box-li padding-all">
+                    <div class='box-tit'>年化率</div>
+                    <div class='box-con'><span class='drop_down_btn' id='drop_down_btn1'>0%</span>    <input type="hidden" name='annual_rate' value='0%'></div>
+                </li>
+                
+                <li class="box-li padding-all">
+                    <div class='box-tit'>借款用途：</div>
+                    <div class='box-con'><span class='drop_down_btn' id='drop_down_btn2'>借款用途</span> <input type="hidden" name='usage_loan' value='借款用途'></div>
+                </li>
+                <li class="box-li padding-all box-li-long">
+                    <div class='box-tit'>对方姓名(<eq name="send_type" value="1">借款人<else/>出借人</eq>)：</div>
+                    <div class='box-con'><input type="text" name='name' placeholder='请输入对方姓名' required></div>
+                </li>
+                <li class="box-li padding-all">
+                   <div class="protocol">
+                       <label for="" class='checkbox-label'>
+                            <input type='checkbox' id='checkbox-label' >
+                            <span class="icon icon-mess icon_mess9"></span>
+                       </label>
+                       
+                       已阅读<a href="{:url('user/public/protocol',['name'=>'borrower'])}">《借款协议》</a>
+                      
+                   </div>
+                </li>
+                <p class='tip box-p'>风险提示</p>
+                <p class=' red'>此平台只提供凭证，生成借条时请仔细核对信息在确认。</p>
+              
+                 <p>&nbsp;&nbsp;<span class="error-tip red">{$error}</span></p>
+            </ul>
+            
+            <div class="btn-red  btn-big">
+            	<input type="hidden" name="send_type" value="{$send_type}"/>
+                <button type="submit" onClick="return formloan(this.form);"/>提交</button>
+            </div>
+        </form>
+
+
+        
+         <!-- 确认操作 -->
+        
+        <include file="public@psw" />   
+    </section>
+    
+     <!-- 年利率，借款用途点击出现的下拉框 -->
+    <div class="drop_down drop_down1" style="display:none;">
+        <p class='drop_down_head'>年利率<a class='confirm-btn red'>确定</a></p>
+        <div class="drop_down_list">
+            <p class='fixed_li'></p>
+            <ul>
+            <foreach name="$Think.config.rate" item="vo">
+                <li>{$vo}%</li> 
+            </foreach>
+            </ul>
+        </div>  
+    </div>    
+    <!-- 买车，借款用途点击出现的下拉框 -->
+     <div class="drop_down drop_down2" style="display:none;">
+        <p class='drop_down_head'>借款用途<a class='confirm-btn red'>确定</a></p>
+        <div class="drop_down_list">
+            <p class='fixed_li'></p>
+            <ul>
+             <foreach name="$Think.config.use" item="vo">
+                <li>{$vo}</li> 
+            </foreach>
+            </ul>
+        </div>  
+    </div>  
+
+
+<include file="public@foot" />
+   
+    <script type="text/javascript" src="__TMPL__/public/assets/js/laydate/laydate.js"></script>
+ 
+    <script>
+    //借款用户和利率初始化
+    var rate1=$('.drop_down1 ul li').eq(0).text();
+    console.log(rate1);
+    var use1=$('.drop_down2 ul li').eq(0).text();
+    $('.drop_down1 .fixed_li').text(rate1);
+    $('.drop_down2 .fixed_li').text(use1);
+ // 日期
+ 	var click=0;
+ 		//获取当前时间，格式YYYY-MM-DD
+        function GetDateStr(AddDayCount){ 
+            var dd = new Date();
+            dd.setDate(dd.getDate()+AddDayCount);//获取AddDayCount天后的日期
+
+            var y = dd.getFullYear();
+
+            var m = dd.getMonth() +1;//获取当前月份的日期
+            var d = dd.getDate();
+
+            return y+"-"+m+"-"+d;
+
+        }       
+        // 日期插件
+        $(function(){
+            
+            laydate.render({
+                elem: '#date2',
+                value: GetDateStr(1),
+                istoday: false,
+                min: +1
+            });
+         });
+ 
+     
+         $('.drop_down_btn').click(function(){
+             var showClass=$(this).attr('id').split('_btn')[0]+$(this).attr('id').split('_btn')[1];
+
+             var showId=$(this).attr('id');
+
+             $('.drop_down').hide();
+
+             $('.'+showClass).show();
+
+             var _self=$(this);
+
+             $('.'+ showClass).find('li').click(function(){
+                
+                 $('.'+ showClass).find('.fixed_li').html($(this).html())
+             });
+
+             $('.'+ showClass).find('.confirm-btn').click(function(){
+
+                 var fixed_li= $('.'+ showClass).find('.fixed_li').html();  
+                 $('#'+showId).html(fixed_li); 
+                 $('#'+showId).siblings('input[type="hidden"]').val(fixed_li);
+
+                 $(this).parents('.drop_down').hide();
+             });
+         });
+
+         // 阅读选中
+         $('.checkbox-label').click(function(){
+           $('#checkbox-label').click();
+         });
+        
+         // 借条表单验证
+         function formloan(form){
+         	 var money=$.trim($('input[name="borrowing_balance"]').val());
+         	 var name=$.trim($('input[name="name"]').val());
+             if(money=='' || isMoney(money) == false){
+                 $('.error-tip').text('提示：请输入正确金额');
+                 $('input[name="borrowing_balance"]').focus();
+                 return false;
+             }if(name==''){
+                 $('.error-tip').text('提示：请输入对方姓名');
+                 $('input[name="name"]').focus();
+                 return false;
+             }else if($('input[type="checkbox"]').prop('checked')== false){
+                 $('.error-tip').text('提示：请确认已阅读用户协议');
+                 return false;
+             }
+             $('.pop_up .promit-html').text('你确定要发起借条吗？');
+             $('.error-tip').text(''); 
+             $('.pop_up').show(); 
+             return false;
+         }
+         // 输入密码，确定
+         $('.sure-btn-2').click(function(){
+         	  
+         	 var money=$.trim($('input[name="borrowing_balance"]').val());
+         	 var name=$.trim($('input[name="name"]').val());
+         	 var send_type=$.trim($('input[name="send_type"]').val());
+         	 var rate=parseInt($('input[name="annual_rate"]').val().split('%')[0]);
+         	 var use=$.trim($('input[name="usage_loan"]').val());
+         	 var end=$.trim($('input[name="repayment_date"]').val());
+             var psw=$.trim($('.promit-input').val());
+             
+            if( psw== '' || isPassword(psw) == false){ 
+                $('.promit-input').focus(); 
+                $('.pop_up .error-tip').text('请输入6位数字密码'); 
+                return false;
+            }
+            psw_hide();
+             
+             //ajax提交
+             $.ajax({
+                 type: 'POST',
+                 url: "{:url('user/paper/ajax_send')}",
+                 dataType: 'json',
+                 data:{'psw':psw,'money':money,'name':name,'send_type':send_type,'rate':rate,'use':use,'end':end},
+                 success: function(data){
+                 	$('.error-tip').text(data.msg); 
+                 	if(data.url!=''){
+                 	   location.href=data.url; 
+                 	}  
+                 },
+                 error: function(xhr, type){
+                 	$('.error-tip').text('服务器连接失败');  
+                 	 
+                 } 
+             });
+             return false;
+         });
+      </script>
+  

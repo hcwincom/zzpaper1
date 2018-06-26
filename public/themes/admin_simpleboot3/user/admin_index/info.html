@@ -1,0 +1,161 @@
+<include file="public@header" />
+ <link href="__TMPL__/public/assets/simpleboot3/css/zzinfo.css" rel="stylesheet">
+</head>
+<body>
+	<div class="wrap">
+		<ul class="nav nav-tabs">
+			 <li class=""><a href="{:url('index')}">本站用户</a></li>
+        
+			<li class="active"><a href="{:url('info',['id'=>$info.id])}">用户详情</a></li>
+		</ul>
+		<form method="post"
+			class="form-horizontal js-ajax-form margin-top-20"
+			action="">
+			<div class="form-group fleft">
+				<label class="col-sm-2 control-label">id</label>
+				<div class="col-md-6 col-sm-10">
+					<input type="text" class="form-control" name="id" value="{$info.id}"
+						readonly /> 
+						 
+				</div>
+			</div>
+			<div class="form-group fleft">
+				<label class="col-sm-2 control-label">身份证</label>
+				<div class="col-md-6 col-sm-10">
+					<input type="text" class="form-control"  value="{$info.user_login}" readonly />
+					 
+				</div>
+			</div>
+			<div class="form-group fleft">
+				<label class="col-sm-2 control-label">姓名</label>
+				<div class="col-md-6 col-sm-10">
+					<input type="text" class="form-control"  value="{$info.user_nickname}" readonly />
+					<eq name="info.is_name" value="1">已实名验证<else/>未实名验证</eq>
+				</div>
+			</div>
+			<div class="form-group fleft">
+				<label class="col-sm-2 control-label">手机</label>
+				<div class="col-md-6 col-sm-10">
+					<input type="text" class="form-control"  value="{$info.mobile}" readonly />
+				</div>
+			</div>
+			
+		 
+		 	<div class="form-group fleft">
+				<label class="col-sm-2 control-label">QQ号</label>
+				<div class="col-md-6 col-sm-10">
+					<input type="text" class="form-control"  value="{$info.qq}" readonly />
+				</div>
+			</div>
+			<div class="form-group fleft">
+				<label class="col-sm-2 control-label">微信号</label>
+				<div class="col-md-6 col-sm-10">
+					<input type="text" class="form-control"  value="{$info.weixin}" readonly /> 
+				</div>
+			</div>
+			<div style="clear: both"></div>
+			<div class="form-group ">
+				<label class="col-sm-2 control-label">微信信息详情</label>
+				<div class="col-md-6 col-sm-10">
+					<foreach name="info.wx_more" item="vo" k="key">
+					 <p>{$key}:{$vo}</p>
+					</foreach>
+					
+				</div>
+			</div>
+			<div class="form-group fleft">
+				<label class="col-sm-2 control-label">注册时间</label>
+				<div class="col-md-6 col-sm-10">
+					<input type="text" class="form-control"  value="{$info.create_time|date='Y-m-d H:i',###}" readonly /> 
+				</div>
+			</div>
+			<div class="form-group fleft">
+				<label class="col-sm-2 control-label">最后登录时间</label>
+				<div class="col-md-6 col-sm-10">
+					<input type="text" class="form-control"  value="{$info.last_login_time|date='Y-m-d H:i',###}" readonly /> 
+				</div>
+			</div>
+			<div style="clear: both"></div>
+			<div class="form-group fleft">
+				<label class="col-sm-2 control-label">逾期次数</label>
+				<div class="col-md-6 col-sm-10">
+					<input type="text" class="form-control"  value="{$info.overdue1}" readonly /> 
+				</div>
+			</div>
+			<div class="form-group fleft">
+				<label class="col-sm-2 control-label">逾期金额</label>
+				<div class="col-md-6 col-sm-10">
+					<input type="text" class="form-control"  value="{$info.overdue1_money}" readonly /> 
+				</div>
+			</div>
+			<div class="form-group fleft">
+				<label class="col-sm-2 control-label">逾期7天次数</label>
+				<div class="col-md-6 col-sm-10">
+					<input type="text" class="form-control"  value="{$info.overdue7}" readonly /> 
+				</div>
+			</div>
+			<div class="form-group fleft">
+				<label class="col-sm-2 control-label">逾期7天金额</label>
+				<div class="col-md-6 col-sm-10">
+					<input type="text" class="form-control"  value="{$info.overdue7_money}" readonly /> 
+				</div>
+			</div>
+			<div class="form-group fleft">
+				<label class="col-sm-2 control-label">待还金额</label>
+				<div class="col-md-6 col-sm-10">
+					<input type="text" class="form-control"  value="{$info.back}" readonly /> 
+				</div>
+			</div>
+			<div class="form-group fleft">
+				<label class="col-sm-2 control-label">待收金额</label>
+				<div class="col-md-6 col-sm-10">
+					<input type="text" class="form-control"  value="{$info.send}" readonly /> 
+				</div>
+			</div>
+			
+			<div class="form-group fleft">
+				<label class="col-sm-2 control-label">累计借款次数</label>
+				<div class="col-md-6 col-sm-10">
+					<input type="text" class="form-control"  value="{$info.borrow_num}" readonly /> 
+				</div>
+			</div>
+			<div class="form-group fleft">
+				<label class="col-sm-2 control-label">累计借款人数</label>
+				<div class="col-md-6 col-sm-10">
+					<input type="text" class="form-control"  value="{$info.borrow_man}" readonly /> 
+				</div>
+			</div>
+			 <div class="form-group fleft">
+				<label class="col-sm-2 control-label">累计借款金额</label>
+				<div class="col-md-6 col-sm-10">
+					<input type="text" class="form-control"  value="{$info.borrow_money}" readonly /> 
+				</div>
+			</div>
+			<div class="form-group fleft">
+				<label class="col-sm-2 control-label">累计出借金额</label>
+				<div class="col-md-6 col-sm-10">
+					<input type="text" class="form-control"  value="{$info.lender_money}" readonly /> 
+				</div>
+			</div>
+			<div class="form-group fleft">
+				<label class="col-sm-2 control-label">累计收益</label>
+				<div class="col-md-6 col-sm-10">
+					<input type="text" class="form-control"  value="{$info.money}" readonly /> 
+				</div>
+			</div>
+			<div style="clear: both"></div>
+			 
+			<div class="form-group">
+				<div class="col-sm-offset-2 col-sm-10">
+				 
+					<button type="submit" class="btn btn-primary js-ajax-submit">{:lang('SAVE')}</button>
+					<a class="btn btn-default" href="javascript:history.go(-1);">{:lang('BACK')}</a>
+				</div>
+			</div>
+			 
+		</form>
+	</div>
+	<script src="__STATIC__/js/admin.js"></script>
+	 
+</body>
+</html>

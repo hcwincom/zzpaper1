@@ -1,0 +1,34 @@
+<include file="public@user_head" />
+     <!-- 个人中心 --> 
+      <div class="content">
+            <ul class="content_nav">
+                <li class='red'><a href="{:url('user/index/index')}">我的确认</a></li>
+              <!--   <li class=''><a href="{:url('user/index/overdue')}">失信大厅</a></li> -->
+                <li class=''><a href="{:url('user/index/overdue_old')}">逾期被追回</a></li>
+            </ul>
+            <div class="content_div">
+                <ul class="confirm_list">
+                <foreach name="list_reply" item="vo">
+                    <li class='confirm_item'>
+                        <ol class="cofirm_con">
+                            <li>
+                                <p class='big'>{$vo.p_money}元</p>
+                                <p>借款金额</p>
+                            </li>
+                            <li>
+                                <p class='big'>{$reply_types[$vo.type]}</p>
+                                <p>类别</p>
+                            </li>
+                        </ol>
+                        <p>
+                            <a href="{:url('user/paper/confirm',['id'=>$vo.id])}">查看详情</a>
+                            <span class='icon icon-daihuai'></span>
+                        </p>
+                    </li>
+                 </foreach> 
+                 <p class="show_foot">已经到底了</p>
+                </ul> 
+            </div>
+        </div>    
+    </div>
+      <include file="public@user_foot" />  

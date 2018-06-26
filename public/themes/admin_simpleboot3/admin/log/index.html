@@ -1,0 +1,53 @@
+<include file="public@header" />
+</head>
+<body>
+
+	<div class="wrap js-check-wrap">
+		<ul class="nav nav-tabs">
+			<li class="active"><a href="{:url('index')}">日志管理</a></li>
+			 
+		</ul>
+		<form method="post" class="js-ajax-form margin-top-20" action="">
+
+			 
+			<table class="table table-hover table-bordered table-list">
+				<thead>
+					<tr>
+						 
+						<th>日志文件名</th>
+
+						<th>操作</th>
+
+					</tr>
+				</thead>
+				<tbody>
+					<foreach name="list" item="vo">
+					<tr>
+						 
+						<td>{$vo.name}-{$vo.file}</td>
+
+						<td> 
+							<a href="{:url('download',array('id'=>$vo.file))}">下载</a>
+							&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp; 
+							<eq name="vo.file" value="log.log">
+								<span>日志操作记录不能清空</span>
+							<else/>
+							<a
+							class="js-ajax-delete" href="{:url('clear',array('id'=>$vo.file))}"
+							data-msg="确认清空吗？">清空</a>
+							</eq>
+						</td>	 
+							
+
+					</tr>
+					</foreach>
+				</tbody>
+
+			</table>
+
+		</form>
+	 
+	</div>
+	<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>

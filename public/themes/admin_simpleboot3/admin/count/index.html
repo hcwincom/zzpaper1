@@ -1,0 +1,145 @@
+ <include file="public@header"/>
+<style>
+    
+</style>
+ 
+</head>
+<body>
+	<div class="wrap">
+		<ul class="nav nav-tabs"> 
+			<li class="active"><a href="{:url('index')}">12月统计</a></li> 
+		 	 
+		</ul>
+		 <h4 class="well">前12个月共新增注册用户{$users[0]}，单月统计如下：</h4>
+		<canvas id="user" width="800" height="400"></canvas>
+		<br/>
+		<h4 class="well">前12个月共补借条{$count1['order'][0]}次，完成还款{$count2['order'][0]}次，单月统计如下：</h4>
+		<canvas id="order" width="800" height="400"></canvas>
+		<br/>
+		<h4 class="well">前12个月共借条借款￥{$count1['money'][0]}，借条还款￥{$count2['money'][0]},单月统计如下：</h4>
+		
+		<canvas id="money" width="800" height="400"></canvas>
+		<br/>
+	   
+	</div>
+<script src="__STATIC__/js/admin.js"></script>
+<script src="__STATIC__/js/chart/chart-1.0.1.js"></script>
+ <script>
+		var labels=new Array(12);
+		
+		var i=12;
+		<volist name="labels" id="vo" >
+			i--;
+			labels[i]='{$vo}'; 
+		</volist>
+		var user1=new Array(12);
+		i=12;
+		//volist name="users" id="vo" offset="0" length='12'
+		//12月数据显示到第11月，第一个月的数据显示到第2个月，第一个月的位置显示了总数据，改为offset=0
+		<volist name="users" id="vo" offset="0" length='12'>
+			i--;
+			user1[i]='{$vo}';
+			console.log(i+'ii'+user1[i]);
+		</volist>
+		var order1=new Array(12);
+		i=12;
+		<volist name="count1.order" id="vo" offset="0" length='12'>
+			i--;
+			order1[i]='{$vo}';
+		</volist>
+		
+		var money1=new Array(12);
+		i=12;
+		<volist name="count1.money" id="vo" offset="0" length='12'>
+			i--;
+			money1[i]='{$vo}';
+		</volist>
+		var order2=new Array(12);
+		i=12;
+		<volist name="count2.order" id="vo" offset="0" length='12'>
+			i--;
+			order2[i]='{$vo}';
+		</volist>
+		
+		var money2=new Array(12);
+		i=12;
+		<volist name="count2.money" id="vo" offset="0" length='12'>
+			i--;
+			money2[i]='{$vo}';
+		</volist>
+		 
+		var data_user = {
+				labels : labels,
+				datasets : [
+					{
+						lineItemName : "每月注册用户数",
+						fillColor : "rgba(220,220,220,0.5)",
+						strokeColor : "rgba(220,220,220,1)",
+						pointColor : "rgba(220,220,220,1)",
+						pointStrokeColor : "#fff",
+						data : user1
+					} 
+				]
+			};
+		var data_order = {
+			labels : labels,
+			datasets : [
+				{
+					lineItemName : "每月补借条次数",
+					fillColor : "rgba(220,220,220,0.5)",
+					strokeColor : "rgba(220,220,220,1)",
+					pointColor : "rgba(220,220,220,1)",
+					pointStrokeColor : "#fff",
+					data : order1
+				},
+				{
+					lineItemName : "每月还款次数",
+					fillColor : "rgba(151,187,205,0.5)",
+					strokeColor : "rgba(151,187,205,1)",
+					pointColor : "rgba(151,187,205,1)",
+					pointStrokeColor : "#fff",
+					data : order2
+				}
+			]
+		};
+		var data_money = {
+				labels : labels,
+				datasets : [
+					 
+					{
+						lineItemName : "每月借款金额",
+						fillColor : "rgba(220,220,220,0.5)",
+						strokeColor : "rgba(220,220,220,1)",
+						pointColor : "rgba(220,220,220,1)",
+						data : money1
+					},
+					{
+						lineItemName : "每月还款金额",
+						fillColor : "rgba(151,187,205,0.5)",
+						strokeColor : "rgba(151,187,205,1)",
+						pointColor : "rgba(151,187,205,1)",
+						pointStrokeColor : "#fff",
+						data : money2
+					}
+				]
+			};
+		 
+		
+		window.onload = function(){	 
+			var ctx_user = $('#user').get(0).getContext("2d");
+			new Chart(ctx_user).Line(data_user);
+			var ctx_order = document.getElementById("order").getContext("2d");
+			new Chart(ctx_order).Line(data_order);
+			var ctx_money = $('#money').get(0).getContext("2d");
+			new Chart(ctx_money).Line(data_money);
+		  
+		 
+		}
+		
+	</script>
+<script>
+ 
+</script>
+ 
+</body>
+</html>

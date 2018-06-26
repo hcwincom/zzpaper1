@@ -1,0 +1,34 @@
+	<script src="__TMPL__/public/assets/js/jquery-1.11.3.min.js"></script> 
+    <script src="__TMPL__/public/assets/js/common.js"></script>      
+	<script>
+	function psw_hide(){
+		$('.promit-input').val('');
+		$('.pop_up').hide();
+	}
+	 
+	//6位验证码
+	function isSms(sms){
+	    var pattern=/^\d{6}$/;
+	    return pattern.test(sms);
+	}
+	function sms_msg(){
+		var s=parseInt($('#sms_msg').text());
+		if(s<=1){
+			$('.btn-small').hide();
+			$('.btn-red').show(); 
+			return ;
+		}
+		$('#sms_msg').text(s-1);
+		 
+		setTimeout('sms_msg()',1000);
+	}
+	function msg(txt='',error=''){
+		$('.error-tip').text('服务器连接失败'); 
+    	/*  if(error!=''){
+    		 $('body').append(event.responseText);
+    	 } */
+    	
+	}
+	</script>
+</body>
+</html>

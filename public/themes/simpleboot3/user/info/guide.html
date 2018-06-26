@@ -1,0 +1,35 @@
+<include file="public@head" />
+</head>
+<body>
+     <!-- 个人中心 -->
+        <ul class="guide">
+         <foreach name="list" item="vo">
+            <li>
+                <div class="guide_tit padding-all red">
+                    <strong>{$vo.title}</strong>   
+                    <span class="icon icon-mess icon-mess7 guide_btn"></span>
+                </div>
+                <div class="guide_con padding-all" style="display:none;">
+                    <p>{$vo.content}</p>
+                </div>
+            </li>
+          </foreach>
+            
+        </ul>
+          <include file="public@user_foot" />       
+<script>
+    $('.guide_tit').click(function(){
+        if($(this).parents('li').hasClass('auto')){
+           
+            $(this).parents('li ').removeClass('auto');
+             $(this).siblings('.guide_con ').hide(600);
+        }else{
+            $('.auto').removeClass('auto'); 
+            $('.guide_con ').hide();
+            $(this).parents('li ').addClass('auto');
+            $(this).siblings('.guide_con ').show(600);
+        }
+    
+    })
+</script>
+ 

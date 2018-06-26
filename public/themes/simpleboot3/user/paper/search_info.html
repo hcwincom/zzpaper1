@@ -1,0 +1,78 @@
+<include file="public@head" />
+</head>
+<body>
+     <!-- 个人中心 -->
+     <div class="hasNav">
+         <div class="loan">
+            <div class="loan_mess border-radius-10">
+                <ul class='clearfix ' >
+                    <li>累计借入金额：￥{$info.borrow_money} </li>
+                    <li>待还总金额：￥{$info.back}</li>
+                </ul> 
+                <ul class='clearfix' >
+                    <li>累计借入人数：{$info.borrow_man}</li>
+                    <li>累计借入笔数：{$info.borrow_num} </li>
+                </ul>
+                <ul class='clearfix'>
+                    <li>逾期总金额：￥{$info.overdue1_money} </li>
+                    <li>逾期次数：{$info.overdue1}</li>
+                </ul>     
+                <ul class='clearfix ' >
+                    <li>逾期七天金额：￥{$info.overdue7_money} </li>
+                    <li>逾期七天次数：{$info.overdue7}</li>
+                </ul>
+            </div>
+            <div class="person_head  ">
+                <div class="person_herd_mess">
+                    <a href="javascript:void(0);">
+                        <img src="{:cmf_get_image_url('')}/{$info.avatar|default='self.jpg'}" alt="头像">
+            			<span>{$info.user_nickname}</span>
+                    </a> 
+                </div>
+            </div>
+         </div>
+        
+        <div class="jiekuan_history">
+            <p class='btn-red btn-big'>借款历史</p>
+            <ul class='history-list'>
+                <li>
+                    <span class='list1'>出借人</span>
+                    <span class='list2'>金额</span>
+                    <span class='list3'>借款时间</span>
+                    <span class='list4'>还款期限</span>
+                    <span class='list5'>还款状态</span>
+                </li>
+             <foreach name="list1" item="vo">
+                <li>
+                    <span class='list1'>{$vo.lender_name}</span>
+                    <span class='list2'>{$vo.money}</span>
+                    <span class='list3'>{$vo.start_time|date='Y-m-d',###}</span>
+                    <span class='list4'>{$vo.end_time|date='Y-m-d',###}</span>
+                    <span class='list5 paper_color{$vo.status}'> 
+                   <switch name="vo.status">
+                   		<case value="3">今日到期</case>
+                   		<case value="4">还剩{$vo.expire_day}天</case>
+                   		<case value="5">逾期{$vo.overdue_day}天</case>
+                   		<default>未生效</default>
+                   </switch>
+                    </span>
+                </li>
+              </foreach>  
+              <foreach name="list2" item="vo">
+                <li>
+                    <span class='list1'>{$vo.lender_name}</span>
+                    <span class='list2'>{$vo.money}</span>
+                    <span class='list3'>{$vo.start_time|date='Y-m-d',###}</span>
+                    <span class='list4'>{$vo.end_time|date='Y-m-d',###}</span>
+                    <span class='list5 paper_color6'>
+                    	 已还|<eq name="vo.overdue_day" value="0">未逾期<else/>逾期{$vo.overdue_day}天</eq>
+                    </span>
+                </li>
+              </foreach>  
+                
+            </ul>
+        </div>
+       
+     </div>
+  
+ <include file="public@foot" />

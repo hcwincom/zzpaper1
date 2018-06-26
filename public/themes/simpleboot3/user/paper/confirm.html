@@ -1,0 +1,207 @@
+<include file="public@head" />
+</head>
+<body>
+  
+        <form action="" id='loan_detail'>
+            <ul class='box form-box box-right'>
+                <li class="box-li padding-all">
+                    <div class='box-tit'>借款人姓名：</div>
+                    <div class='box-con'><input type="text" name='identity_name' value='{$info_paper.borrower_name}' readonly></div>
+                </li>
+                 <li class="box-li padding-all">
+                    <div class='box-tit'>出款人姓名：</div>
+                    <div class='box-con'><input type="text" name='identity_name' value='{$info_paper.lender_name}' readonly></div>
+                </li>
+                <li class="box-li padding-all">
+                    <div class='box-tit'>借款金额：</div>
+                    <div class='box-con box-con-danwei'>
+                        <input type="text" name='borrowing_balance' value="{$info_paper.money}" readonly>
+                        <span>元</span>
+                    </div>
+                </li>
+                <li class="box-li padding-all">
+                    <div class='box-tit'>借款日期：</div>
+                    <div class='box-con'><input type="text" name='date_borrowing'  value="{$info_paper.start_time|date='Y-m-d',###}"  readonly></div>
+                </li>
+                <li class="box-li padding-all">
+                    <div class='box-tit'>还款期限：</div>
+                    <div class='box-con'><input type="text" name='repayment_date'   value="{$info_paper.end_time|date='Y-m-d',###}"   readonly></div>
+                </li>
+                <li class="box-li padding-all">
+                    <div class='box-tit'>年转化率</div>
+                    <div class='box-con'><span class='drop_down_btn annual_rate '>{$info_paper.rate}%</span> </div>
+                </li>
+                
+                <li class="box-li padding-all">
+                    <div class='box-tit'>借款用途：</div>
+                    <div class='box-con'><span class='drop_down_btn usage_loan'>{$info_paper.use}</span>  </div>
+                </li>
+                <li class="box-li padding-all box-li-long">
+                    <div class='box-tit'>借条状态：</div>
+                    <div class='box-con'><input type="text" name='identity_name' value='{$info_paper.status_name}' class='red' readonly></div>
+                </li>
+                 
+                <li class="box-li padding-all box-li-long">
+                    <div class='box-tit gray'>申请人：</div>
+               		<div class='box-con'><input type="text" value="<eq name='info_reply.is_borrower' value='1'>{$info_paper.borrower_name}<else/>{$info_paper.lender_name}</eq>"  readonly></div>
+                </li>
+                <li class="box-li padding-all box-li-long">
+                    <div class='box-tit gray'>申请时间：</div>
+               		<div class='box-con'><input type="text" value="{$info_reply.insert_time|date='Y-m-d H:i',###}"  readonly></div>
+                </li>
+                 <li class="box-li padding-all box-li-long">
+                    <div class='box-tit gray'>申请详情：</div>
+                </li>
+            <switch name="info_reply.type">
+              <case value="send">
+              	 
+              	 <li class=" padding-all">
+                    <ol class='second-li clearfix'>
+                        <li class='gray'>
+                           	补借条
+                        </li>
+                        <li class='tet-right gray'>
+                           {$info_paper.money}元
+                        </li>
+                    </ol>
+                    
+                </li>
+              </case>
+              <case value="delay">
+              	 
+              	 <li class=" padding-all">
+                    <ol class='second-li clearfix'>
+                        
+                         <li class='gray'>
+                                	延期还款日
+                            </li>
+                            <li class='tet-right gray'>
+                                 {$info_reply.day|date='Y-m-d',###}
+                            </li>
+                    </ol>
+                     
+                </li>
+              </case>
+              <case value="back">
+              	 
+              	 <li class=" padding-all">
+                    <ol class='second-li clearfix'>
+                        <li class='gray'>
+                           	还款
+                        </li>
+                        <li class='tet-right gray'>
+                           {$info_reply.final_money}元
+                        </li>
+                    </ol>
+                     
+                </li>
+              </case>
+            </switch>
+               
+            </ul>
+            <ul class="bottom-fixed">
+                <!-- 这里面li可以随便放几个，但是不能太多 -->
+            <switch name="info_reply.status">
+            	<case value="1">
+            	 <li class=''>
+                    <a href="javascript:void(0);" class='gray'>已同意</a>
+                </li>
+            	</case>
+            	<case value="2">
+            	 <li class=''>
+                    <a href="javascript:void(0);" class='gray'>不同意</a>
+                </li>
+            	</case>
+            	<case value="0">
+            		 <eq name="info_reply.send_type" value="0">
+	            		 <li class=''>
+		                    <a href="javascript:void(0);" class='gray'>待确认</a>
+		                </li>
+		             <else/>
+		             	<li class=''>
+		                    <a href="javascript:void(0);" class='red sure_alert'>同意</a>
+		                </li>
+		                
+		                <li class=''>
+		                    <a href="javascript:void(0);" class='red cancal_alert'>驳回</a>
+		                </li>
+            		 </eq>
+            	 
+            	</case>
+            </switch>
+                 
+            </ul>
+     		
+        </form>
+
+    
+       <!-- 同意确认操作 -->
+       <div class="pop_up pop_up1 border-radius-10 " style='display:none;'>
+            <p>&nbsp;&nbsp;<span class="error-tip red"></span></p>
+            <input type="hidden" id="zzid" value="{$info_reply.id}"/>
+            <input type="hidden" id="zzop" value="1"/>
+            <p class='promit-html'>你确定要同意吗</p>
+            <p class='promit-p'><input type="password"  placeholder='请输入密码' name='password' class='promit-input'></p>
+            <ul class="pop_up_ul">
+                <li><a href="" class='blue-text'>取消</a></li>
+               
+                <li><a href="javascript:void(0);" class='blue-text sure-btn-2'>确定</a></li>
+            </ul>
+        </div> 
+
+   <include file="public@foot" />    
+    <script>
+    var click=0;
+        $('.sure_alert').click(function(){ 
+        	click=0;
+            $('#zzop').val('1');
+            $('.promit-html').text('你确定要同意吗');
+            $('.pop_up').show();
+        });
+        $('.cancal_alert').click(function(){
+        	click=0;
+        	$('#zzop').val('0');
+            $('.promit-html').text('你确定要驳回吗');
+            $('.pop_up').show();
+        });
+        // 输入密码，确定
+        $('.sure-btn-2').click(function(){
+        	 
+            var psw=$.trim($('.promit-input').val());
+            var id=$('#zzid').val();
+            var op=$('#zzop').val();
+             
+            if( psw== '' || isPassword(psw) == false){ 
+                $('.promit-input').focus(); 
+                $('.pop_up .error-tip').text('请输入6位数字密码'); 
+                return false;
+            }
+            $('.promit-input').val('');
+            if(click==0){
+       		 	click=1;
+	       	 }else{
+	       		 return false;
+	       	 }
+            //ajax提交
+            $.ajax({
+                type: 'POST',
+                url: "{:url('user/paper/ajax_confirm')}",
+                dataType: 'json',
+                data:{'id':id,'psw':psw,'op':op},
+                success: function(data){
+                	$('.error-tip').text(data.msg);
+                	if(data.url!=''){
+                		 location.href=data.url; 
+                	} 
+                	click=0;
+                },
+                error: function(event, XMLHttpRequest, ajaxOptions, thrownError){ 
+                	click=0;
+                   msg('服务器连接失败',event.responseText); 
+                }
+            });
+            return false;
+        });
+
+     </script>
+ 

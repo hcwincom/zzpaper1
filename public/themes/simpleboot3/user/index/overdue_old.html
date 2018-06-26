@@ -1,0 +1,37 @@
+<include file="public@user_head" />
+     <!-- 个人中心 --> 
+      <div class="content">
+            <ul class="content_nav">
+                <li class=''><a href="{:url('user/index/index')}">我的确认</a></li>
+             <!--    <li class=''><a href="{:url('user/index/overdue')}">失信大厅</a></li> -->
+                <li class='red'><a href="{:url('user/index/overdue_old')}">逾期被追回</a></li>
+            </ul>
+            <div class="content_div">
+                <ul class="confirm_list">
+                 <li class='confirm_items'>
+                        <ol class="cofirm_con_third clearfix">
+                            <li> 姓名</li>
+                            <li>逾期金额</li>
+                            <li>逾期天数</li>
+                        </ol>
+                    </li>
+                <foreach name="list_overdue_old" item="vo">
+                   <li class='confirm_items'>
+                         <ol class="cofirm_con_third clearfix">
+                            <li>{$vo.borrower_name}</li>
+                            <li>{$vo.money}</li>
+                            <li>{$vo.overdue_day}</li>
+                        </ol>
+                    </li> 
+                 </foreach>
+                     
+                </ul> 
+            </div>
+        </div>    
+    </div>
+      <include file="public@user_foot" />  
+        <script>
+        dropSroll("{:url('user/index/ajax_overdue_old')}","{$Think.config.mobile_page}");
+        
+       </script> 
+       

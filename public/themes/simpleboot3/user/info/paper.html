@@ -1,0 +1,304 @@
+  <include file="public@head" />  
+</head>
+<body>
+    <section class=''>
+        <div class="hasBottomFixed">
+            <form action="" id='loan_detail'>
+                <ul class='box form-box box-right main'>
+               
+                    <li class="box-li padding-all">
+                        <div class='box-tit'>借款人姓名：</div>
+                        <div class='box-con'><input type="text" value='{$paper.borrower_name}' readonly></div>
+                    </li>
+                
+                    <li class="box-li padding-all">
+                        <div class='box-tit'>出借人姓名：</div>
+                        <div class='box-con'><input type="text" value='{$paper.lender_name}' readonly></div>
+                    </li>
+               
+                    <li class="box-li padding-all">
+                        <div class='box-tit'>借款金额：</div>
+                        <div class='box-con box-con-danwei'>
+                            <input type="text" name='borrowing_balance' value="{$paper.money}" readonly>
+                            <span>元</span>
+                        </div>
+                    </li>
+                    <li class="box-li padding-all">
+                        <div class='box-tit'>借款日期：</div>
+                        <div class='box-con'><input type="text" name='date_borrowing'  id='date' value="{$paper.start_time|date='Y-m-d',###}"  readonly></div>
+                    </li>
+                    <li class="box-li padding-all">
+                        <div class='box-tit'>还款期限：</div>
+                        <div class='box-con'><input type="text" name='repayment_date' id='date2'  value="{$paper.end_time|date='Y-m-d',###}" readonly></div>
+                    </li>
+                    <li class="box-li padding-all">
+                        <div class='box-tit'>年转化率</div>
+                        <div class='box-con'><span class='drop_down_btn'>{$paper.rate}%</span> </div>
+                    </li>
+                    
+                    <li class="box-li padding-all">
+                        <div class='box-tit'>借款用途：</div>
+                        <div class='box-con'><span class='drop_down_btn'>{$paper.use}</span> </div>
+                    </li>
+                    <li class="box-li padding-all box-li-long">
+                        <div class='box-tit'>借条状态：</div>
+                        <div class='box-con'><input type="text" name='identity_name' value='{$paper.status_name}' class='red' readonly></div>
+                    </li>
+                    <li class="box-li padding-all">
+                        <div class='box-tit '>相关申请<empty name="replys">-无</empty></div>
+                    </li>
+           <foreach name="replys" item="vo">
+            		<li class="box-li padding-all box-li-long  box-li-to-long">
+                        <div class='box-tit gray'>
+                        	{$reply_types[$vo.type]}
+                        	（{$reply_status[$vo.status]}
+                        	<if condition="$vo.status==0 && $vo.is_overtime==1">
+                        	|已过期
+                        	<elseif condition="$vo.status==0 && $vo.is_overtime==0 && $paper.back==$vo.is_borrower"> 
+                        		<a href="{:url('user/paper/confirm',['id'=>$vo.id])}">|去确认</a>
+                        	</if>
+                        	 
+                        	）
+                        </div>
+                        <div class='box-con'><span class='icon icon-mess icon-mess7 btn-show-siblings'></span></div>
+                    </li>
+               <switch name="vo.type">
+               		<case value="send">
+               		 <li class=" padding-all box-li-supplement" style="display:none;">
+                        <ol class='second-li clearfix'>
+                            <li class='gray'>
+                                	补借条
+                            </li>
+                            <li class='tet-right gray'>
+                                {$paper.money}元
+                            </li>
+                        </ol> 
+                    </li>
+               		</case>
+               		<case value="delay">
+               		 <li class=" padding-all box-li-supplement" style="display:none;">
+                        <ol class='second-li clearfix'>
+                           
+                             <li class='gray'>
+                                	延期还款日
+                            </li>
+                            <li class='tet-right gray'>
+                                 {$vo.day|date='Y-m-d',###}
+                            </li>
+                        </ol> 
+                        
+                    </li>
+               		</case>
+               		<case value="back">
+               		 <li class=" padding-all box-li-supplement" style="display:none;">
+                        <ol class='second-li clearfix'>
+                            <li class='gray'>
+                                	还款
+                            </li>
+                            <li class='tet-right gray'>
+                                 {$vo.final_money}元
+                            </li>
+                        </ol> 
+                    </li>
+               		</case>
+               </switch>
+               
+           </foreach>
+                    
+                    
+                    <!-- 错误提示 -->
+                    <p class='red'></p>
+                    <!-- <p class='blue-text'>已成功</p> -->
+                </ul>
+          
+                <ul class="bottom-fixed">
+                     
+                    <li class=''>
+                        <a href="javascript:void(0);" class='red delay-alert'>
+                           申请延期
+                        </a>
+                    </li>
+                    
+                    <li class=''>
+                        <a href="javascript:void(0);" class='red back-alert'>
+                           <eq name="paper.back" value="0">申请还款<else/>确认已还款</eq>
+                        </a>
+                    </li>
+                     
+                </ul>
+         
+            </form>
+        </div>
+        
+ 		<include file="public@psw"/>
+    
+        <!--延期 -->
+        <div class="pop_up pop_up3 border-radius-10 pop_up_inputs" style='display:none;'>
+            <p class="error-tip red">提示</p>
+            <p class='promit-p'><span>延期还款日</span><input type="text" name='delay_date' id="delay_date" class='promit-input tet-right' readonly/></p>
+             <p class='promit-p'><span>密码</span><input type="password" name='password' value='' placeholder='请输入6位数密码' class='tet-right promit-input'></p>
+            <ul class="pop_up_ul">
+                <li><a href="javascript:psw_hide();" class='blue-text'>取消</a></li>
+                <li><a href="javascript:void(0);" class='blue-text delay-btn '>确定</a></li>
+            </ul>
+        </div> 
+    </section>
+
+       <include file="public@foot" />  
+        <script type="text/javascript" src="__TMPL__/public/assets/js/laydate/laydate.js"></script>
+    <script>
+	  //获取当前时间，格式YYYY-MM-DD
+	  var min_day=GetDateStr(1,"{$paper.end_time|date='Y-m-d',###}"); 
+	  $('#delay_date').val(min_day);
+	  laydate.render({
+	            elem: '#delay_date',
+	            value:min_day, 
+	            istoday: false,
+	            min: min_day, 
+	        });
+	    function GetDateStr(AddDayCount=0,day0=''){ 
+		  	if(day0==''){
+		  		 var dd = new Date();
+		  	}else{
+		  		 var dd = new Date(day0);
+		  		 
+		  	} 
+	        dd.setDate(dd.getDate()+AddDayCount);//获取AddDayCount天后的日期
+		 
+	        var y = dd.getFullYear();
+	
+	        var m = dd.getMonth() +1;//获取当前月份的日期
+	        var d = dd.getDate();
+	
+	        return y+"-"+m+"-"+d;
+	
+	    }       
+	    var click=0;
+    	var oid="{$paper.oid}";
+    	var back="{$paper.back}";
+    	var final_money="{$paper.final_money}"; 
+         $('.back-alert').click(function(){
+        	 $('.error-tip').text('提示'); 
+        	 if(back=='0'){
+        		 $('.pop_up1 .promit-html').text('你确定要申请还款吗？应还'+{$paper.final_money}+'元');
+        	 }else{
+        		 $('.pop_up1 .promit-html').text('你确定对方已还款吗？对方应还'+{$paper.final_money}+'元');
+        	 }
+        	 click=0;
+            $('.pop_up').hide();
+            $('.pop_up1').show();
+        });
+ 
+        $('.delay-alert').click(function(){
+        	click=0;
+        	$('.error-tip').text('提示');
+            $('.pop_up').hide();
+            $('.pop_up3').show();
+        });
+
+        // 输入密码，确定
+        $('.sure-btn-2').click(function(){
+        	 
+        	if(click==0){
+       		 	click=1;
+	       	 }else{
+	       		 return false;
+	       	 }
+            $('.error-tip').text('正在提交，请勿重复操作!');
+           
+            var psw=$.trim($('.pop_up1 .promit-input').val());
+           
+    		 if(!isPassword(psw)){
+    			 $('.error-tip').text('请输入6位数字密码');
+    			 return false;
+    		 }
+    		 $.ajax({
+                 type: 'POST',
+                 url: "{:url('user/info/ajax_reply')}",
+                 dataType: 'json',
+                 data:{'oid':oid,'psw':psw,'final_money':final_money,'type':'back'},
+                 success: function(data){ 
+                 	$('.error-tip').text(data.msg);
+                 	if(data.code==1){
+                 		click=1;
+                 	}else{
+                 		click=0;
+                 	}
+                 	if(data.url!=''){
+                 		if(back=='1' && data.code==1){
+                 			location.href=data.url; 
+	                   	 }else{
+	                   		setTimeout(function(){
+	                 			location.href=data.url;
+	                         },2000);
+	                   	 } 
+                 	} 
+                 },
+                 error: function(event, XMLHttpRequest, ajaxOptions, thrownError){ 
+                  	 msg('服务器连接失败',event.responseText); 
+                 }
+             });
+    		 return false;
+            
+        });
+
+        // 延期
+        $('.delay-btn').click(function(){
+        	if(click==0){
+       		 	click=1;
+	       	 }else{
+	       		 return false;
+	       	 }
+        	 $('.error-tip').text('正在提交，请勿重复操作!');
+           
+            var day=$.trim($('.pop_up3  input[name="delay_date"]').val());
+            var psw=$.trim($('.pop_up3  input[name="password"]').val());
+           
+    		 if(!isPassword(psw)){
+    			 $('.error-tip').text('请输入6位数字密码');
+    			 return false;
+    		 }
+    		 $.ajax({
+                 type: 'POST',
+                 url: "{:url('user/info/ajax_reply')}",
+                 dataType: 'json',
+                 data:{'oid':oid,'psw':psw,'day':day,'type':'delay'},
+                 success: function(data){
+                	 if(data.code==1){
+                  		click=1;
+                  	}else{
+                  		click=0;
+                  	}
+                 	$('.error-tip').text(data.msg);
+                 	if(data.url!=''){
+                 		setTimeout(function(){
+                 			location.href=data.url;
+                         },2000);
+                 	}
+                 	 
+                 },
+                 
+                 error: function(event, XMLHttpRequest, ajaxOptions, thrownError){
+                 	 
+                 	click=0;
+                 	 msg('服务器连接失败',event.responseText);
+                  
+                 }
+             });
+    		 return false;
+        });
+
+
+        // 借条详情
+        $('.btn-show-siblings ').click(function(){
+            if($(this).hasClass('icon-mess7')){
+                $(this).parents('.box-li').next('li').show();
+                $(this).removeClass('icon-mess7').addClass('icon-mess8')
+            }else{
+                $(this).parents('.box-li').next('li').hide();
+                $(this).removeClass('icon-mess8').addClass('icon-mess7')
+            }
+        
+        });
+
+     </script>

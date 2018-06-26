@@ -1,0 +1,89 @@
+<include file="public@header"/>
+</head>
+<body>
+<div class="wrap">
+    <ul class="nav nav-tabs">
+        <li class="active"><a>{:lang('USER_INDEXADMIN_INDEX')}</a></li>
+    </ul>
+    <form class="well form-inline margin-top-20" method="post" action="{:url('user/adminIndex/index')}">
+        用户ID：
+        <input class="form-control" type="text" name="uid" style="width: 200px;" value="{:input('request.uid')}"
+               placeholder="请输入用户ID">
+        关键字：
+        <input class="form-control" type="text" name="keyword" style="width: 200px;" value="{:input('request.keyword')}"
+               placeholder="身份证号/姓名/手机号">
+        <input type="submit" class="btn btn-primary" value="搜索"/>
+        <a class="btn btn-danger" href="{:url('user/adminIndex/index')}">清空</a>
+    </form>
+    <form method="post" class="js-ajax-form">
+        <table class="table table-hover table-bordered">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>身份证号</th>
+                <th>姓名</th>
+                <th>{:lang('AVATAR')}</th>
+                
+                <th>手机</th>
+                <th>QQ </th>
+                <th>微信</th>
+                <th>逾期次数</th>
+                <th>逾期7天次数 </th>
+                <th>借款人数</th>
+                <th>{:lang('REGISTRATION_TIME')}</th>
+                <th>{:lang('LAST_LOGIN_TIME')}</th>
+                <th>{:lang('LAST_LOGIN_IP')}</th> 
+                 
+                <th>{:lang('STATUS')}</th>
+                <th>{:lang('ACTIONS')}</th>
+            </tr>
+            </thead>
+            <tbody>
+            <php>
+                $user_statuses=array("0"=>lang('USER_STATUS_BLOCKED'),"1"=>lang('USER_STATUS_ACTIVATED'),"2"=>lang('USER_STATUS_UNVERIFIED'));
+            </php>
+            <foreach name="list" item="vo">
+                <tr>
+                    <td>{$vo.id}</td>
+                    <td>{$vo['user_login']}
+                    </td>
+                    <td>{$vo['user_nickname']}|<eq name="vo.is_name" value="1">已认证<else/>未认证</eq></td>
+                    <td><img width="25" height="25" src="{:cmf_get_image_url($vo.avatar)}"/></td>
+                    
+                    <td>{$vo.mobile}</td>
+                    <td>{$vo.qq}</td>
+                    <td>{$vo.weixin}</td>
+                    
+                     <td>{$vo.overdue1}</td>
+                    <td>{$vo.overdue7}</td>
+                    <td>{$vo.borrow_man}</td>
+                    <td>{:date('Y-m-d H:i',$vo['create_time'])}</td>
+                    <td>{:date('Y-m-d H:i',$vo['last_login_time'])}</td>
+                    <td>{$vo.last_login_ip}</td>
+                    <td>{$user_statuses[$vo['user_status']]}</td>
+                    <td>
+                   
+                        <a href="{:url('delete',array('id'=>$vo['id']))}"  class="js-ajax-delete"
+                                data-msg="确认删除吗?有未完成借款的用户不能删除!">删除</a>
+                          &nbsp; &nbsp; &nbsp;
+                        <empty name="vo.user_status">
+                             <a href="{:url('cancelban',array('id'=>$vo['id']))}"
+                                class="js-ajax-delete"
+                                data-msg="{:lang('ACTIVATE_USER_CONFIRM_MESSAGE')}">{:lang('ACTIVATE_USER')}</a>
+                        <else/>
+                             <a href="{:url('ban',array('id'=>$vo['id']))}" class="js-ajax-delete"
+                                data-msg="{:lang('BLOCK_USER_CONFIRM_MESSAGE')}">{:lang('BLOCK_USER')}</a>
+                         </empty>
+                         &nbsp; &nbsp; &nbsp;
+                        <a href="{:url('info',array('id'=>$vo['id']))}"  >查看</a>
+                    </td>
+                </tr>
+            </foreach>
+            </tbody>
+        </table>
+        <div class="pagination">{$page}</div>
+    </form>
+</div>
+<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>

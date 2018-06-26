@@ -1,0 +1,66 @@
+<include file="public@head"/>
+</head>
+<body>
+    <section class='main'>
+        <form action="">
+            <ul class='box form-box'>
+               <li class="box-li padding-all">
+                    <div class='box-tit'>原密码：</div>
+                    <div class='box-con'><input type="password" name='password0' placeholder='请输入原密码' required></div>
+                </li>
+                <li class="box-li padding-all">
+                    <div class='box-tit'>新密码：</div>
+                    <div class='box-con'><input type="password" name='password' placeholder='请输入新密码' required></div>
+                </li>
+                <li class="box-li padding-all">
+                    <div class='box-tit'>确认密码</div>
+                    <div class='box-con'><input type="password" name='password_repeat' placeholder='请确认新密码' required></div>
+                </li>
+                <p class='error-tip box-p red'></p>
+            </ul>
+            <div class="btn-red  btn-middle border-radius-10 ">
+                <button type="submit" onClick="return formPassword(this.form);" class='border-radius-10'/>确认修改</button>
+            </div>
+        </form>
+    </section>
+     <include file="public@user_foot"/>    
+    <script>
+        function formPassword(form){
+        	var psw0=$.trim($('input[name="password0"]').val());
+        	var psw=$.trim($('input[name="password"]').val());
+        	var psw1=$.trim($('input[name="password_repeat"]').val());
+            if(psw0 == '' || isPassword(psw0) == false){
+                $('input[name="password0"]').focus();
+                $('.error-tip').html('提示：请输入正确的密码');
+                return false;
+            }else  if(psw == '' || isPassword(psw) == false){
+                $('input[name="password"]').focus();
+                $('.error-tip').html('提示：请输入6位数字密码');
+                return false;
+            }else  if( psw != psw1 ){
+                $('input[name="password_repeat"]').focus();
+                $('.error-tip').html('提示：两次密码不一致');
+                return false;
+            }
+          //ajax提交
+            $.ajax({
+                type: 'POST',
+                url: "{:url('user/info/ajax_psw')}",
+                dataType: 'json',
+                data:{'psw':psw,'psw0':psw0},
+                success: function(data){
+                	$('.error-tip').text(data.msg);
+                	if(data.url!=''){ 
+                		 location.href=data.url; 
+                	}
+                	 
+                },
+                error: function(xhr, type){
+                	$('.error_tip').text('服务器连接失败'); 
+                	 
+                }
+            });
+            return false;
+        }
+    </script>
+ 

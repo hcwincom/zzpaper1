@@ -1,0 +1,77 @@
+<include file="public@header" />
+</head>
+<body>
+	<div class="wrap">
+		<ul class="nav nav-tabs">
+			<li  class="active"><a href="{:url('index')}">微信配置</a></li>
+			 
+		</ul>
+
+		<form method="post" class="form-horizontal js-ajax-form margin-top-20"
+			action="{:url('editPost')}">
+			 
+			<div class="form-group">
+				<label class="col-sm-2 control-label">appid<span class="form-required">*</span></label>
+				<div class="col-md-6 col-sm-10">
+					<input type="text" class="form-control" name="wx_appid"
+						value="{$Think.config.wx_appid}" required>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label">appsecret<span class="form-required">*</span></label>
+				<div class="col-md-6 col-sm-10">
+					<input type="text" class="form-control" name="wx_appsecret"
+						value="{$Think.config.wx_appsecret}" required>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label">借款消息模板ID<span class="form-required">*</span></label>
+				<div class="col-md-6 col-sm-10">
+					<input type="text" class="form-control" name="msg_send"
+						value="{$Think.config.msg_send}" required>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label">还款消息模板ID<span class="form-required">*</span></label>
+				<div class="col-md-6 col-sm-10">
+					<input type="text" class="form-control" name="msg_back"
+						value="{$Think.config.msg_back}" required>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label">access_token </label>
+				<div class="col-md-6 col-sm-10">
+					<input type="text" class="form-control" 
+						value="{$Think.config.access_token}"  readonly>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label">access_token更新时间</label>
+				<div class="col-md-6 col-sm-10">
+					<input type="text" class="form-control" 
+						value="{$Think.config.token_time|date='Y-m-d H:i:s',###}" readonly>
+				</div>
+			</div>
+			 
+			<div class="form-group">
+				<div class="col-sm-offset-2 col-sm-10">
+				 
+					<button type="submit" class="btn btn-primary js-ajax-submit">{:lang('SAVE')}</button>
+					<a class="btn btn-default" href="{:url('index')}">{:lang('BACK')}</a>
+					&nbsp;&nbsp;&nbsp;
+					<a class="js-ajax-delete"  data-msg="确认清空用户微信绑定吗？" href="{:url('clear')}">清空用户微信绑定</a>
+					&nbsp;&nbsp;&nbsp;
+					<a class="js-ajax-delete"  data-msg="手动更新access_token吗？" href="{:url('token')}">手动更新access_token</a>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-offset-2 col-sm-10">
+				 <p>更换微信公众号后除了微信和服务器上的配置，还需要清空用户微信绑定并手动更新access_token</p>
+				</div>
+			</div>
+		</form>
+	</div>
+	<script src="__STATIC__/js/admin.js"></script>
+	 
+</body>
+</html>
