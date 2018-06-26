@@ -32,12 +32,27 @@ class IndexController extends UserBaseController
         session('user',$user);
        $list_reply=Db::name('reply')
        ->alias('r')
-       ->field('r.*,p.money as p_money,p.rate as p_rate')
+       ->field('r.*,p.money as p_money,p.rate as p_rate,u1.user_nickname as bname,u1.avatar as bavatar,u2.user_nickname as lname,u2.avatar as lavatar')
        ->join('cmf_paper p','p.oid=r.oid')
+       ->join('cmf_user u1','u1.id=p.borrower_id')
+       ->join('cmf_user u2','u2.id=p.lender_id')
        ->where(['r.is_overtime'=>0,'r.status'=>0,'p.borrower_id|p.lender_id'=>$uid]) 
        ->order('id desc')
        ->select();
-       
+      $tmp=[];
+       //判断申请人是借款人还是出借人,给前台要显示的值赋值
+       foreach($list_reply as $k=>$v){ 
+           $tmp[$k]=$v;
+           if($v['is_borrower']==1){
+               $tmp[$k]['name']=$v['bname'];
+               $tmp[$k]['avatar']=$v['bavatar'];
+           }else{
+               $tmp[$k]['name']=$v['lname'];
+               $tmp[$k]['avatar']=$v['lavatar'];
+           }
+       }
+      
+       $list_reply=$tmp;
        $this->assign('list_reply',$list_reply);
        $this->assign('reply_types',config('reply_types'));
        $this->assign('html_page','index'); 

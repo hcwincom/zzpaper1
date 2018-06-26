@@ -38,20 +38,28 @@ class PaperController extends UserBaseController
             return $this->fetch();
         }
         $this->assign('idcard',$idcard); 
+        $codes=$this->request->param('codes','','trim');
+        if(strlen($codes)!=4){
+            $this->assign('error','短信验证码错误');
+            return $this->fetch();
+        } 
         $info=Db::name('user')->where(['user_login'=>$idcard,'user_type'=>2])->find();
         if(empty($info)){
             $this->assign('error','没有此用户');
             return $this->fetch(); 
         }
-       
-        $list1=Db::name('paper')
-        ->where(['borrower_idcard'=>['eq',$idcard],'status'=>['in',[3,4,5]]])
-        ->order('status asc,expire_day asc,overdue_day asc')
-        ->column(''); 
-        $list2=Db::name('paper_old')
-        ->where(['borrower_idcard'=>$idcard])
-        ->order('overdue_day asc')
-        ->column(''); 
+       //未还借款
+        $list1=Db::name('paper')->alias('p')
+        ->join('cmf_user u','u.id=p.lender_id')
+        ->where(['p.borrower_idcard'=>['eq',$idcard],'p.status'=>['in',[3,4,5]]])
+        ->order('p.status asc,p.expire_day asc,p.overdue_day asc,p.id desc')
+        ->column('p.*,u.user_nickname as lname,u.avatar as lavatar'); 
+        //已还借款
+        $list2=Db::name('paper_old')->alias('p')
+        ->join('cmf_user u','u.id=p.lender_id')
+        ->where(['p.borrower_idcard'=>$idcard])
+        ->order('p.overdue_day asc,p.id desc')
+        ->column('p.*,u.user_nickname as lname,u.avatar as lavatar'); 
         
         $this->assign('info',$info); 
         $this->assign('list1',$list1); 

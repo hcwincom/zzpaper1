@@ -52,24 +52,26 @@ class InfoController extends UserBaseController
         $uid=session('user.id');
         $name=$this->request->param('name','');
         $where=[
-            'lender_id'=>['eq',$uid], 
-            'status'=>['in',[3,4,5]]
+            'p.lender_id'=>['eq',$uid], 
+            'p.status'=>['in',[3,4,5]]
         ];
         if($name!=''){
-            $where['borrower_name']=['like','%'.$name.'%'];
+            $where['p.borrower_name']=['like','%'.$name.'%'];
         }
         $m_paper=Db::name('paper');
-//         $where['status']=['eq',4];
-//         $list_on=$m_paper->where($where)->column('');
-//         $where['status']=['eq',3];
-//         $list_expire=$m_paper->where($where)->order('expire_day asc')->column(''); 
-//         $where['status']=['eq',5];
-//         $list_overdue=$m_paper->where($where)->order('overdue_day asc')->column('');
-         
-        $list=$m_paper->where($where)->order('status asc,expire_day asc,overdue_day asc,id desc')->column('');
-        unset($where['status']);
-        $list_old=Db::name('paper_old')->where($where)->order('overdue_day asc,id desc')->column('');
-       
+ 
+        $list=$m_paper->alias('p')
+        ->join('cmf_user u','u.id=p.borrower_id')
+        ->where($where)
+        ->order('p.status asc,p.expire_day asc,p.overdue_day asc')
+        ->column('p.*,u.user_nickname as name,u.avatar as avatar'); 
+        unset($where['p.status']);
+        
+        $list_old=Db::name('paper_old')->alias('p')
+        ->join('cmf_user u','u.id=p.borrower_id')
+        ->where($where)
+        ->order('p.overdue_day asc,p.id desc') 
+        ->column('p.*,u.user_nickname as name,u.avatar as avatar'); 
         $this->assign('list',$list);
         
         $this->assign('list_old',$list_old);
@@ -80,26 +82,38 @@ class InfoController extends UserBaseController
     }
     /* 借款记录 */
     public function borrower(){
+        
         $uid=session('user.id');
         $name=$this->request->param('name','');
         $where=[
-            'borrower_id'=>['eq',$uid],
-            'status'=>['in',[3,4,5]]
+            'p.borrower_id'=>['eq',$uid],
+            'p.status'=>['in',[3,4,5]]
         ];
         if($name!=''){
-            $where['lender_name']=['like','%'.$name.'%'];
+            $where['p.lender_name']=['like','%'.$name.'%'];
         }
         $m_paper=Db::name('paper');
-       
-        $list=$m_paper->where($where)->order('status asc,expire_day asc,overdue_day asc,id desc')->column('');
-        unset($where['status']);
-        $list_old=Db::name('paper_old')->where($where)->order('overdue_day asc,id desc')->column('');
         
-        $this->assign('list',$list); 
+        $list=$m_paper->alias('p')
+        ->join('cmf_user u','u.id=p.lender_id')
+        ->where($where)
+        ->order('p.status asc,p.expire_day asc,p.overdue_day asc')
+        ->column('p.*,u.user_nickname as name,u.avatar as avatar');
+        unset($where['p.status']);
+        
+        $list_old=Db::name('paper_old')->alias('p')
+        ->join('cmf_user u','u.id=p.lender_id')
+        ->where($where)
+        ->order('p.overdue_day asc,p.id desc')
+        ->column('p.*,u.user_nickname as name,u.avatar as avatar');
+        $this->assign('list',$list);
+        
         $this->assign('list_old',$list_old);
         $this->assign('name',$name);
-        $this->assign('html_title','借款记录'); 
+        $this->assign('html_title','借款记录');
+        
         return $this->fetch();
+        
     }
     /* 借款详情 */
     public function paper(){
@@ -120,11 +134,16 @@ class InfoController extends UserBaseController
         //如果是借款人操作则back==0 
         if($paper['lender_id']==$uid){
             $paper['back']=1;
+            $tmp_uid=$paper['borrower_id'];
         }elseif($paper['borrower_id']==$uid){
             $paper['back']=0;
+            $tmp_uid=$paper['lender_id'];
         }else{
             $this->error('数据错误');
         }
+        $tmp_user=Db::name('user')->where('id='.$tmp_uid)->find();
+        $paper['name']=$tmp_user['user_nickname'];
+        $paper['avatar']=$tmp_user['bavatar'];
         $this->assign('paper',$paper);
         $this->assign('replys',$replys);
         $this->assign('reply_status',config('reply_status'));
@@ -137,6 +156,7 @@ class InfoController extends UserBaseController
     public function paper_old(){
         $oid=$this->request->param('oid');
         $where_paper=['oid'=>['eq',$oid]];
+    
         $paper=Db::name('paper_old')->where($where_paper)->find();
         if(empty($paper)){
             $this->error('借条错误，请刷新'); 
@@ -145,14 +165,20 @@ class InfoController extends UserBaseController
         }
         $replys=Db::name('reply')->where('oid',$paper['oid'])->order('id desc')->column('');
         $uid=session('user.id');
-        //如果是借款人操作则back==0 
+        
+        //如果是借款人操作则back==0
         if($paper['lender_id']==$uid){
             $paper['back']=1;
+            $tmp_uid=$paper['borrower_id'];
         }elseif($paper['borrower_id']==$uid){
             $paper['back']=0;
+            $tmp_uid=$paper['lender_id'];
         }else{
             $this->error('数据错误');
         }
+        $tmp_user=Db::name('user')->where('id='.$tmp_uid)->find();
+        $paper['name']=$tmp_user['user_nickname'];
+        $paper['avatar']=$tmp_user['bavatar'];
         $this->assign('paper',$paper);
         $this->assign('replys',$replys);
         $this->assign('reply_status',config('reply_status'));
