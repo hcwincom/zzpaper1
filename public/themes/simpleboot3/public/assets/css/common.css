@@ -42,6 +42,7 @@ img{transform:scale(1) translateZ(0)}
 }
 .backg-white{
     background-color:#fff;
+    position: relative;
 }
 .red{
     color:#d00000 !important;
@@ -199,4 +200,11 @@ img{transform:scale(1) translateZ(0)}
 }
 
 
+/* 6已还，5逾期，4待还，3今日到期 */
+.bigColorback{
+    color: #00c4fd;
+}
 
+.bigColorsend{
+    color: #d00000;
+}

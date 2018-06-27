@@ -621,7 +621,7 @@
     font-weight:600;
 }
 .cofirm_con li p a.big{
-     font-size:16px;
+     font-size:18px;
     font-weight:600;
 }
 .confirm_list{
@@ -815,23 +815,22 @@ input[type='hidden']{
 .drop_down_list{
     position:relative;
     width:100%;
-    padding-top:30px;
 }
 .drop_down ul{
-    max-height:100px;
+    max-height:240px;
     overflow-y:auto;
     -webkit-overflow-scrolling:touch
    
 }
-.drop_down_list p.fixed_li{
+/* .drop_down_list p.fixed_li{
     position: absolute;
-    top: 0;
+    top: 90px;
     left: 0;
     font-size: 15px;
     border-top: 1px solid #fff;
     border-bottom: 2px solid #fff;
-    background-color: rgba(170,170,170,.8);
-}
+    background-color: rgba(170,170,170,1);
+} */
 .drop_down_list li,.drop_down_list p{
     background-color:rgba(170,170,170,1);
     
@@ -955,6 +954,11 @@ search_con_ul_div dl{
     border-radius: 50%;
     vertical-align: middle;
 }
+.search_con_ul_div dd.paper_money{
+    font-size: 16px;
+    font-weight: 400;
+    color: #333;
+}
 .search_con_ul{
     overflow:auto;
     -webkit-overflow-scrolling:touch
@@ -970,6 +974,7 @@ search_con_ul_div dl{
     /* border-bottom:1px dashed #ddd; */
     font-size:13px;
 }
+
 .search_con_ul .group-person-second a{
     color:#999;
     font-size:13px;

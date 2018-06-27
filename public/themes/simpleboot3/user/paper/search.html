@@ -13,23 +13,26 @@
                     <div class='box-con'><input type="text" name='identity_num' value="{$idcard|default=''}" placeholder='请输入身份证号' required></div>
                 </li> 
                  <p class='box-p  padding-all'>&nbsp;&nbsp;<span class="error-tip red">{$error}</span></p>
-                 <li class="box-li padding-all backg-white">
+                 <!-- <li class="box-li padding-all backg-white">
                     <div class='box-tit'>手机号码：</div>
                     <div class='box-con'>
                         <input type="text" name='identity_phone' value="" placeholder='请输入手机号码' required>
                     </div>
                  </li>
-                 <p class="box-p padding-all box-pinfo">确保客户资料安全 必须输入手机号接受验证码</p>
+                 <p class="box-p padding-all box-pinfo">确保客户资料安全 必须输入手机号接受验证码</p> -->
                  <li class="box-li padding-all backg-white">
                     <div class='box-tit'>验证码：</div>
                     <div class='box-con'>
-                        <input type="text" name='identity_code' placeholder='请输入验证码' required>
+                        <input type="text" name='identifying_code' placeholder='请输入验证码' required>
                     </div>
                     <div class="box-conBtn">
                         <input type="button" name="conBtn" value="获取验证码">
                     </div>
                     <p class="box-conBtn" style="display: none;"><span id="resetCode">60</span>秒后重发</p>
                  </li>
+                <p class='box-p  padding-all'>&nbsp;&nbsp;
+                    <span class="error-tip1 red"></span>
+                </p>
             </ul>
             
             <div class="btn-red  btn-middle border-radius-10 ">
@@ -49,9 +52,19 @@
                 $('input[name="identity_num"]').focus();
 
                 $('.error-tip').html('提示：请输入正确的身份证号码');
-                
+                return false;
+            } else if ($.trim($('input[name="identifying_code"]').val()) == "" || isSms($.trim($('input[name="identifying_code"]').val())) == false) {
+                $('input[name="identifying_code"]').focus();
+                $('.error-tip1').html('提示：请输入正确验证码');
                 return false;
             }
+            
+          
+            
         }
+
+       
+
+
     </script>
  
