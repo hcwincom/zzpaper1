@@ -4,9 +4,16 @@
   
         <form action="" id='loan_detail'>
             <ul class='box form-box box-right'>
+                <li class="box-img">
+                    <img src="__TMPL__/public/assets/img/self.jpg" alt="" class="box-conImg">
+                </li>
                 <li class="box-li padding-all">
                     <div class='box-tit'>借款人姓名：</div>
-                    <div class='box-con'><input type="text" name='identity_name' value='{$info_paper.borrower_name}' readonly></div>
+                    <div class='box-con'>
+                        <a href="#">负债查询</a>
+                        <input type="text" name='identity_name' value='{$info_paper.borrower_name}' readonly>
+                       
+                    </div>
                 </li>
                  <li class="box-li padding-all">
                     <div class='box-tit'>出款人姓名：</div>
@@ -55,7 +62,7 @@
             <switch name="info_reply.type">
               <case value="send">
               	 
-              	 <li class=" padding-all">
+              	 <li class="padding-all padding-allLi">
                     <ol class='second-li clearfix'>
                         <li class='gray'>
                            	补借条
@@ -118,12 +125,12 @@
 		                    <a href="javascript:void(0);" class='gray'>待确认</a>
 		                </li>
 		             <else/>
-		             	<li class=''>
-		                    <a href="javascript:void(0);" class='red sure_alert'>同意</a>
+		             	<li class='sure-alertLi sure_green'>
+		                    <a href="javascript:void(0);" class='sure_alert'>同意</a>
 		                </li>
 		                
-		                <li class=''>
-		                    <a href="javascript:void(0);" class='red cancal_alert'>驳回</a>
+		                <li class='sure-alertLi sure_red'>
+		                    <a href="javascript:void(0);" class='cancal_alert'>驳回</a>
 		                </li>
             		 </eq>
             	 

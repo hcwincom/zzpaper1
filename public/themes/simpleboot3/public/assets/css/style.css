@@ -69,6 +69,7 @@
     width:-ms-calc(100% - 6.5rem);
     width:-o-calc(100% - 6.5rem);
     width:calc(100% - 6.5rem);
+    position: relative;
 }
 .box-con-relative .box-con{
     position:relative;
@@ -96,10 +97,13 @@
     height:40px;
 }
 
+.box-right>.box-li{
+    height: 34px;
+    line-height: 34px;
+}
 .box-li,.group-person-mess li,.guide li{
     height:40px;
     line-height:40px;
-    border-bottom:1px solid #ddd;
 }
 
 .btn-big button,.btn-middle button{
@@ -261,6 +265,7 @@
     text-align:center;
     position:relative;
 }
+
 .nav-fixed dt{
     margin-bottom:3px;
 }
@@ -269,14 +274,16 @@
     margin:5px 0;
 }
 
-.show_posi{
+.show_posi{  
     position:absolute;
     top:-69px;
-    left:10%;
+    left:0;
+    right: 0;
     background-color:#fff;
-    padding:.1rem 1rem;
+   
     border:1px solid #d00000;
     box-shadow:0px 1px 14px #777;
+    text-align: center;
 }
 .show_posi b{
     display:block;
@@ -292,7 +299,7 @@
     border-right: 9px solid transparent;
     position: absolute;
     top: 0;
-    left: 0;
+    left: 138px;
 }
 .show_posi b:after{
     content: "";
@@ -302,12 +309,21 @@
     border-right: 7px solid transparent;
     position: absolute;
     top: 0px;
-    left: 2px;
+    left: 140px;
 }
 .show_posi a{
     display:block;
+    line-height: 30px;
     margin:7px 0;
-    font-size:12px;
+    font-size:1.2rem;
+    letter-spacing: 0.15rem;
+    border-bottom: 1px solid #d00000;
+}
+.show_posi a:nth-child(1){
+      padding: 0.1rem 0;
+}
+.show_posi a:nth-child(2){
+      border-bottom: none;
 }
 
 /* 使用手册 */
@@ -489,8 +505,32 @@
 }
 .box-right  .box-con{
     text-align:right;
+   
 }
 
+.sure-alertLi{
+    width: 48%;
+    margin-right: 2%;
+    margin-left: 1%;
+    padding-top: .3rem;
+    padding-bottom: .3rem;
+}
+.sure_green{
+    background: green;
+}
+.sure_red{
+    background: #d00000;
+}
+.sure_alert{
+    color: #fff !important;
+    font-size: 1.2rem;
+    letter-spacing: 0.2rem;
+}
+.cancal_alert{
+     color: #fff !important;
+    font-size: 1.2rem;
+    letter-spacing: 0.2rem;
+}
 /* 待确认 */
 .daihuai{
 
@@ -676,11 +716,40 @@
 
 
 /* 补借条 */
+
+.box-right li:nth-child(2){
+    height: 40px;
+    line-height: 40px;
+}
+.box-img{
+    margin-top: 0.2rem;
+    text-align: center;
+    line-height: 44px;
+    height: 44px;
+    margin: 0 auto;
+}
+.box-conImg{
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+
+}
+.box-con a{
+    background: #d00000;
+    color: #fff;
+    font-size: 14px;
+    line-height: 30px;
+    padding: 0 .5rem;
+    position: absolute;
+    top:0.3rem;
+    right: 55%;
+}
 .box-right input{
     text-align:right;
 }
 .box-con-danwei{
     position:relative;
+  
 }
 .box-con-danwei input{
     width:-webkit-calc(100% - 25px);
@@ -700,6 +769,7 @@
 input[type='hidden']{
     width:0;
 }
+
 
 /* 下拉固定内容 */
 .drop_down{
@@ -792,7 +862,12 @@ input[type='hidden']{
     height: 30px;
     line-height: 30px;
 }
-
+.padding-allLi{
+    border: 1px solid #ddd;
+    margin-bottom: 40px;
+    height: 40px;
+    line-height: 40px;
+}
 .second-li li{
     float:left;
     width:50%;
@@ -865,9 +940,34 @@ search_con_ul_div dl{
     font-size:13px;
 }
 .search_con_ul li:not(:first-child) dl dd:not(:last-child){
-    border-right:1px dashed #ddd;
-    
-    
+    border-right:1px dashed #ddd;     
+}
+.box-searp{
+    text-align: center;
+    line-height: 2rem;
+    margin-bottom: 0.5rem;
+}
+.box-searp p{
+    color: #d00000;
+    font-size: 1.5rem;
+}
+
+.box-conBtn input[type="button"]{
+    background: #d00000;
+    color: #fff;
+    line-height: 40px;
+}
+.box-conBtn{
+    background: #d00000;
+    color: #fff;
+    padding: 0 .7rem;
+    line-height: 40px;
+}
+
+.box-pinfo{
+    color: #999;
+    font-size: 12px;
+    text-align: center;
 }
 /* 平分两部分 */
 .ul_2nd {
@@ -944,11 +1044,34 @@ search_con_ul_div dl{
     height:200px;
 }
 
+@media screen and (max-width:350px) and (min-width:280px){
+    
+   input::-webkit-input-placeholder{ /*WebKit browsers*/
+    padding-right: 1rem;
 
+    }
+
+    input::-moz-placeholder{ /*Mozilla Firefox*/
+
+       text-align: center;
+
+    }
+     input:-moz-placeholder{ /*Mozilla Firefox*/
+
+         text-align: center;
+
+    }
+     input::-ms-input-placeholder{ /*Internet Explorer*/ 
+
+    padding-right: 1rem;
+
+    }
+}
 @media screen and (max-width:375px) and (min-width:350px) {
     .loan_mess {
         padding: 3rem 1.2rem 1rem
     }
+
 }
 
 @media screen and (max-width:414px) and (min-width:376px) {
@@ -957,3 +1080,4 @@ search_con_ul_div dl{
     }
     .erweima p{font-size:16px;}
 }
+

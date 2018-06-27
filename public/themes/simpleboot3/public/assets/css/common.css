@@ -12,6 +12,7 @@ html,body{font-family:Microsoft YaHei,Segoe UI Light,Segoe UI,"微软雅黑",Tah
 
 textarea,input,button,select,img{border:none;outline:none;}
 input[type=button],input[type=submit],input[type=file],input[type=text],input[type=reset],button{cursor:pointer;-webkit-appearance:none;border-radius:0;-webkit-border-radius:0;-moz-border-radius:0;-ms-border-radius:0;}
+
 .rt{
     float:right;
 }
@@ -78,7 +79,7 @@ img{transform:scale(1) translateZ(0)}
     height:30px;
     line-height:30px;
     display:block;
-    margin:0 auto;
+    margin:2rem auto;
 }
 .main{
     padding:.5rem;
@@ -86,8 +87,13 @@ img{transform:scale(1) translateZ(0)}
 
 .padding-all{
     padding:0 .7rem;
+    
 }
-
+.box-right>.padding-all{
+    border: 1px solid #ddd;
+    border-radius: 0.5rem;
+    margin: 0.3rem 0;
+}
 /* flex布局 */
 .box-li,.person_head,.group-person-second,.nav-fixed,.pop_up_ul,.content_nav,.bottom-fixed,.ul_2nd,.promit-p{
     display: -webkit-box;   /* OLD - iOS 6-, Safari 3.1-6 */
