@@ -286,16 +286,32 @@ class PaperController extends UserBaseController
         $info_reply['send_type']=0;
         $send_type=0;
         
-         //补借条时对方id
-        if(($info_reply['is_borrower']==1 && $info_paper['lender_id']==$user['id']) || ($info_reply['is_borrower']==0 && $info_paper['borrower_id']==$user['id'])){
-            $info_reply['send_type']=1;
+         
+        //补借条时对方id
+        if($info_paper['lender_id']==$user['id']){
+            $tmp_uid=$info_paper['borrower_id'];
+            if($info_reply['is_borrower']==1){
+                $info_reply['send_type']=1;
+            }
+        }elseif($info_paper['borrower_id']==$user['id']){
+            $tmp_uid=$info_paper['lender_id'];
+            if($info_reply['is_borrower']==0){
+                $info_reply['send_type']=1;
+            }
+        }else{
+            $this->error('借条错误');
         }
+        $tmp_user=Db::name('user')->where('id='.$tmp_uid)->find();
+        
+        $info_reply['name']=$tmp_user['user_nickname'];
+        $info_reply['avatar']=$tmp_user['avatar'];
         $statuss=config('paper_status');
         $info_paper['status_name']=$statuss[$info_paper['status']];
         $this->assign('info_reply',$info_reply);
         $this->assign('info_paper',$info_paper);
         $this->assign('send_type',$send_type);
         $this->assign('html_title','申请详情');
+        
         return $this->fetch();
     }
     
