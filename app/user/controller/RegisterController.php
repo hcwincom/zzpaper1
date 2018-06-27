@@ -88,7 +88,7 @@ class RegisterController extends HomeBaseController
         }
         $msg=new Msg();
          
-        $this->error($msg->reg($phone,rand(100000,999999)));
+        $this->error($msg->reg($phone));
     }
     /**
      * 发送验证码，要验证图片验证码
@@ -112,7 +112,7 @@ class RegisterController extends HomeBaseController
             }
         } 
         $msg=new Msg(); 
-        $this->error($msg->reg($phone,rand(100000,999999)));
+        $this->error($msg->reg($phone));
     }
     
     /**

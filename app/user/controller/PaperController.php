@@ -53,13 +53,13 @@ class PaperController extends UserBaseController
         ->join('cmf_user u','u.id=p.lender_id')
         ->where(['p.borrower_idcard'=>['eq',$idcard],'p.status'=>['in',[3,4,5]]])
         ->order('p.status asc,p.expire_day asc,p.overdue_day asc,p.id desc')
-        ->column('p.*,u.user_nickname as lname,u.avatar as lavatar'); 
+        ->column('p.*,u.user_nickname as name,u.avatar as avatar'); 
         //已还借款
         $list2=Db::name('paper_old')->alias('p')
         ->join('cmf_user u','u.id=p.lender_id')
         ->where(['p.borrower_idcard'=>$idcard])
         ->order('p.overdue_day asc,p.id desc')
-        ->column('p.*,u.user_nickname as lname,u.avatar as lavatar'); 
+        ->column('p.*,u.user_nickname as name,u.avatar as avatar'); 
         
         $this->assign('info',$info); 
         $this->assign('list1',$list1); 
@@ -67,6 +67,42 @@ class PaperController extends UserBaseController
         $this->assign('paper_status',config('paper_status')); 
         return $this->fetch('search_info');
       
+    }
+    /**
+     *负债查询
+     */
+    public function search_paper()
+    {
+        $this->assign('html_title','负债查询');
+         
+        $oid=$this->request->param('oid','');
+        $m_paper=Db::name('paper');
+        $paper=$m_paper->where(['oid'=>$oid])->find();
+        
+        $uid=session('user.id');
+        if(empty($paper) || $paper['lender_id']!=$uid){
+           $this->error('非法访问');
+        }
+        $buid=$paper['borrower_id'];
+        
+        $info=Db::name('user')->where(['id'=>$buid,'user_type'=>2])->find();
+        if(empty($info)){
+            $this->assign('error','没有此用户');
+            return $this->fetch();
+        }
+        //未还借款
+        $list1=$m_paper->alias('p')
+        ->join('cmf_user u','u.id=p.lender_id')
+        ->where(['p.borrower_id'=>['eq',$buid],'p.status'=>['in',[3,4,5]]])
+        ->order('p.status asc,p.expire_day asc,p.overdue_day asc,p.id desc')
+        ->column('p.*,u.user_nickname as name,u.avatar as avatar');
+         
+        $this->assign('info',$info);
+        $this->assign('list1',$list1);
+        
+        $this->assign('paper_status',config('paper_status'));
+        return $this->fetch('search_info');
+        
     }
     
      

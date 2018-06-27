@@ -16,6 +16,7 @@ use think\Db;
 class IndexController extends HomeBaseController
 {
     private $token='zzpaper';
+     
     public function index()
     {
         
@@ -28,7 +29,7 @@ class IndexController extends HomeBaseController
             session('login_http_referer',$redirect);
         }
         
-        //测试
+         
         //$openid='oyHSG1Rq1YeiZ1o8OoqFyt4ri4yw'; 
         //检测网页授权
         $ua = strtolower($_SERVER['HTTP_USER_AGENT']); 
