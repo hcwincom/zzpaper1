@@ -39,10 +39,10 @@ class PaperController extends UserBaseController
         }
         $this->assign('idcard',$idcard); 
         $codes=$this->request->param('codes','','trim');
-        if(strlen($codes)!=4){
+       /*  if(strlen($codes)!=4){
             $this->assign('error','短信验证码错误');
             return $this->fetch();
-        } 
+        }  */
         $info=Db::name('user')->where(['user_login'=>$idcard,'user_type'=>2])->find();
         if(empty($info)){
             $this->assign('error','没有此用户');
