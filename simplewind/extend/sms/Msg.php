@@ -3,36 +3,28 @@ namespace sms;
 /* 短信 */
 class Msg{
     /* 短信验证码接口 */
-    public function reg($phone,$content){
+    public function reg($phone){
         $msg=session('sms');
         $time=time();
         if(!empty($msg) && ($time-$msg['time'])<120){
             return '不要频繁发送';
         } 
-         
-        $statusStr = array(
-            "0" => "success",
-            "-1" => "参数不全",
-            "-2" => "服务器空间不支持,请确认支持curl或者fsocket，联系您的空间商解决或者更换空间！",
-            "30" => "密码错误",
-            "40" => "账号不存在",
-            "41" => "余额不足",
-            "42" => "帐户已过期",
-            "43" => "IP地址限制",
-            "50" => "内容含有敏感词"
-        );
-        $smsapi = "http://www.smsbao.com/"; //短信网关
-        //短信平台帐号
-        $user=config('sms_id');
-        $pass = md5(config('sms_psw')); //短信平台密码
-        
-        $content0='【'.config('zztitle').'】您的验证码是'.$content;
-        $sendurl = $smsapi."sms?u=".$user."&p=".$pass."&m=".$phone."&c=".urlencode($content0);
-        $result =file_get_contents($sendurl) ;
-        if($result==0){
+        $content=rand(100000,999999);
+        $nowapi_parm=[];
+        $nowapi_parm['app']='sms.send';
+        $nowapi_parm['tempid']=config('sms_tmpid');
+        $nowapi_parm['param']=urlencode('code='.$content);
+        $nowapi_parm['phone']=$phone;
+        $nowapi_parm['appkey']=config('sms_appkey');
+        $nowapi_parm['sign']=config('sms_sign');
+        $nowapi_parm['format']='json';
+        $result=$this->nowapi_call($nowapi_parm);
+         if($result==='success'){
             session('sms',['mobile'=>$phone,'content'=>$content,'time'=>$time]);
-        } 
-        return empty($statusStr[$result])?'发送失败':$statusStr[$result];
+        }else{
+            $result='发送失败';
+        }
+        return $result;
     }
     /* 短信验证  */
     public function verify($phone,$content){
@@ -49,5 +41,39 @@ class Msg{
             return 'success';
         }
     }
-    
+    function nowapi_call($a_parm){
+        if(!is_array($a_parm)){
+            return false;
+        }
+        //combinations
+        $a_parm['format']=empty($a_parm['format'])?'json':$a_parm['format'];
+        $apiurl=empty($a_parm['apiurl'])?'http://api.k780.com/?':$a_parm['apiurl'].'/?';
+        unset($a_parm['apiurl']);
+        foreach($a_parm as $k=>$v){
+            $apiurl.=$k.'='.$v.'&';
+        }
+        $apiurl=substr($apiurl,0,-1);
+        if(!$callapi=file_get_contents($apiurl)){
+            return false;
+        }
+        //format
+        if($a_parm['format']=='base64'){
+            $a_cdata=unserialize(base64_decode($callapi));
+        }elseif($a_parm['format']=='json'){
+            if(!$a_cdata=json_decode($callapi,true)){
+                return false;
+            }
+        }else{
+            return false;
+        }
+        //array
+        if($a_cdata['success']!='1'){
+            return false;
+        }
+        if($a_cdata['result']['status']=='OK'){
+            return 'success';
+        }else{
+            return false;
+        }
+    }
 }

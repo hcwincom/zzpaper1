@@ -94,19 +94,23 @@ class WxConfigController extends AdminBaseController
      */
     function clear(){
         
-         
-        $result=Db::name('user')->where('user_type',2)->update(['openid'=>'']);
+        $id=$this->request->param('id',0,'intval');
+        $data_action=[
+            'aid'=>session('ADMIN_ID'),
+            'time'=>time(),
+            'type'=>'config',
+            'ip'=>get_client_ip(),
+            'action'=>'清空用户微信绑定',
+        ];
+        $where=['user_type'=>2];
+        if($id>0){
+            $where['id']=$id;
+            $data_action['action']='清空用户'.$id.'微信绑定';
+        }
+        $result=Db::name('user')->where($where)->update(['openid'=>'']);
         if(empty($result)){
-            $this->error('未修改数据');
-            
-        }else{
-            $data_action=[
-                'aid'=>session('ADMIN_ID'),
-                'time'=>time(),
-                'type'=>'config',
-                'ip'=>get_client_ip(),
-                'action'=>'清空用户微信绑定',
-            ];
+            $this->error('未修改数据'); 
+        }else{ 
             Db::name('action')->insert($data_action);
             $this->success('修改成功');
         }
