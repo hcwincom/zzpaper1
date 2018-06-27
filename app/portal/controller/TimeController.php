@@ -68,20 +68,7 @@ class TimeController extends HomeBaseController
         ];
         zz_log('删除了过期申请'.$rows.'条','time.log');
         
-        //3更新过期申请
-        $where_reply2=[ 
-            'is_overtime'=>['eq',0],
-            'update_time'=>['elt',$time0]
-        ];
-        $rows=$m_reply->where($where_reply2)->update(['is_overtime'=>1,'update_time'=>$time]);
-        $data_action[]=[
-            'aid'=>1,
-            'time'=>time(),
-            'ip'=>$ip,
-            'type'=>'system',
-            'action'=>'更新了过期申请'.$rows.'条',
-        ];
-        zz_log('更新了过期申请'.$rows.'条','time.log');
+       
          
         
         //借条处理
@@ -221,43 +208,59 @@ class TimeController extends HomeBaseController
     /*定时获取微信的access_tocken,crontab每小时30分钟执行 */
     public function wx_token()
     {
-        zz_log('定时获取微信的access_tocken开始','time.log');
+        $ip=get_client_ip();
+        $time=time();
+        zz_log('定时更新过期申请和获取微信的access_tocken开始','time.log');
         //
         $data_action=[];
         $appid = config('wx_appid');
         $appsecret = config('wx_appsecret');
         $token_time=config('token_time');
         //判断重复任务,1小时1次
-        if((time()-$token_time)<3600){
+        if(($time-$token_time)<3600){
             zz_log('重复任务，结束','time.log');
             exit('重复任务，结束');
-        }else{
-            $ip=get_client_ip();
-            $data_action=[
-                'aid'=>1,
-                'time'=>time(),
-                'ip'=>$ip,
-                'type'=>'system',
-                'action'=>'更新微信access_token',
-            ];
-            $url='https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid='.$appid.'&secret='.$appsecret;
-            $res=zz_curl($url);
-            
-            if(!empty($res['access_token'])){
-                cmf_set_dynamic_config(['access_token'=>$res['access_token']]);
-                cmf_set_dynamic_config(['token_time'=>time()]);
-                $data_action['action'].='成功';
-                zz_log('获取access_token成功','time.log');
-            }else{
-                $data_action['action'].='失败';
-                zz_log('获取access_token失败','time.log');
-            }
-            Db::name('action')->insert($data_action); 
-//             sleep(3600);
-//             $url=url('portal/time/wx_token','',true,true);
-//             file_get_contents($url);
-            exit('执行结束');
         }
+        //先删除无效的申请,6小时过期 
+        $time0=time()-21600;
+        //3更新过期申请
+        $where_reply2=[
+            'is_overtime'=>['eq',0],
+            'update_time'=>['elt',$time0]
+        ];
+        $m_reply=Db::name('reply');
+        $rows=$m_reply->where($where_reply2)->update(['is_overtime'=>1,'update_time'=>$time]);
+        $data_action[]=[
+            'aid'=>1,
+            'time'=>$time,
+            'ip'=>$ip,
+            'type'=>'system',
+            'action'=>'更新了过期申请'.$rows.'条',
+        ];
+        zz_log('更新了过期申请'.$rows.'条','time.log');
+        //更新微信access_token
+        $data_action[]=[
+            'aid'=>1,
+            'time'=>$time,
+            'ip'=>$ip,
+            'type'=>'system',
+            'action'=>'更新微信access_token',
+        ];
+        $url='https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid='.$appid.'&secret='.$appsecret;
+        $res=zz_curl($url);
+        
+        if(!empty($res['access_token'])){
+            cmf_set_dynamic_config(['access_token'=>$res['access_token']]);
+            cmf_set_dynamic_config(['token_time'=>$time]);
+            $data_action['action'].='成功';
+            zz_log('获取access_token成功','time.log');
+        }else{
+            $data_action['action'].='失败';
+            zz_log('获取access_token失败','time.log');
+        }
+        Db::name('action')->insert($data_action); 
+        exit('执行结束');
+        
     }
      
 }
