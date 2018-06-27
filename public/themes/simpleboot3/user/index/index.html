@@ -10,20 +10,28 @@
                 <ul class="confirm_list">
                 <foreach name="list_reply" item="vo">
                     <li class='confirm_item'>
-                        <ol class="cofirm_con">
-                            <li>
-                                <p class='big'>{$vo.p_money}元</p>
-                                <p>借款金额</p>
-                            </li>
-                            <li>
-                                <p class='big'>{$reply_types[$vo.type]}</p>
-                                <p>类别</p>
-                            </li>
-                        </ol>
-                        <p>
-                            <a href="{:url('user/paper/confirm',['id'=>$vo.id])}">查看详情</a>
-                            <span class='icon icon-daihuai'></span>
-                        </p>
+                        <a href="{:url('user/paper/confirm',['id'=>$vo.id])}">
+                            <ol class="cofirm_con">
+                                <li>
+                                    <img src="__TMPL__/public/assets/img/self.jpg" alt="头像">
+                                    <p class="cofirm_conname">姓名</p>
+                                </li>
+                                <li>
+                                    <p class='big'>
+                                        <span>{$reply_types[$vo.type]}</span>
+                                    </p>
+                                    <span>类别</span>
+                                    <p>
+                                        <a class='big'>{$vo.p_money}元</a>
+                                    </p>
+                                </li>
+                                <p>
+                                    <span class='icon icon-daihuai'></span>
+                                </p>
+                            
+                            </ol>
+                        </a>
+
                     </li>
                  </foreach> 
                  <p class="show_foot">已经到底了</p>

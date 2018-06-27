@@ -37,16 +37,17 @@
                     </div>   
                     <ul class='search_con_ul'>
                     <foreach name="list" item="vo">  
-                        <li>
+                        <li class="search_con_ulLi">
                             <div class='search_con_ul_div'>
                                 <dl>
-                                    <dd class=''>{$vo.borrower_name}</dd>
-                                    <dd class=''>{$vo.money}</dd>
+                                    <!-- <dd class=''>{$vo.borrower_name}</dd> -->
+                                    <dd><img src="{:cmf_get_image_url($vo.avatar)}" alt="头像"></dd>
+                                    <dd class='paper_money'><span>{$vo.money}</span></dd>
                                     <dd class='paper_color{$vo.status}'>
                                     <switch name="vo.status">
-                                    	<case value="3">今日到期</case>
-				                   		<case value="4">还剩{$vo.expire_day}天</case>
-				                   		<case value="5">逾期{$vo.overdue_day}天</case>
+                                    	<case value="3"><span>今日到期</span></case>
+				                   		<case value="4"><span>还剩{$vo.expire_day}天</span></case>
+				                   		<case value="5"><span>逾期{$vo.overdue_day}天</span></case>
 				                   		<default>未生效</default>
 				                    </switch>
                                     </dd>
@@ -54,23 +55,30 @@
                                 </dl>
                             </div>
                             <ol class="ul_2nd">
-                                <li><a href="{:url('user/info/paper',['oid'=>$vo.oid])}">查看详情</a></li>
+                                <li><a href="javascript:void(0);">{$vo.borrower_name}</a></li>
+                                <li><a href="{:url('user/info/paper',['oid'=>$vo.oid])}">借款详情</a></li>
                                 <li><a href="{:url('user/info/protocol',['oid'=>$vo.oid])}">查看协议</a></li>
                             </ol>
                         </li>
                      </foreach>  
                     <foreach name="list_old" item="vo">  
-                        <li>
+                        <li class="search_con_ulLi">
                             <div class='search_con_ul_div'>
                                 <dl>
-                                    <dd class=''>{$vo.borrower_name}</dd>
-                                    <dd class=''>{$vo.money}</dd>
+                                    <dd><img src="{:cmf_get_image_url($vo.avatar)}" alt="头像"></dd>
+                                    <dd class='paper_money'>{$vo.money}</dd>
                                     <dd class='paper_color6'> 
-				                  		已还款|<eq name="vo.overdue_day" value="0">未逾期<else/>逾期{$vo.overdue_day}天</eq>
+                                        <div>
+                                             已还款|
+                                            <eq name="vo.overdue_day" value="0">未逾期
+                                                <else/>逾期{$vo.overdue_day}天</eq>
+                                        </div>
+				                  	    	
                                     </dd> 
                                 </dl>
                             </div>
                             <ol class="ul_2nd">
+                                <li><a href="javascript:void(0);">{$vo.borrower_name}</a></li>
                                 <li><a href="{:url('user/info/paper_old',['oid'=>$vo.oid])}">查看详情</a></li>
                                 <li><a href="{:url('user/info/protocol',['oid'=>$vo.oid])}">查看协议</a></li>
                             </ol>

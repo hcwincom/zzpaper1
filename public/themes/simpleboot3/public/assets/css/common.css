@@ -145,3 +145,58 @@ img{transform:scale(1) translateZ(0)}
     -o-border-radius:10px;
     border-radius:10px;
 }
+/* 出借人代收页面的文字颜色设置 */
+/* 6已还，5逾期，4待还，3今日到期 */
+.paper_color6{
+    color:green !important;
+   
+}
+.paper_color6 span{
+    display: inline-block;
+    width: 88%;
+    line-height: 1.5rem;
+    border: 0.05rem solid green;
+    border-radius: 0.5rem;
+}
+.paper_color6 div{
+    border: 0.05rem solid green;
+    width: 88%;
+    line-height: 1.5rem;
+    color: green;
+    border-radius: 0.5rem;
+}
+.paper_color5{
+	color:red !important;
+}
+.paper_color5 span{
+    display: inline-block;
+    width: 88%;
+    line-height: 1.5rem;
+    border: 0.05rem solid red;
+    border-radius: 0.5rem;
+}
+.paper_color4{
+	color:gray !important;
+}
+.paper_color4 span{
+    display: inline-block;
+    width: 88%;
+    line-height: 1.5rem;
+    border: 0.05rem solid #ddd;
+    border-radius: 0.5rem;
+}
+.paper_color3{
+    color:#FFD700 !important; 
+    
+}
+
+.paper_color3 span{
+    border: 1px solid #FFD700;
+    display: inline-block;
+    width: 88%;
+    line-height: 1.5rem;
+    border-radius: 0.5rem;
+}
+
+
+
