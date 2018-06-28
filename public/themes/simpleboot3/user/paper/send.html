@@ -65,7 +65,7 @@
         <div class="drop_down_list">
             <!-- <p class='fixed_li'></p> -->
             <div class="drop_down_menu">
-                <ul style="height: 170.625px; transform: translate3d(0px, 0px, 0px);">
+                <ul>
                     <foreach name="$Think.config.rate" item="vo">
                         <li>{$vo}%</li>
                     </foreach>
@@ -76,14 +76,17 @@
     </div>    
     <!-- 买车，借款用途点击出现的下拉框 -->
      <div class="drop_down drop_down2" style="display:none;transform: translateY(0px);">
-        <p class='drop_down_head'>借款用途<a class='confirm-btn red'>确定</a></p>
+        <p class='drop_down_head'><a class='confirm-btn red'>确定</a></p>
         <div class="drop_down_list">
             <!-- <p class='fixed_li'></p> -->
-            <ul>
-             <foreach name="$Think.config.use" item="vo">
-                <li>{$vo}</li> 
-            </foreach>
-            </ul>
+            <div class="drop_down_menu">
+                <ul>
+                    <foreach name="$Think.config.use" item="vo">
+                        <li>{$vo}</li>
+                    </foreach>
+                </ul>
+            </div>
+           
         </div>  
     </div>  
 
@@ -136,15 +139,21 @@
              $('.'+showClass).show();
 
              var _self=$(this);
+            $('.' + showClass).find("li").eq(0).addClass("on");
+                var height =  $('.' + showClass).find("li").height();
 
-             $('.'+ showClass).find('li').hover(function(){
-                
-                 $('.'+ showClass).find('.fixed_li').html($(this).html())
+             $('.'+ showClass).find('li').click(function(){
+                 var index = $(this).index();
+                 $(this).addClass("on").siblings().removeClass("on");
+                 $(this).parent().css({
+                    "transform": "translate3d(0px, " + (-height * index) + "px, 0px)"
+                 });
+                 $('.'+ showClass).find('.on').html($(this).html())
              });
 
              $('.'+ showClass).find('.confirm-btn').click(function(){
 
-                 var fixed_li= $('.'+ showClass).find('.fixed_li').html();  
+                 var fixed_li= $('.'+ showClass).find('.on').html();  
                  $('#'+showId).html(fixed_li); 
                  $('#'+showId).siblings('input[type="hidden"]').val(fixed_li);
 

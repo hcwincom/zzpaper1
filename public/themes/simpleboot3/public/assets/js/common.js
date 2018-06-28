@@ -210,7 +210,12 @@ $(function(){
                 
                 return false;
             }
-        })
+        });
+
+
+        $(".search_con_ulLi").on("click", function () {
+            $(this).toggleClass("on");
+        });
 })
 
 
