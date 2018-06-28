@@ -12,7 +12,7 @@ namespace app\user\controller;
 
 use cmf\controller\UserBaseController;
 use think\Db;
-
+use sms\Msg;
 class PaperController extends UserBaseController
 {
 
@@ -27,8 +27,8 @@ class PaperController extends UserBaseController
     public function search()
     { 
         $this->assign('html_title','查信用');
-         
-        if(empty(session('user.is_name'))){ 
+         $user=session('user');
+         if(empty($user['is_name'])){ 
             $this->assign('error','没有实名认证，不能查信用');
             return $this->fetch();
         } 
@@ -38,14 +38,17 @@ class PaperController extends UserBaseController
             return $this->fetch();
         }
         $this->assign('idcard',$idcard); 
-        $codes=$this->request->param('codes','','trim');
-       /*  if(strlen($codes)!=4){
-            $this->assign('error','短信验证码错误');
+        $codes=$this->request->param('identifying_code','','trim');
+        $msg=new Msg(); 
+        $res=$msg->verify($user['mobile'],$codes);
+        if($res!='success'){
+            $this->assign('error',$res);
             return $this->fetch();
-        }  */
+        }
+        
         $info=Db::name('user')->where(['user_login'=>$idcard,'user_type'=>2])->find();
         if(empty($info)){
-            $this->assign('error','没有此用户');
+            $this->assign('error','没有此用户，请检查身份证号是否填写错误');
             return $this->fetch(); 
         }
        //未还借款
@@ -80,7 +83,8 @@ class PaperController extends UserBaseController
         $paper=$m_paper->where(['oid'=>$oid])->find();
         
         $uid=session('user.id');
-        if(empty($paper) || $paper['lender_id']!=$uid){
+        //只有相关人员能查询
+        if(empty($paper) || ($paper['lender_id']!=$uid && $paper['borrower_id']!=$uid)){
            $this->error('非法访问');
         }
         $buid=$paper['borrower_id'];
@@ -99,7 +103,7 @@ class PaperController extends UserBaseController
          
         $this->assign('info',$info);
         $this->assign('list1',$list1);
-        
+        $this->assign('list2',[]);
         $this->assign('paper_status',config('paper_status'));
         return $this->fetch('search_info');
         
@@ -325,6 +329,7 @@ class PaperController extends UserBaseController
          
         //补借条时对方id
         if($info_paper['lender_id']==$user['id']){
+          
             $tmp_uid=$info_paper['borrower_id'];
             if($info_reply['is_borrower']==1){
                 $info_reply['send_type']=1;

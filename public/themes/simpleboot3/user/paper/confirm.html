@@ -10,7 +10,7 @@
                 <li class="box-li padding-all">
                     <div class='box-tit'>借款人姓名：</div>
                     <div class='box-con'>
-                        <a href="#" class="box-cona">负债查询</a>
+                        <a href="{:url('user/paper/search_paper',['oid'=>$info_paper.oid])}" class="box-cona">负债查询</a>
                         <input type="text" name='identity_name' value='{$info_paper.borrower_name}' readonly>
                        
                     </div>
