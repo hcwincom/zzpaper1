@@ -114,7 +114,32 @@ class RegisterController extends HomeBaseController
         $msg=new Msg(); 
         $this->error($msg->reg($phone));
     }
-    
+    /**
+     * 发送验证码验证操作
+     */
+    public function msg_check()
+    {
+        //目前只有查信用
+        $phone=session('user.mobile');
+        if(empty($phone)){
+           $this->error('未找到用户的手机号');
+        }
+        $type=$this->request->param('type','reg');
+         
+        switch ($type){
+            //查信用
+            case 'search': 
+                break;
+                 
+            
+            default:
+                $this->error('未知操作');
+                
+        }
+        $msg=new Msg();
+        
+        $this->error($msg->reg($phone));
+    }
     /**
      * 前台用户注册提交
      */

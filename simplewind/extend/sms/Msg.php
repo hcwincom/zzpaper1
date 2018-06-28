@@ -28,6 +28,9 @@ class Msg{
     }
     /* 短信验证  */
     public function verify($phone,$content){
+        if(strlen($content)!=6){
+            return '短信验证码错误';
+        }
         $msg=session('sms'); 
         $time=time();
         if(empty($msg)){

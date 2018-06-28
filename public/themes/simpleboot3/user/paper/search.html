@@ -12,7 +12,7 @@
                     <div class='box-tit'>身份证：</div>
                     <div class='box-con'><input type="text" name='identity_num' value="{$idcard|default=''}" placeholder='请输入身份证号' required></div>
                 </li> 
-                 <p class='box-p  padding-all'>&nbsp;&nbsp;<span class="error-tip red">{$error}</span></p>
+                 <p class='box-p  padding-all'>&nbsp;&nbsp;<span class="error-tip red"></span></p>
                  <!-- <li class="box-li padding-all backg-white">
                     <div class='box-tit'>手机号码：</div>
                     <div class='box-con'>
@@ -31,7 +31,7 @@
                     <p class="box-conBtn" style="display: none;"><span id="resetCode">60</span>秒后重发</p>
                  </li>
                 <p class='box-p  padding-all'>&nbsp;&nbsp;
-                    <span class="error-tip1 red"></span>
+                    <span class="error-tip1 red">{$error}</span>
                 </p>
             </ul>
             
@@ -42,15 +42,42 @@
      
      </div>
   <include file="public@user_foot"  /> 
-    <script>
-       
-        // 查信用
+<script>
+$('.box-conBtn input').click(function(){ 
+	$('.error-tip1').text('');
+	$.ajax({
+        type: 'POST',
+        url: "{:url('user/register/msg_check')}",
+        dataType: 'json',
+        data:{'type':'search'},
+        success: function(data){ 
+        	if(data.msg=='success'){
+        		$('.error-tip1').text('短信码发送成功');  
+        	}else{
+        		$('.error-tip1').text(data.msg);  
+        	} 
+        },
+        error: function(){
+        	$('.error-tip1').text('服务器连接失败'); 
+        }
+    });
+});
+ 
+// 查信用 
+function formIdentity(form){
+    if($.trim($('input[name="identity_num"]').val()) == '' || isCardNo($('input[name="identity_num"]').val()) == false){
 
-        function formIdentity(form){
-            if($.trim($('input[name="identity_num"]').val()) == '' || isCardNo($('input[name="identity_num"]').val()) == false){
+        $('input[name="identity_num"]').focus(); 
+        $('.error-tip').html('提示：请输入正确的身份证号码');
+        return false;
+    } else if ($.trim($('input[name="identifying_code"]').val()) == "" || isSms($.trim($('input[name="identifying_code"]').val())) == false) {
+        $('input[name="identifying_code"]').focus();
+        $('.error-tip1').html('提示：请输入正确验证码');
+        return false;
+    } 
+}
 
-                $('input[name="identity_num"]').focus();
-
+<<<<<<< HEAD
                 $('.error-tip').html('提示：请输入正确的身份证号码');
                 return false;
             } else if ($.trim($('input[name="identifying_code"]').val()) == "" || isSms($.trim($('input[name="identifying_code"]').val())) == false) {
@@ -60,9 +87,10 @@
             }
                
         }
+=======
+>>>>>>> 2eb40d9aee64b84fb7272d7d1abc055010bea532
 
-       
 
 
-    </script>
+</script>
  
