@@ -63,12 +63,15 @@
     <div class="drop_down drop_down1" style="display:block;">
         <p class='drop_down_head'><a class='confirm-btn red'>确定</a></p>
         <div class="drop_down_list">
-            <p class='fixed_li'></p>
-            <ul>
-            <foreach name="$Think.config.rate" item="vo">
-                <li>{$vo}%</li> 
-            </foreach>
-            </ul>
+            <!-- <p class='fixed_li'></p> -->
+            <div class="drop_down_menu">
+                <ul>
+                    <foreach name="$Think.config.rate" item="vo">
+                        <li>{$vo}%</li>
+                    </foreach>
+                </ul>
+            </div>
+           
         </div>  
     </div>    
     <!-- 买车，借款用途点击出现的下拉框 -->
