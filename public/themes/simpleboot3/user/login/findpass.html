@@ -74,7 +74,7 @@ function send_msg(tel,code){
         	if(data.msg=='success'){
         		$('.btn-small').hide();
         		$('.backg-gray').show();
-        		
+        		sms_msg();
         	}else{
         		$('.error-tip').text(data.msg);  
         	} 
