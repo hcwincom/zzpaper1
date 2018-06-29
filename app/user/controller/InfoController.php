@@ -178,7 +178,7 @@ class InfoController extends UserBaseController
         }
         $tmp_user=Db::name('user')->where('id='.$tmp_uid)->find();
         $paper['name']=$tmp_user['user_nickname'];
-        $paper['avatar']=$tmp_user['bavatar'];
+        $paper['avatar']=$tmp_user['avatar'];
         $this->assign('paper',$paper);
         $this->assign('replys',$replys);
         $this->assign('reply_status',config('reply_status'));
