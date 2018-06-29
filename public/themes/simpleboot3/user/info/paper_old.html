@@ -5,7 +5,9 @@
         <div class="hasBottomFixed">
             <form action="" id='loan_detail'>
                 <ul class='box form-box box-right main'>
-               
+                    <li class="box-img"> 
+                        <img src="{:cmf_get_image_url($paper.avatar)}" alt="{$paper.name}" class="box-conImg">
+                    </li>
                     <li class="box-li padding-all">
                         <div class='box-tit'>借款人姓名：</div>
                         <div class='box-con'><input type="text" value='{$paper.borrower_name}' readonly></div>

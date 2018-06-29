@@ -26,15 +26,11 @@
                         <input type="text" name='sms' placeholder='请输入验证码' required>
                         <div class="identifying box-conabatn">
                             <a href="javascript:void(0);" class="btn-small btn-red">发送短信</a>
-                            <a href="javascript:void(0);" class="btn-small backg-gray" style="display:none;">已发送
-                                <span id="sms_msg">120</span>s</a>
+                            <a href="javascript:void(0);" class="btn-small backg-gray" style="display:none;">已发送<span id="sms_msg">120</span>s</a>
                         </div>
                     </div>
-                    <p class="box-conBtn" style="display: none;"><span id="resetCode">60</span>秒后重发</p>
                  </li>
-                <p class='box-p  padding-all'>&nbsp;&nbsp;
-                    <span class="error-tip1 red">{$error}</span>
-                </p>
+                <p class='box-p  padding-all'>&nbsp;&nbsp;<span class="error-tip1 red">{$error}</span></p>
             </ul>
             
             <div class="btn-red  btn-middle border-radius-10 ">
@@ -45,8 +41,14 @@
      </div>
   <include file="public@user_foot"  /> 
 <script>
-$('.btn-red').click(function(){ 
+   
+$('a.btn-red').click(function(){ 
 	$('.error-tip1').text('');
+   var num = $.trim($('input[name="identity_num"]').val());
+   if(num == "" || isCardNo(num) == false){
+       $('.error-tip').text('提示：请输入正确的身份证号码');
+       return false;
+   }
 	$.ajax({
         type: 'POST',
         url: "{:url('user/register/msg_check')}",
@@ -57,9 +59,12 @@ $('.btn-red').click(function(){
                 $('.error-tip1').text('短信码发送成功');
                 $('.btn-small').hide();
                 $('.backg-gray').show();
-                sms_msg();  
+                sms_msg();
         	}else{
-        		$('.error-tip1').text(data.msg);  
+                $('.error-tip1').text(data.msg);  
+                if (data.url != '') {
+                    location.href = data.url;
+                }
         	} 
         },
         error: function(){
@@ -70,19 +75,17 @@ $('.btn-red').click(function(){
  
 // 查信用 
 function formIdentity(form){
-    if($.trim($('input[name="identity_num"]').val()) == '' || isCardNo($('input[name="identity_num"]').val()) == false){
-
-        $('input[name="identity_num"]').focus(); 
-        $('.error-tip').html('提示：请输入正确的身份证号码');
+    var num = $.trim($('input[name="identity_num"]').val());
+    var code = $.trim($('input[name=sms]').val());
+    if (num == "" || isCardNo(num) == false) {
+        $('.error-tip').text('提示：请输入正确的身份证号码');
         return false;
-    } else if ($.trim($('input[name=sms]').val()) == "" || isSms($.trim($('input[name=sms]').val())) == false) {
+    } else if (code == "" || isSms(code) == false) {
         $('input[name="sms"]').focus();
         $('.error-tip1').html('提示：请输入正确验证码');
         return false;
     } 
 }
-
-
 
 
 </script>
