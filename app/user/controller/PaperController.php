@@ -38,7 +38,7 @@ class PaperController extends UserBaseController
             return $this->fetch();
         }
         $this->assign('idcard',$idcard); 
-        $codes=$this->request->param('identifying_code','','trim');
+        $codes=$this->request->param('sms','','trim');
         $msg=new Msg(); 
         $res=$msg->verify($user['mobile'],$codes);
         if($res!='success'){
