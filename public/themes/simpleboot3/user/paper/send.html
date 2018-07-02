@@ -224,7 +224,8 @@
          // 借条表单验证
          function formloan(form){
          	 var money=$.trim($('input[name="borrowing_balance"]').val());
-         	 var name=$.trim($('input[name="name"]').val());
+              var name=$.trim($('input[name="name"]').val());
+             var use = $.trim($('#usage_loan_dummy').val());
              if(money=='' || isMoney(money) == false){
                  $('.error-tip').text('提示：请输入正确金额');
                  $('input[name="borrowing_balance"]').focus();
@@ -233,6 +234,9 @@
                  $('.error-tip').text('提示：请输入对方姓名');
                  $('input[name="name"]').focus();
                  return false;
+             }if(use=="" || use == "借款用途"){
+                   $('.error-tip').text('提示：请选择正确借款用途');
+                   return false;
              }else if($('input[type="checkbox"]').prop('checked')== false){
                  $('.error-tip').text('提示：请确认已阅读用户协议');
                  return false;
@@ -253,8 +257,7 @@
          	 var name=$.trim($('input[name="name"]').val());
          	 var send_type=$.trim($('input[name="send_type"]').val());
          	 var rate=parseInt($('#annual_rate_dummy').val().split('%')[0]);
-              console.log(rate);
-              console.log("dd");
+             
          	 var use=$.trim($('#usage_loan_dummy').val());
          	 var end=$.trim($('input[name="repayment_date"]').val());
              var psw=$.trim($('.promit-input').val());
