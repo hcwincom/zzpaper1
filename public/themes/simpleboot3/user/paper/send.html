@@ -237,13 +237,11 @@
              }if(use=="" || use == "借款用途"){
                    $('.error-tip').text('提示：请选择正确借款用途');
                    return false;
-             }else if($('input[type="checkbox"]').prop('checked')== false){
+             }  else if($('input[type="checkbox"]').prop('checked')== false){
                  $('.error-tip').text('提示：请确认已阅读用户协议');
                  return false;
              }
-             var rate = parseInt($('#annual_rate_dummy').val().split('%')[0]);
-             console.log(rate);
-             console.log("dd");
+            
              $('.pop_up .promit-html').text('你确定要发起借条吗？');
              $('.error-tip').text(''); 
              $('.pop_up').show(); 
