@@ -212,10 +212,9 @@ $(function(){
             }
         });
 
-
-        $(".search_con_ulLi").on("click", function () {
-            $(this).toggleClass("on");
-        });
+    $(".search_con_ulLi").click(function () {
+        $(".ul_2nd").toggle();
+    });
 })
 
 

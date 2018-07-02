@@ -41,7 +41,7 @@
                             <div class='search_con_ul_div'>
                                 <dl>
                                     <dd>
-                                        <img src="{:cmf_get_image_url($vo.avatar)}" alt="头像">
+                                        <a href="javascript:void(0);">{$vo.lender_name}</a>  
                                     </dd>
                                     <dd class='paper_money'><span>{$vo.money}</span></dd>
                                     <dd class='paper_color{$vo.status}'>
@@ -57,7 +57,7 @@
                             </div>
                             <ol class="ul_2nd">
                                 <li>
-                                    <a href="javascript:void(0);">{$vo.lender_name}</a>
+                                    <img src="{:cmf_get_image_url($vo.avatar)}" alt="头像">
                                 </li>
                                 <li><a href="{:url('user/info/paper',['oid'=>$vo.oid])}">查看详情</a></li>
                                 <li><a href="{:url('user/info/protocol',['oid'=>$vo.oid])}">查看协议</a></li>
@@ -68,8 +68,8 @@
                         <li class="search_con_ulLi">
                             <div class='search_con_ul_div'>
                                 <dl>
-                                    <dd>
-                                        <img src="{:cmf_get_image_url($vo.avatar)}" alt="头像">
+                                    <dd>  
+                                        <a href="javascript:void(0);">{$vo.lender_name}</a>
                                     </dd>
                                     <dd class='paper_money'><span>{$vo.money}</span></dd>
                                     <dd class='paper_color6'> 
@@ -82,7 +82,7 @@
                                 </dl>
                             </div>
                             <ol class="ul_2nd">
-                                <li><a href="javascript:void(0);">{$vo.lender_name}</a></li>
+                                <li><img src="{:cmf_get_image_url($vo.avatar)}" alt="头像"></li>
                                 <li><a href="{:url('user/info/paper_old',['oid'=>$vo.oid])}">查看详情</a></li>
                                 <li><a href="{:url('user/info/protocol',['oid'=>$vo.oid])}">查看协议</a></li>
                             </ol>
@@ -99,7 +99,6 @@
   <include file="public@foot" /> 
   
     <script>
-
         hasFixedTop();
         function hasFixedTop(){
             var winHei = $(window).height();
@@ -112,6 +111,6 @@
            
             $('.search_con_ul').css('height',winHei - perHeadHei - daiKuanHei - seachDivHei - seachDivMT -seachDivMB - seachLi)
         }
-      
+     
     </script>
  

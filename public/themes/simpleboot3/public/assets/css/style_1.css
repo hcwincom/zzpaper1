@@ -773,6 +773,7 @@
 }
 .box-right input{
     text-align:right;
+    background: none;
 }
 .box-con-danwei{
     position:relative;
@@ -798,7 +799,23 @@ input[type='hidden']{
 }
 
 
-/* 下拉固定内容 */
+ /* 下拉固定内容 */
+.mbsc-ios .dwbc .dwb{
+	height: 2em;
+    line-height: 2em;
+    display: inline-block;
+    color: #333;
+    font-size: 1.2em;
+	}
+	.mbsc-ios .dwbc .dwb-c{display: none;}
+	.mbsc-ios .dwbc .dwb-s .dwb{font-weight: 300;}
+	.dw-i{font-size: 18px;text-align: center;}
+   
+
+    .dw-bf .dw-sel .dw-i{font-weight: bold;font-size: 28px;color: #000000}
+
+
+/*
 .drop_down{
     position:fixed;
     bottom:0;
@@ -841,8 +858,8 @@ input[type='hidden']{
     line-height: 2rem;
 }
 .drop_down_list{
-    /* position:relative;
-    width:100%; */
+     position:relative;
+    width:100%; 
     display: -webkit-box;
 	height: 14rem;
 	-webkit-box-align: center;
@@ -851,9 +868,9 @@ input[type='hidden']{
     background-color:rgba(170,170,170,1); 
 }
 .drop_down ul{
-    /* max-height:240px;
+     max-height:240px;
     overflow-y:auto;
-    -webkit-overflow-scrolling:touch; */
+    -webkit-overflow-scrolling:touch; 
 	margin: 0;
 	white-space: nowrap;
     text-overflow: ellipsis;  
@@ -875,7 +892,7 @@ input[type='hidden']{
     color: #000;
     font-weight: 600;
     font-size: 16px;
-}
+} */
 .checkbox-label{
     position:relative;
 }
@@ -989,11 +1006,9 @@ search_con_ul_div dl{
 .search_con>.search_con_ul_div>dl>dd{
     padding-bottom: 0.4rem;
 }
-.search_con_ul_div dd img{
-    width: 2.2rem;
-    height: 2.2rem;
-    border-radius: 50%;
-    vertical-align: middle;
+.search_con_ul_div dd a{
+
+    
 }
 .search_con_ul_div dd.paper_money{
     font-size: 16px;
@@ -1008,17 +1023,13 @@ search_con_ul_div dl{
     border: 1px solid #999;
     border-top: none;
     border-radius: 0.8rem;
-    height: 54px;   
-    overflow: hidden;
 }
-.search_con_ulLi.on{
-    height: auto;
-}
+
 .search_con_ul>li:nth-child(1){
     border-top: 1px solid #999;
 }
 .search_con_ul dd{
-    line-height: 3.2rem;
+    line-height: 2.4rem;
     color:#999;
     font-size:13px;
 }
@@ -1057,12 +1068,20 @@ search_con_ul_div dl{
 /* 平分两部分 */
 .ul_2nd {
     width:100%;
-    display: block;
+    display: none;
 }
 .ul_2nd li{
     text-align:center;
-    line-height: 2.6rem;
+    line-height: 1rem;
     display: inline-block;
+}
+.ul_2nd li img{
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    vertical-align: middle;
+    margin-bottom: 0.05rem;
+    
 }
 .search_con_ulLi>.ul_2nd>li:nth-child(1){
     width: 25%;

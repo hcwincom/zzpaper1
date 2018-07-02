@@ -1,4 +1,5 @@
 <include file="public@head" />
+<link rel="stylesheet" href="__TMPL__/public/assets/css/mobiscroll.custom.min.css">
 </head>
 <body>
     <section class='main'>
@@ -18,12 +19,46 @@
                 </li>
                 <li class="box-li padding-all">
                     <div class='box-tit'>年化率</div>
-                    <div class='box-con'><span class='drop_down_btn' id='drop_down_btn1'>0%</span>    <input type="hidden" name='annual_rate' value='0%'></div>
+                    <div class='box-con'>
+                        <!-- <span class='drop_down_btn' id='drop_down_btn1'>0%</span>    
+                        <input type="hidden" name='annual_rate' value='0%'> -->
+                        <select name="" id="annual_rate">
+                            <option value="0">0%</option>
+                            <option value="1">1%</option>
+                            <option value="2">2%</option>
+                            <option value="3">3%</option>
+                            <option value="4">4%</option>
+                            <option value="5">5%</option>
+                            <option value="6">6%</option>
+                            <option value="7">7%</option>
+                            <option value="8">8%</option>
+                            <option value="9">9%</option>
+                            <option value="10">10%</option>
+                            <option value="11">11%</option>
+                            <option value="12">12%</option>
+                            <option value="13">13%</option>
+                            <option value="14">14%</option>
+                        </select>
+                    </div>
                 </li>
                 
                 <li class="box-li padding-all">
                     <div class='box-tit'>借款用途：</div>
-                    <div class='box-con'><span class='drop_down_btn' id='drop_down_btn2'>借款用途</span> <input type="hidden" name='usage_loan' value='借款用途'></div>
+                    <div class='box-con'>
+                        <!-- <span class='drop_down_btn' id='drop_down_btn2'>借款用途</span>  -->
+                        <!-- <input type="hidden" name='usage_loan' value='借款用途'> -->
+                        <select name="" id="usage_loan">
+                            <option value="0">借款用途</option>
+                            <option value="1">治病</option>
+                            <option value="2">租房</option>
+                            <option value="3">买房</option>
+                            <option value="4">买车</option>
+                            <option value="5">日用百货</option>
+                            <option value="6">手机数码</option>
+                            <option value="7">其他</option>
+                        </select>
+
+                    </div>
                 </li>
                 <li class="box-li padding-all box-li-long">
                     <div class='box-tit'>对方姓名(<eq name="send_type" value="1">借款人<else/>出借人</eq>)：</div>
@@ -60,10 +95,10 @@
     </section>
     
      <!-- 年利率，借款用途点击出现的下拉框 -->
-    <div class="drop_down drop_down1" style="display:none;transform: translateY(0px);">
+    <!-- <div class="drop_down drop_down1" style="display:none;transform: translateY(0px);">
         <p class='drop_down_head'><a class='confirm-btn red'>确定</a></p>
         <div class="drop_down_list">
-            <!-- <p class='fixed_li'></p> -->
+             <p class='fixed_li'></p>
             <div class="drop_down_menu">
                 <ul>
                     <foreach name="$Think.config.rate" item="vo">
@@ -73,12 +108,12 @@
             </div>
            
         </div>  
-    </div>    
-    <!-- 买车，借款用途点击出现的下拉框 -->
-     <div class="drop_down drop_down2" style="display:none;transform: translateY(0px);">
+    </div>     -->
+   <!-- // 买车，借款用途点击出现的下拉框  -->
+     <!-- <div class="drop_down drop_down2" style="display:none;transform: translateY(0px);">
         <p class='drop_down_head'><a class='confirm-btn red'>确定</a></p>
         <div class="drop_down_list">
-            <!-- <p class='fixed_li'></p> -->
+             <p class='fixed_li'></p>
             <div class="drop_down_menu">
                 <ul>
                     <foreach name="$Think.config.use" item="vo">
@@ -88,13 +123,32 @@
             </div>
            
         </div>  
-    </div>  
+    </div>   -->
 
 
 <include file="public@foot" />
    
     <script type="text/javascript" src="__TMPL__/public/assets/js/laydate/laydate.js"></script>
- 
+    <script type="text/javascript" src="__TMPL__/public/assets/js/mobiscroll.custom.min.js"></script>
+    <script>
+         // 利率选择
+            var theme = "ios";
+            var mode = "scroller";
+            var display = "bottom";
+            var lang = "zh";
+            $("#annual_rate").mobiscroll().select({
+                theme:theme,
+                mode: mode,
+                display:display,
+                lang:lang
+            });
+             $("#usage_loan").mobiscroll().select({
+                    theme: theme,
+                    mode: mode,
+                    display: display,
+                    lang: lang
+                });
+    </script>
     <script>
     // //借款用户和利率初始化
     // var rate1=$('.drop_down1 ul li').eq(0).text();
@@ -129,37 +183,38 @@
          });
  
      
-         $('.drop_down_btn').click(function(){
-             var showClass=$(this).attr('id').split('_btn')[0]+$(this).attr('id').split('_btn')[1];
+        //  $('.drop_down_btn').click(function(){
+        //      var showClass=$(this).attr('id').split('_btn')[0]+$(this).attr('id').split('_btn')[1];
 
-             var showId=$(this).attr('id');
+        //      var showId=$(this).attr('id');
 
-             $('.drop_down').hide();
+        //      $('.drop_down').hide();
 
-             $('.'+showClass).show();
+        //      $('.'+showClass).show();
 
-             var _self=$(this);
-            $('.' + showClass).find("li").eq(0).addClass("on");
-                var height =  $('.' + showClass).find("li").height();
+        //      var _self=$(this);
+        //     $('.' + showClass).find("li").eq(0).addClass("on");
+        //         var height =  $('.' + showClass).find("li").height();
 
-             $('.'+ showClass).find('li').click(function(){
-                 var index = $(this).index();
-                 $(this).addClass("on").siblings().removeClass("on");
-                 $(this).parent().css({
-                    "transform": "translate3d(0px, " + (-height * index) + "px, 0px)"
-                 });
-                 $('.'+ showClass).find('.on').html($(this).html())
-             });
+        //      $('.'+ showClass).find('li').click(function(){
+        //          var index = $(this).index();
+        //          $(this).addClass("on").siblings().removeClass("on");
+        //          $(this).parent().css({
+        //             "transform": "translate3d(0px, " + (-height * index) + "px, 0px)"
+        //          });
+        //          $('.'+ showClass).find('.on').html($(this).html())
+        //      });
 
-             $('.'+ showClass).find('.confirm-btn').click(function(){
+        //      $('.'+ showClass).find('.confirm-btn').click(function(){
 
-                 var fixed_li= $('.'+ showClass).find('.on').html();  
-                 $('#'+showId).html(fixed_li); 
-                 $('#'+showId).siblings('input[type="hidden"]').val(fixed_li);
+        //          var fixed_li= $('.'+ showClass).find('.on').html();  
+        //          $('#'+showId).html(fixed_li); 
+        //          $('#'+showId).siblings('input[type="hidden"]').val(fixed_li);
 
-                 $(this).parents('.drop_down').hide();
-             });
-         });
+        //          $(this).parents('.drop_down').hide();
+        //      });
+        //  });
+
 
          // 阅读选中
          $('.checkbox-label').click(function(){
@@ -182,19 +237,25 @@
                  $('.error-tip').text('提示：请确认已阅读用户协议');
                  return false;
              }
+             var rate = parseInt($('#annual_rate_dummy').val().split('%')[0]);
+             console.log(rate);
+             console.log("dd");
              $('.pop_up .promit-html').text('你确定要发起借条吗？');
              $('.error-tip').text(''); 
              $('.pop_up').show(); 
              return false;
          }
+
          // 输入密码，确定
          $('.sure-btn-2').click(function(){
          	  
          	 var money=$.trim($('input[name="borrowing_balance"]').val());
          	 var name=$.trim($('input[name="name"]').val());
          	 var send_type=$.trim($('input[name="send_type"]').val());
-         	 var rate=parseInt($('input[name="annual_rate"]').val().split('%')[0]);
-         	 var use=$.trim($('input[name="usage_loan"]').val());
+         	 var rate=parseInt($('#annual_rate_dummy').val().split('%')[0]);
+              console.log(rate);
+              console.log("dd");
+         	 var use=$.trim($('#usage_loan_dummy').val());
          	 var end=$.trim($('input[name="repayment_date"]').val());
              var psw=$.trim($('.promit-input').val());
              
