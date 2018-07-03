@@ -276,11 +276,12 @@ class PaperController extends UserBaseController
             date('Y-m-d',$data['end_time']),
             '点击进入'
         ];
-        
-        $res=zz_wxmsg($user1['openid'], url('user/index/index','',true,true), $data, $type);
-        if($res['errcode']!=0){
+       
+        $res=zz_wxmsg($user1['openid'], url('user/index/index','',true,true), $data, $type); 
+        if($res['errcode']!=0){ 
             zz_log($first.'-信息发送失败'.$res['errcode'].'-'.$res['errmsg'],'wx.log');
         } 
+       
         $this->success('借条已经提交',url('user/paper/qrshow',['id'=>$rid]));
         
     }

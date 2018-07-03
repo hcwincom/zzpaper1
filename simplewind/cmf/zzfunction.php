@@ -89,7 +89,7 @@ function zz_curl($url, $data = null)
 }
 function zz_wxmsg($openid,$url0,$data,$type){
     if(empty($openid)){
-        return ['errorcode'=>1,'errmsg'=>'openid为空','msgid'=>0]; 
+        return ['errcode'=>1,'errmsg'=>'openid为空','msgid'=>0]; 
     }
     $token=config('access_token');
     $url = 'https://api.weixin.qq.com/cgi-bin/message/template/send?access_token='.$token;
@@ -159,7 +159,7 @@ function zz_wxmsg($openid,$url0,$data,$type){
             }
         }';
     }else{
-        return ['errorcode'=>1,'errmsg'=>'参数错误','msgid'=>0]; 
+        return ['errcode'=>1,'errmsg'=>'参数错误','msgid'=>0]; 
     } 
     $res=zz_curl($url,$json);
     return $res;
