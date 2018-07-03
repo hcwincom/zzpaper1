@@ -186,9 +186,9 @@
          $('.back-alert').click(function(){
         	 $('.error-tip').text('提示'); 
         	 if(back=='0'){
-        		 $('.pop_up1 .promit-html').text('你确定要申请还款吗？应还'+{$paper.final_money}+'元');
+        		 $('.pop_up1 .promit-html').text('你确定要申请还款吗？应还'+final_money+'元');
         	 }else{
-        		 $('.pop_up1 .promit-html').text('你确定对方已还款吗？对方应还'+{$paper.final_money}+'元');
+        		 $('.pop_up1 .promit-html').text('你确定对方已还款吗？对方应还'+final_money+'元');
         	 }
         	 click=0;
             $('.pop_up').hide();

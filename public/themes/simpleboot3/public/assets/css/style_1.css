@@ -1006,10 +1006,7 @@ search_con_ul_div dl{
 .search_con>.search_con_ul_div>dl>dd{
     padding-bottom: 0.4rem;
 }
-.search_con_ul_div dd a{
 
-    
-}
 .search_con_ul_div dd.paper_money{
     font-size: 16px;
     font-weight: 400;
@@ -1167,6 +1164,9 @@ search_con_ul_div dl{
 @media screen and (max-width:350px) and (min-width:280px){
     
     .box-li-long>.box-con>input[name="name"]{
+        width: 150px;
+    }
+    .box-con>input[name="identity_name"]{
         width: 150px;
     }
 }
