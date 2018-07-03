@@ -23,21 +23,9 @@
                         <!-- <span class='drop_down_btn' id='drop_down_btn1'>0%</span>    
                         <input type="hidden" name='annual_rate' value='0%'> -->
                         <select name="" id="annual_rate">
-                            <option value="0">0%</option>
-                            <option value="1">1%</option>
-                            <option value="2">2%</option>
-                            <option value="3">3%</option>
-                            <option value="4">4%</option>
-                            <option value="5">5%</option>
-                            <option value="6">6%</option>
-                            <option value="7">7%</option>
-                            <option value="8">8%</option>
-                            <option value="9">9%</option>
-                            <option value="10">10%</option>
-                            <option value="11">11%</option>
-                            <option value="12">12%</option>
-                            <option value="13">13%</option>
-                            <option value="14">14%</option>
+                        <foreach name="$Think.config.rate" item="vo"> 
+	                          <option value="{$vo}">{$vo}%</option>
+	                    </foreach> 
                         </select>
                     </div>
                 </li>
@@ -48,14 +36,10 @@
                         <!-- <span class='drop_down_btn' id='drop_down_btn2'>借款用途</span>  -->
                         <!-- <input type="hidden" name='usage_loan' value='借款用途'> -->
                         <select name="" id="usage_loan">
-                            <option value="0">借款用途</option>
-                            <option value="1">治病</option>
-                            <option value="2">租房</option>
-                            <option value="3">买房</option>
-                            <option value="4">买车</option>
-                            <option value="5">日用百货</option>
-                            <option value="6">手机数码</option>
-                            <option value="7">其他</option>
+                         <foreach name="$Think.config.use" item="vo"> 
+	                          <option value="{$vo}">{$vo}</option>
+	                     </foreach>
+                           
                         </select>
 
                     </div>
@@ -265,6 +249,7 @@
                 $('.pop_up .error-tip').text('请输入6位数字密码'); 
                 return false;
             }
+          
             psw_hide();
              
              //ajax提交
@@ -274,6 +259,7 @@
                  dataType: 'json',
                  data:{'psw':psw,'money':money,'name':name,'send_type':send_type,'rate':rate,'use':use,'end':end},
                  success: function(data){
+                	 
                  	$('.error-tip').text(data.msg); 
                  	if(data.url!=''){
                  	   location.href=data.url; 
