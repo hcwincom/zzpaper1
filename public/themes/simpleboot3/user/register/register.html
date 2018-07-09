@@ -92,7 +92,7 @@ function send_msg(tel){
 }
 
 $('#custorm_dates').submit(function(){ 
-	var check=formValidate($(this).parents('form')[0]);
+    var check=formValidate();
 	if(check==false){
 		return false;
 	}

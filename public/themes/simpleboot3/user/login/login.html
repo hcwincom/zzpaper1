@@ -34,7 +34,7 @@
  <include file="public@foot" />
  <script>
 $('#zzlogin').submit(function(){
-    var check = formLogin($(this).parents('form')[0]);
+    var check = formLogin();
     	if (check == false) {
             return false;
         }

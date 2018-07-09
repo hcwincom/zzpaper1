@@ -34,7 +34,7 @@
             </ul>
             
             <div class="btn-red  btn-middle border-radius-10 ">
-                <button type="submit" id="btnsubm"/>查询</button>
+                <button type="submit"/>查询</button>
             </div>
         </form>
      
@@ -45,10 +45,15 @@
 $('a.btn-red').click(function(){ 
 	$('.error-tip1').text('');
    var num = $.trim($('input[name="identity_num"]').val());
+    var code = $.trim($('input[name=sms]').val());
    if(num == "" || isCardNo(num) == false){
        $('.error-tip').text('提示：请输入正确的身份证号码');
        return false;
-   }
+   } else if (code == "" || isSms(code) == false) {
+        $('input[name="sms"]').focus();
+        $('.error-tip1').html('提示：请输入正确验证码');
+        return false;
+    } 
 	$.ajax({
         type: 'POST',
         url: "{:url('user/register/msg_check')}",
@@ -73,25 +78,25 @@ $('a.btn-red').click(function(){
     });
 });
  
-$("#btnsubm").click(function () {
-    formIdentity(form);
-});
+// $("#btnsubm").click(function () {
+//     formIdentity(form);
+// });
 
 
 
-// 查信用 
-function formIdentity(form){
-    var num = $.trim($('input[name="identity_num"]').val());
-    var code = $.trim($('input[name=sms]').val());
-    if (num == "" || isCardNo(num) == false) {
-        $('.error-tip').text('提示：请输入正确的身份证号码');
-        return false;
-    } else if (code == "" || isSms(code) == false) {
-        $('input[name="sms"]').focus();
-        $('.error-tip1').html('提示：请输入正确验证码');
-        return false;
-    } 
-}
+// // 查信用 
+// function formIdentity(form){
+//     var num = $.trim($('input[name="identity_num"]').val());
+//     var code = $.trim($('input[name=sms]').val());
+//     if (num == "" || isCardNo(num) == false) {
+//         $('.error-tip').text('提示：请输入正确的身份证号码');
+//         return false;
+//     } else if (code == "" || isSms(code) == false) {
+//         $('input[name="sms"]').focus();
+//         $('.error-tip1').html('提示：请输入正确验证码');
+//         return false;
+//     } 
+// }
 
 
 </script>

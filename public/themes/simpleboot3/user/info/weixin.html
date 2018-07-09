@@ -19,48 +19,46 @@
                 <p class='error-tip box-p red'></p>
             </ul>
             <div class="btn-red  btn-middle border-radius-10 ">
-                <button type="submit" onClick="return formQq(this.form);" class='border-radius-10' id="btnsub"/>确认修改</button>
+                <button type="button" class='border-radius-10' id="btnsub"/>确认修改</button>
             </div>
         </form>
     </section>
      <include file="public@user_foot"/>
   <script>
+        //   验证QQ
+        
       $("#btnsub").click(function () {
-          formQq(form);
+        var weixin = $.trim($('input[name="weixin"]').val());
+          var psw = $.trim($('input[name="password"]').val());
+          if (weixin == '') {
+              $('input[name="weixin"]').focus();
+              $('.error-tip').html('提示：请输入微信号');
+              return false;
+          } else if (psw == '' || isPassword(psw) == false) {
+              $('input[name="password"]').focus();
+              $('.error-tip').html('提示：请输入6位数字密码');
+              return false;
+          }
+          //ajax提交
+          $.ajax({
+              type: 'POST',
+              url: "{:url('user/info/ajax_weixin')}",
+              dataType: 'json',
+              data: { 'psw': psw, 'weixin': weixin },
+              success: function (data) {
+                  $('.error-tip').text(data.msg);
+                  if (data.url != '') {
+                      location.href = data.url;
+                  }
+              },
+              error: function (xhr, type) {
+                  $('.error_tip').text('服务器连接失败');
+
+              }
+          });
           return false;
       });
-    //   验证QQ
-    function formQq(form){
-    	var weixin=$.trim($('input[name="weixin"]').val());
-    	var psw=$.trim($('input[name="password"]').val());
-        if(weixin == '' ){
-            $('input[name="weixin"]').focus();
-            $('.error-tip').html('提示：请输入微信号');
-            return false;
-        }else  if(psw== '' || isPassword(psw) == false){
-            $('input[name="password"]').focus();
-            $('.error-tip').html('提示：请输入6位数字密码');
-            return false;
-        }
-      //ajax提交
-        $.ajax({
-            type: 'POST',
-            url: "{:url('user/info/ajax_weixin')}",
-            dataType: 'json',
-            data:{'psw':psw,'weixin':weixin},
-            success: function(data){
-            	$('.error-tip').text(data.msg);
-            	if(data.url!=''){
-            		location.href=data.url;
-            	} 
-            },
-            error: function(xhr, type){
-            	$('.error_tip').text('服务器连接失败'); 
-            	 
-            }
-        });
-        return false;
-    }
+  
     
   </script>
  
