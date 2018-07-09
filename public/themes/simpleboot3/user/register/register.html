@@ -52,7 +52,7 @@
             </ul>
             
             <div class="btn-red  btn-big">
-                <button type="submit" for="custorm_dates" onClick="return formValidate(this.form);"/>提交</button>
+                <button type="submit" for="custorm_dates"/>提交</button>
             </div>
         </form>
     </section>
@@ -92,6 +92,10 @@ function send_msg(tel){
 }
 
 $('#custorm_dates').submit(function(){ 
+	var check=formValidate($(this).parents('form')[0]);
+	if(check==false){
+		return false;
+	}
 	var username=$.trim($('input[name=identity_name]').val());
 	var idcard=$.trim($('input[name=identity_num]').val());
 	var password=$.trim($('input[name=password]').val());
