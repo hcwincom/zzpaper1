@@ -67,7 +67,7 @@
             
             <div class="btn-red  btn-big">
             	<input type="hidden" name="send_type" value="{$send_type}"/>
-                <button type="submit" onClick="return formloan(this.form);"/>提交</button>
+                <button type="button" class="btnsub"/>提交</button>
             </div>
         </form>
 
@@ -77,37 +77,7 @@
         
         <include file="public@psw" />   
     </section>
-    
-     <!-- 年利率，借款用途点击出现的下拉框 -->
-    <!-- <div class="drop_down drop_down1" style="display:none;transform: translateY(0px);">
-        <p class='drop_down_head'><a class='confirm-btn red'>确定</a></p>
-        <div class="drop_down_list">
-             <p class='fixed_li'></p>
-            <div class="drop_down_menu">
-                <ul>
-                    <foreach name="$Think.config.rate" item="vo">
-                        <li>{$vo}%</li>
-                    </foreach>
-                </ul>
-            </div>
-           
-        </div>  
-    </div>     -->
-   <!-- // 买车，借款用途点击出现的下拉框  -->
-     <!-- <div class="drop_down drop_down2" style="display:none;transform: translateY(0px);">
-        <p class='drop_down_head'><a class='confirm-btn red'>确定</a></p>
-        <div class="drop_down_list">
-             <p class='fixed_li'></p>
-            <div class="drop_down_menu">
-                <ul>
-                    <foreach name="$Think.config.use" item="vo">
-                        <li>{$vo}</li>
-                    </foreach>
-                </ul>
-            </div>
-           
-        </div>  
-    </div>   -->
+   
 
 
 <include file="public@foot" />
@@ -134,12 +104,10 @@
                 });
     </script>
     <script>
-    // //借款用户和利率初始化
-    // var rate1=$('.drop_down1 ul li').eq(0).text();
-    // console.log(rate1);
-    // var use1=$('.drop_down2 ul li').eq(0).text();
-    // $('.drop_down1 .fixed_li').text(rate1);
-    // $('.drop_down2 .fixed_li').text(use1);
+   $(".btnsub").click(function () {
+       formloan(form);
+       return false;
+   });
  // 日期
  	var click=0;
  		//获取当前时间，格式YYYY-MM-DD

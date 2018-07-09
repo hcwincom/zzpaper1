@@ -19,13 +19,16 @@
                 <p class='error-tip box-p red'></p>
             </ul>
             <div class="btn-red  btn-middle border-radius-10 ">
-                <button type="submit" onClick="return formQq(this.form);" class='border-radius-10'/>确认修改</button>
+                <button type="submit" onClick="return formQq(this.form);" class='border-radius-10' id="btnsub"/>确认修改</button>
             </div>
         </form>
     </section>
      <include file="public@user_foot"/>
   <script>
-
+      $("#btnsub").click(function () {
+          formQq(form);
+          return false;
+      });
     //   验证QQ
     function formQq(form){
     	var weixin=$.trim($('input[name="weixin"]').val());

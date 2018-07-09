@@ -109,6 +109,7 @@ function formValidate(form){
             $('.error-tip').html('提示：请输入正确手机号');
             return false;
         }
+    return true;
 }
 
     // 登录表单提交
@@ -126,7 +127,11 @@ function formLogin(){
         $('.error-tip').html('提示：请输入正确验证码');
         return false;
     }
+    return true;
 }
+$(".btnsubmit").click(function () {
+    formLogin();
+});
 
     // 失去焦点
 $(function(){
@@ -135,9 +140,11 @@ $(function(){
             if($.trim($('input[name="identity_name"]').val()) == '' || isChinaName($('input[name="identity_name"]').val()) == false){
       
                 $('.error-tip').html('提示：请输入正确的用户名');
+                return false;
           
             }else{
                 $('.error-tip').html('');
+                return true;
             }
 
         })
@@ -145,9 +152,10 @@ $(function(){
             if($.trim($('input[name="identity_num"]').val()) == '' || isCardNo($('input[name="identity_num"]').val()) == false){
            
                 $('.error-tip').html('提示：请输入正确的身份证号码');
-      
+                return false;
             }else{
                 $('.error-tip').html('');
+                return true;
             }
         })
 
@@ -155,9 +163,11 @@ $(function(){
             if($.trim($('input[name="password"]').val()) == '' || isPassword($('input[name="password"]').val()) == false){
            
                 $('.error-tip').html('提示：请输入6位数字密码');
+                return false;
     
             }else{
                 $('.error-tip').html('');
+                return true;
             }
         })
 
@@ -165,9 +175,11 @@ $(function(){
             if($.trim($('input[name="password_repeat"]').val()) == '' || isPassword($('input[name="password_repeat"]').val()) == false){
                
                 $('.error-tip').html('提示：两次密码不一致');
+                return false;
       
             }else{
                 $('.error-tip').html('');
+                return true;
             }
         })
 
@@ -175,9 +187,11 @@ $(function(){
             if($.trim($('input[name="qq"]').val()) == '' || isQq($('input[name="qq"]').val()) == false){
          
                 $('.error-tip').html('提示：请输入正确QQ号');
+                return false;
           
             }else{
                 $('.error-tip').html('');
+                return true;
             }
         })
 
@@ -185,9 +199,11 @@ $(function(){
             if($.trim($('input[name="tel"]').val()) == '' || isPhoneNo($('input[name="tel"]').val()) == false){
              
                 $('.error-tip').html('提示：请输入正确手机号');
+                return false;
             
             }else{
                 $('.error-tip').html('');
+                return true;
             }
         })
 
@@ -195,10 +211,12 @@ $(function(){
             if($.trim($('input[name="borrowing_balance"]').val())=='' || isMoney($.trim($('input[name="borrowing_balance"]').val()))=='false'){
 
                 $('.error-tip ').html('提示：请输入正确金额');
+                return false;
 
             }else{
 
                 $('.error-tip').html('');
+                return true;
 
             }
         })
@@ -207,8 +225,10 @@ $(function(){
             if($.trim($('input[name="new_tel"]').val()) == '' ||   $.trim($('input[name="new_tel"]').val()) == $.trim($('input[name="tel"]').val())  ||  isPhoneNo($('input[name="new_tel"]').val()) == false){
        
                 $('.error-tip').html('提示：请输入和原手机不同的手机号码');
-                
                 return false;
+            }else{
+                $(".errop-tip").html("");
+                return true;
             }
         });
         $(".search_con_ulLi").click(function () {

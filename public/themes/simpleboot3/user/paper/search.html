@@ -34,7 +34,7 @@
             </ul>
             
             <div class="btn-red  btn-middle border-radius-10 ">
-                <button type="submit" onClick="return formIdentity(this.form);"/>查询</button>
+                <button type="submit" id="btnsubm"/>查询</button>
             </div>
         </form>
      
@@ -73,6 +73,12 @@ $('a.btn-red').click(function(){
     });
 });
  
+$("#btnsubm").click(function () {
+    formIdentity(form);
+});
+
+
+
 // 查信用 
 function formIdentity(form){
     var num = $.trim($('input[name="identity_num"]').val());

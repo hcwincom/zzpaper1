@@ -19,12 +19,16 @@
                 <p class='error-tip box-p red'></p>
             </ul>
             <div class="btn-red  btn-middle border-radius-10 ">
-                <button type="submit" onClick="return formPassword(this.form);" class='border-radius-10'/>确认修改</button>
+                <button type="button" class='border-radius-10' id="btnSU"/>确认修改</button>
             </div>
         </form>
     </section>
      <include file="public@user_foot"/>    
     <script>
+        $("#btnSU").click(function () {
+            formPassword(form);
+            return false;
+        });
         function formPassword(form){
         	var psw0=$.trim($('input[name="password0"]').val());
         	var psw=$.trim($('input[name="password"]').val());

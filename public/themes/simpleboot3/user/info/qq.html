@@ -19,15 +19,19 @@
                 <p class='error-tip box-p red'></p>
             </ul>
             <div class="btn-red  btn-middle border-radius-10 ">
-                <button type="submit" onClick="return formQq(this.form);" class='border-radius-10'/>确认修改</button>
+                <button type="button" class='border-radius-10' id="btnBor"/>确认修改</button>
             </div>
         </form>
     </section>
      <include file="public@user_foot"/>
   <script>
+      $("#btnBor").click(function () {
+          formQq();
+          return false;
+      });
 
     //   验证QQ
-    function formQq(form){
+    function formQq(){
     	var qq=$.trim($('input[name="qq"]').val());
     	var psw=$.trim($('input[name="password"]').val());
         if(qq == '' || isQq(qq) == false){

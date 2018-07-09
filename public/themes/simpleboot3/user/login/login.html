@@ -27,19 +27,22 @@
             </ul>
             
             <div class="btn-red  btn-middle border-radius-10 ">
-                <button type="submit" onClick="return formLogin(this.form);"/>立即登录</button>
+                <button type="submit" for="zzlogin"/>立即登录</button>
             </div>
         </form>
     </section>
  <include file="public@foot" />
  <script>
 $('#zzlogin').submit(function(){
-	$('.error-tip').text('正在登录'); 
+    var check = formLogin($(this).parents('form')[0]);
+    	if (check == false) {
+            return false;
+        }
 	var password=$.trim($('input[name=password]').val()); 
 	var tel=$.trim($('input[name=tel]').val());
 	var verify=$.trim($('input[name=identifying_code]').val());
 	
-   
+   $('.error-tip').text('正在登录'); 
  $.post("{:url('user/login/ajaxLogin')}",
 		 {'password':password,'captcha':verify,'tel':tel},
 		 function(data){
