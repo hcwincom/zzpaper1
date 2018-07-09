@@ -255,8 +255,7 @@
                  url: "{:url('user/paper/ajax_send')}",
                  dataType: 'json',
                  data:{'psw':psw,'money':money,'name':name,'send_type':send_type,'rate':rate,'use':use,'end':end},
-                 success: function(data){
-                	 
+                 success: function(data){ 
                  	$('.error-tip').text(data.msg); 
                  	if(data.url!=''){
                  	   location.href=data.url; 
@@ -264,7 +263,6 @@
                  },
                  error: function(xhr, type){
                  	$('.error-tip').text('服务器连接失败');  
-                 	 
                  } 
              });
              return false;

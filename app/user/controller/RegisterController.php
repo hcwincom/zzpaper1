@@ -237,6 +237,13 @@ class RegisterController extends HomeBaseController
              
        
     }
+    /**
+     * js未生效
+     */
+    public function noajax()
+    {
+        $this->error('网页js未生效，请刷新或退出重试');
+    }
     /* 下载网络文件到本地 */
     function download($url, $path = '/avatar/1.jpg')
     {
