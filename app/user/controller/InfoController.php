@@ -210,12 +210,7 @@ class InfoController extends UserBaseController
                 }
                 //延期默认为原利率
                 $data['rate']=$info_paper['rate'];
-                /* if(preg_match('/^\d{1,2}$/', $data['rate'])!=1){
-                    $this->error('新利率错误');
-                }
-                if(!in_array($data['rate'], config('rate'))){
-                    $this->error('利率不支持，请参考补借页面的利率');
-                } */
+                
                 break;
             case 'back':
                 $first='申请还款';
@@ -312,7 +307,7 @@ class InfoController extends UserBaseController
             if($res['errcode']!=0){
                 zz_log($first.'-信息发送失败'.$res['errcode'].'-'.$res['errmsg'],'wx.log');
             } 
-            $this->success('申请提交成功,请尽快联系对方确认，否则该申请将在第三日凌晨过期！',url('user/info/paper',['id'=>$info_paper['id']]));
+            $this->success('申请提交成功,请尽快联系对方确认，否则该申请将在第三日凌晨过期！',url('user/info/paper',['oid'=>$info_paper['oid']]));
         }else{
             $this->error('申请提交失败');
         }
