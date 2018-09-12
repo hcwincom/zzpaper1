@@ -119,9 +119,15 @@ class PaperController extends UserBaseController
         //0借款1出借
         $this->assign('send_type',$this->request->param('send_type',0,'intval')); 
         $error='';
-         if(empty(session('user.is_name'))){
-            $error='没有实名认证，补借条'; 
-        } 
+        
+        $user0=Db::name('user')->where('id',session('user.id'))->find();
+        session('user',$user0);
+        if(empty($user0['is_name'])){
+            $error='没有实名认证，不能补借条';
+        }
+        if(empty($user0['is_paper'])){
+            $error='有借条逾期超过3天，暂时不能补借条';
+        }
         $this->assign('error',$error);
         return $this->fetch();
         
