@@ -711,11 +711,8 @@
     color:#d00000;
 }
 .confirm_item{
-    border-top:0.05rem solid #999;
+    border-bottom:0.05rem solid #999;
     position: relative;
-}
-.confirm_item:nth-child(1){
-    border-top: none;
 }
 .cofirm_con{
     width:100%;
