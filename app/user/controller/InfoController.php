@@ -296,7 +296,7 @@ class InfoController extends UserBaseController
                 //判断user1是否有逾期3天
                 if($info_paper['overdue_day']>2){
                     $where_tmp=[
-                        'borrower_id'>['eq',$info_paper['borrower_id']],
+                        'borrower_id'=>['eq',$info_paper['borrower_id']],
                         'overdue_day'=>['gt',2],
                     ];
                     $tmp_paper=$m_paper->where($where_tmp)->find();
