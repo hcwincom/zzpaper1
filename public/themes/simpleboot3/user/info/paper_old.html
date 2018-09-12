@@ -2,12 +2,16 @@
 </head>
 <body>
     <section class=''>
+        <div class="dainfo backg-tblue">
+            <p>还款详情</p>
+            <p>收款详情</p>
+        </div>
         <div class="hasBottomFixed">
             <form action="" id='loan_detail'>
                 <ul class='box form-box box-right main'>
-                    <li class="box-img"> 
+                    <!-- <li class="box-img"> 
                         <img src="{:cmf_get_image_url($paper.avatar)}" alt="{$paper.name}" class="box-conImg">
-                    </li>
+                    </li> -->
                     <li class="box-li padding-all">
                         <div class='box-tit'>借款人姓名：</div>
                         <div class='box-con'><input type="text" value='{$paper.borrower_name}' readonly></div>
@@ -42,10 +46,10 @@
                         <div class='box-tit'>借款用途：</div>
                         <div class='box-con'><span class='drop_down_btn'>{$paper.use}</span> </div>
                     </li>
-                    <li class="box-li padding-all box-li-long">
+                    <!-- <li class="box-li padding-all box-li-long">
                         <div class='box-tit'>借条状态：</div>
                         <div class='box-con'><input type="text" name='identity_name' value='{$paper.status_name}' class='red' readonly></div>
-                    </li>
+                    </li> -->
                     <li class="box-li padding-all">
                         <div class='box-tit '>相关申请<empty name="replys">-无</empty></div>
                     </li>
@@ -97,12 +101,16 @@
                		</case>
                </switch>
                
-           </foreach>
-                    
-                    
+           </foreach>     
                     <!-- 错误提示 -->
                     <p class='red'></p>
                     <!-- <p class='blue-text'>已成功</p> -->
+                </ul>
+
+                <ul class="bottom-flexed">
+                    <li style="width:100%;">
+                       <a href="javascript:void(0);">已还款</a>
+                    </li>
                 </ul>
            
             </form>

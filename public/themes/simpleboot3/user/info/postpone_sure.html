@@ -1,0 +1,70 @@
+<include file="public@head" />
+</head>
+
+<body class="backg-whiteb">
+    <section>
+        <form action="" method="POST">
+            <div class="affirm_title backg-tblue">
+                <p></p>
+                <p class="affirm_money">
+                   申请延期
+                </p>
+            </div>
+            <div class="affirm_main">
+                <div class="affirm_input">
+                    <input type="password" placeholder='请输入支付密码' class='promit-input' name="password">
+                </div>
+                <div class="affirm_promit">
+                    <div>
+                        <p>温馨提示：</p>
+                    </div>
+                    <p class="affirm_content">请确认保线下达成借贷合意或已交易完毕，输入密码后借款借款人将收到您的延期申请，等待回复！</p>
+                </div>
+
+                <p class="error-tip red errorTxt"></p>
+                <div class="backg-tblue affirm_btn">
+                    <a href="javascript:void(0);" class='blue-text sure-btn-2'>确认</a>
+                </div>
+               
+            </div>
+
+        </form>
+
+
+    </section>
+
+    <include file="public@foot" />
+    <script>
+        var oid = "{$oid}";
+        var day = "{$day}";   
+        $(".sure-btn-2").click(function () {
+            var psw = $.trim($('.affirm_input input[name="password"]').val());
+            if (!isPassword(psw)) {
+                $('.error-tip').text('请输入6位数字密码');
+                return false;
+            }
+             $.ajax({
+                type: 'POST',
+                url: "{:url('user/info/ajax_reply')}",
+                dataType: 'json',
+                data: { 'oid': oid,'psw':psw,'day':day,'type': 'delay'},
+                success: function (data) {
+                    if (!data.code == 1) {
+                        $('.error-tip').text(data.msg);
+                    }
+                    if (data.url != '') {
+                        setTimeout(function () {
+                            location.href = data.url;
+                        }, 2000);
+                    }
+
+                },
+
+                error: function (event, XMLHttpRequest, ajaxOptions, thrownError) {
+                    $('.error-tip').text(服务器连接失败);
+                    // msg('服务器连接失败', event.responseText);
+                }
+            });
+            return false;
+        });
+    </script>

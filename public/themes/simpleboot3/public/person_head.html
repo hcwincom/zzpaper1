@@ -1,12 +1,15 @@
 <div class="person_head  backg-blue">
     <div class="home-btn">
-        <a href="{:url('user/info/index')}"><span class='icon icon-menu'></span></a>
+        <a href="{:url('user/info/index')}"><span class='glyphicon glyphicon-cog'></span>设置</a>
     </div>
     <div class="person_herd_mess">
         <a href="{:url('user/index/index')}">
             <img src="{:cmf_get_image_url($user.avatar)}" alt="头像">
-            <span>{$user.user_nickname}</span>
         </a> 
+        <div>
+            <span>{$user.user_nickname}</span>
+        </div>
+        
     </div>
      
 </div>

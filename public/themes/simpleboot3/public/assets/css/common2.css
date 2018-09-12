@@ -1,0 +1,374 @@
+/***公共样式*/
+@charset 'utf-8';
+body,h1,h2,h3,h4,h5,h6,p,dl,dd,dt,ul,ol,a,div,input,li,img{
+    list-style:none;
+    outline: none;
+    padding:0;
+    margin:0;
+    font-size:14px;
+    text-decoration:none;
+    color: #333;
+}
+a:hover{text-decoration:none}
+a:focus{text-decoration: none}
+
+html,body{font-family:Microsoft YaHei,Segoe UI Light,Segoe UI,"微软雅黑",Tahoma,Arial,Verdana,sans-serif;background-color:#fff;color:#4d4d4d;width:100%;}
+
+textarea,input,button,select,img{border:none;outline:none;}
+input[type=button],input[type=submit],input[type=file],input[type=text],input[type=reset],button{cursor:pointer;-webkit-appearance:none;border-radius:0;-webkit-border-radius:0;-moz-border-radius:0;-ms-border-radius:0;}
+
+.rt{
+    float:right;
+}
+.clearfix:after{
+    content:"";
+    display:block;
+    clear:both;
+}
+html,body{overflow-x:hidden;width: 100%;height: 100%;}
+/* 解决移动端点击出现背景色的问题 */
+*{
+    -webkit-tap-highlight-color:transparent;
+    -moz-tap-highlight-color: transparent;
+}
+img{transform:scale(1) translateZ(0)}
+/*颜色**/
+.btn-red{
+    background-color:#d00000;
+    color:#fff;
+}
+.backg-blue{
+    background-color:#1188ec;
+}
+.backg-gray{
+    background-color:#e5e5e5;
+    color:#666;
+}
+.back-grayx{
+    background-color:#e5e5e5;
+    position: relative;
+}
+.backg-white{
+    background-color:#fff;
+    position: relative;
+}
+.backg-whiteb{
+     background-color:#fff;
+}
+.backg-tblue{
+    background-color: #25a2ff;
+}
+.backg-jblue{
+    background-color: #4268f1;
+}
+.back_tigray{
+    background-color: #f2f2f2;
+}
+.red{
+    color:#d00000 !important;
+}
+.orange{
+    color: orange;
+}
+.blue-text{
+    color:#1db4eb;
+}
+.gray{
+    color:#999 !important;
+}
+.greenColor{
+    color: green;
+}
+.btn-small{
+    font-size:13px;
+    line-height:1;
+    padding:6px;
+}
+
+/* padding */
+.pad-top-1{
+    padding-top:1rem;
+}
+
+.tet-right{
+    text-align:right;
+}
+/* 按钮 */
+.btn-big{
+    width:100%;
+    height:30px;
+    line-height:30px;
+    text-align:center;
+}
+.btn-middle{
+    width:70%;
+    height:30px;
+    line-height:30px;
+    display:block;
+    margin:2rem auto;
+}
+.main{
+    padding:.5rem;
+}
+
+.padding-all{
+    padding:0 .7rem;
+    
+}
+.box-right>.padding-all{
+    border-bottom: 1px solid #ddd;
+    /* border-radius: 0.5rem; */
+    margin: 0.3rem 0;
+}
+/* flex布局 */
+.box-li,.person_head,.group-person-second,.nav-fixed,.pop_up_ul,.content_nav,.bottom-fixed,.ul_2nd,.promit-p,.bottom-flexed,.person_infoindex{
+    display: -webkit-box;   /* OLD - iOS 6-, Safari 3.1-6 */
+    display: -moz-box;  /* OLD - Firefox 19- H5不用考虑 */
+    display: -mz-flexbox; /* TWEENER IE 10 */
+    display: flex; 
+    -ms-flex-align:center;
+    -webkit-box-align:center;
+    box-align:center;
+    -webkit-align-items:center;
+    align-items:center;
+   
+}
+/* .person_head, */
+.person_infoindex,
+.group-person-second,
+.pop_up_ul,.bottom-fixed,.ul_2nd,.promit-p{
+    justify-content:center;
+}
+
+.nav-fixed,.content_nav,.bottom-flexed {
+    justify-content: space-between;
+}
+.group-person-second li,.nav-fixed dl,.bottom-fixed li,.pop_up_ul li,.content_nav li,.cofirm_con li,.cofirm_con_third li,.ul_2nd li{
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+}
+.main{
+    width:100%;
+}
+.box-sizing,.main,.cofirm_con li,.loan_mess,.search_div input,.promit-input,.agreements,.pop_up p{
+    -webkit-box-sizing:border-box;
+    -moz-box-sizing:border-box;
+    -ms-box-sizing:border-box;
+    -o-box-sizing:border-box;
+    box-sizing:border-box;
+}
+.error-tip{
+  transition:all .8s ease-in-out;
+}
+.errorTxt{
+    height: 2.4rem;
+    line-height: 2.4rem;
+}
+.height-37{
+    height:37px;
+    line-height:37px;
+}
+/* 圆角 */
+.border-radius-10{
+    -webkit-border-radius:10px;
+    -moz-border-radius:10px;
+    -ms-border-radius:10px;
+    -o-border-radius:10px;
+    border-radius:10px;
+}
+
+/* 借款用途 */
+.padding-all .purpose_loan{
+    width: 100%;
+}
+.padding-all .purpose_loan ul{
+    padding-bottom: 0.2rem;
+    padding-top: 0.2rem;
+}
+.padding-all .purpose_loan ul li{
+    display: inline-block;
+    width: 32%;
+    text-align: center;
+    height: 2.5rem;
+    line-height: 2.5rem;
+    margin: 0.5rem 0;
+}
+.padding-all .purpose_loan ul li a{
+    display: inline-block;
+    width: 92%;
+    border-radius: 0.5rem;
+    background: #999;
+    color: #fff;
+}
+.padding-all .purpose_loan ul li a.active{
+    background: #25a2ff;
+}
+
+/* 出借人代收页面的文字颜色设置 */
+/* 6已还，5逾期，4待还，3今日到期 */
+.paper_color6{
+    color:green !important;
+   
+}
+.paper_color6 span{
+    display: inline-block;
+    width: 88%;
+    line-height: 1.5rem;
+    /* border: 0.05rem solid green; */
+    border-radius: 0.5rem;
+}
+.paper_color6 div{
+    /* border: 0.05rem solid green; */
+    width: 85%;
+    line-height: 1.5rem;
+    color: green;
+    float: right;
+    text-align: center;
+}
+.paper_color5{
+	color:red !important;
+}
+.paper_color5 span{
+    display:block;
+    width: 88%;
+    line-height: 1.5rem;
+    /* border: 0.05rem solid red; */
+    border-radius: 0.5rem;
+    float: right;
+}
+.paper_color4{
+	color:gray !important;
+}
+.paper_color4 span{
+    display:block;
+    width: 88%;
+    line-height: 1.5rem;
+     float: right;
+    /* border: 0.05rem solid #ddd; */
+    /* border-radius: 0.5rem; */
+}
+.paper_color3{
+    color:#FFD700 !important; 
+    
+}
+
+.paper_color3 span{
+    /* border: 1px solid #FFD700; */
+    display: block;
+    width: 88%;
+    line-height: 1.5rem;
+    border-radius: 0.5rem;
+     float: right;
+}
+.paper_date{
+    position: absolute;
+    top: -.2rem;
+    left: -.2rem;
+    display: inline;
+}
+
+/* 6已还，5逾期，4待还，3今日到期 */
+.bigColorback{
+    color: #00c4fd;
+}
+
+.bigColorsend{
+    color: #d00000;
+}
+/* 代收，还款顶部 */
+.dainfo,.tobe_confirm{
+    width: 100%;
+    height: 5rem;
+    line-height: 5rem;
+    text-align: center;
+}
+.dainfo p,.tobe_confirm p{
+    line-height: 5rem;
+    color: #fff;
+    font-size: 2.5rem;
+    letter-spacing: 0.2rem;
+    font-weight: normal;
+}
+.tobe_confirm{
+    height: 3.5rem;
+    line-height: 3.5rem;
+}
+.tobe_confirm p{
+    line-height: 3.5rem;
+    font-size: 1.8rem;
+}
+/* 确认信息头部 */
+.affirm_title{
+    text-align: center;
+    padding-bottom: 0.5rem;
+}
+.affirm_title p{
+    color: #fff;
+    letter-spacing: 0.05rem;
+    height: 2.4rem;
+    line-height: 2.4rem;
+    font-size: 1.5rem;
+}
+.affirm_title p:nth-child(2){
+    height: 5rem;
+    line-height: 5rem;
+    font-size: 3rem;
+}
+.affirm_main{
+     width: 96%;
+    margin: 0 auto;
+}
+.affirm_input{
+    height: 3rem;
+    line-height: 3rem;
+    margin-top: 1rem;
+}
+.affirm_input>.promit-input{
+    width: 100%;
+   border: 0.01rem solid #25a2ff;
+}
+.affirm_promit div{
+    margin-top: 0.8rem;
+    height: 3.2rem;
+    line-height: 3.2rem;
+    border: 0.01rem solid #e5e5e5;
+    border-left: none;
+    border-right: none;
+}
+.affirm_promit>div>p{
+    font-size: 1.5rem;
+    font-weight: 500;
+    letter-spacing: 0.1rem;
+}
+.affirm_content{
+    font-size:1rem;
+    color: #999;
+   margin-top: 1rem;
+   padding-left: 0.3rem;
+   letter-spacing: 0.02rem;
+}
+.affirm_btn{
+    width: 86%;
+    margin: 0 auto;
+    text-align: center;
+    margin-top: 2rem;
+    height: 3.5rem;
+    line-height: 3.5rem;
+    border-radius: 0.8rem;
+}
+.affirm_btn a{
+    color: #fff;
+    font-size: 1.6rem;
+    letter-spacing: 0.2rem;
+}
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,75 @@
+<include file="public@head" />
+</head>
+<body class="backg-whiteb">
+    <section>
+        <form action="" method="POST">
+           
+            <div class="affirm_title backg-tblue">
+                <p>借款金额</p>
+                <p class="affirm_money">
+                    ￥{$money}元
+                </p>
+            </div>
+            <div class="affirm_main">
+                <div class="affirm_input">
+                    <input type="password" placeholder='请输入支付密码' class='promit-input'>
+                </div>
+                <div class="affirm_promit">
+                    <div>
+                        <p>温馨提示：</p>
+                    </div>
+                    <p class="affirm_content">请确认保线下达成借贷合意后，第一时间将出借信息发送给借款人确认，确认后等待借款人通知</p>
+                </div>
+               
+                
+                <p class="error-tip red errorTxt"></p>
+                <div class="backg-tblue affirm_btn">
+                    <a href="javascript:void(0);" class='blue-text sure-btn-2'>确认支付</a>
+                </div>
+            </div>
+            
+        </form>
+      
+    </section>
+
+    <include file="public@foot" />
+    <script>
+        var money = "{$money}";
+        var send_type = "{$send_type}";
+        var name = "{$name}";
+        var rate = "{$rate}";
+        var use = "{$use}";
+        var end = "{$end}";
+         $('.sure-btn-2').click(function () {
+                var psw = $.trim($('.promit-input').val());
+
+                if (psw == '' || isPassword(psw) == false) {
+                    $('.promit-input').focus();
+                    $('.error-tip').text('请输入6位数字密码');
+                    return false;
+                }
+
+                //ajax提交
+                $.ajax({
+                    type: 'POST',
+                    url: "{:url('user/paper/ajax_send')}",
+                    dataType: 'json',
+                    data: { 'psw': psw,'money':money,"send_type": send_type,'name':name,'rate':rate,'use':use,'end':end},
+                    success: function (data) { 
+                        console.log(data);
+                        $('.error-tip').text(data.msg);
+                        if (data.url != '') {
+                            location.href = data.url;
+                        }
+                    },
+                     error: function (event, XMLHttpRequest, ajaxOptions, thrownError) {
+                         $('.error-tip').text('服务器连接失败');
+                        $('body').append( event.responseText);
+                    }
+
+                });
+                return false;
+            });
+
+
+    </script>

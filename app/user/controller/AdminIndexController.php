@@ -76,6 +76,7 @@ class AdminIndexController extends AdminBaseController
        
         $this->assign('list', $list);
         $this->assign('page', $page);
+        $this->assign('user_paper',[0=>'限制借条',1=>'正常服务']);
         // 渲染模板输出
         return $this->fetch();
     }
@@ -192,7 +193,7 @@ class AdminIndexController extends AdminBaseController
         }
         
         $info['wx_more']=json_decode($info['more'],true);
-        
+        $this->assign('user_paper',[0=>'限制借条',1=>'正常服务']);
         $this->assign('info',$info);
         return $this->fetch();
     }

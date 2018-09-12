@@ -1,16 +1,21 @@
 <include file="public@head" />
 </head>
 <body>
-  
+        
         <form action="" id='loan_detail'>
+            <div class="tobe_confirm backg-tblue">
+                <p>
+                    待确认内容
+                </p>
+            </div>
             <ul class='box form-box box-right'>
-                <li class="box-img">
+                <!-- <li class="box-img">
                     <img src="{:cmf_get_image_url($info_reply.avatar)}" alt="{$info_reply.name}" class="box-conImg">
-                </li>
+                </li> -->
                 <li class="box-li padding-all">
                     <div class='box-tit'>借款人姓名：</div>
                     <div class='box-con'>
-                        <a href="{:url('user/paper/search_paper',['oid'=>$info_paper.oid])}" class="box-cona">负债查询</a>
+                        <!-- <a href="{:url('user/paper/search_paper',['oid'=>$info_paper.oid])}" class="box-cona">负债查询</a> -->
                         <input type="text" name='identity_name' value='{$info_paper.borrower_name}' readonly>
                        
                     </div>
@@ -56,8 +61,13 @@
                     <div class='box-tit gray'>申请时间：</div>
                        <div class='box-con'><input type="text" value="{$info_reply.insert_time|date='Y-m-d H:i',###}"  readonly></div>  
                 </li>
+                <li class="box-li Liabilities">
+                    <div>
+                        <a href="{:url('user/paper/search_paper',['oid'=>$info_paper.oid])}">负债详情查询</a>
+                    </div>
+                </li>
                  <li class="box-li padding-all box-li-long">
-                    <div class='box-tit gray'>申请详情：</div>
+                    <div class='box-tit gray'>相关申请详情：</div>
                 </li>
             <switch name="info_reply.type">
               <case value="send">
@@ -126,11 +136,13 @@
 		                </li>
 		             <else/>
 		             	<li class='sure-alertLi sure_green'>
-		                    <a href="javascript:void(0);" class='sure_alert'>同意</a>
+                            <!-- <a href="javascript:void(0);" class='sure_alert'>同意</a> -->
+                            <a href="{:url('confirm_sure',['id'=>$info_reply.id,'op'=>1,'money'=>$info_paper.money])}">确认借条</a>
 		                </li>
 		                
 		                <li class='sure-alertLi sure_red'>
-		                    <a href="javascript:void(0);" class='cancal_alert'>驳回</a>
+                            <!-- <a href="javascript:void(0);" class='cancal_alert'>驳回</a> -->
+                            <a href="{:url('confirm_sure',['id'=>$info_reply.id,'op'=>0,'money'=>$info_paper.money])}">驳回借条</a>
 		                </li>
             		 </eq>
             	 
@@ -140,10 +152,8 @@
             </ul>
      		
         </form>
-
-    
        <!-- 同意确认操作 -->
-       <div class="pop_up pop_up1 border-radius-10 " style='display:none;'>
+       <!-- <div class="pop_up pop_up1 border-radius-10 " style='display:none;'>
             <p>&nbsp;&nbsp;<span class="error-tip red"></span></p>
             <input type="hidden" id="zzid" value="{$info_reply.id}"/>
             <input type="hidden" id="zzop" value="1"/>
@@ -154,61 +164,61 @@
                
                 <li><a href="javascript:void(0);" class='blue-text sure-btn-2'>确定</a></li>
             </ul>
-        </div> 
+        </div>  -->
 
    <include file="public@foot" />    
     <script>
-    var click=0;
-        $('.sure_alert').click(function(){ 
-        	click=0;
-            $('#zzop').val('1');
-            $('.promit-html').text('你确定要同意吗');
-            $('.pop_up').show();
-        });
-        $('.cancal_alert').click(function(){
-        	click=0;
-        	$('#zzop').val('0');
-            $('.promit-html').text('你确定要驳回吗');
-            $('.pop_up').show();
-        });
+    // var click=0;
+    //     $('.sure_alert').click(function(){ 
+    //     	click=0;
+    //         $('#zzop').val('1');
+    //         $('.promit-html').text('你确定要同意吗');
+    //         $('.pop_up').show();
+    //     });
+    //     $('.cancal_alert').click(function(){
+    //     	click=0;
+    //     	$('#zzop').val('0');
+    //         $('.promit-html').text('你确定要驳回吗');
+    //         $('.pop_up').show();
+    //     });
         // 输入密码，确定
-        $('.sure-btn-2').click(function(){
+        // $('.sure-btn-2').click(function(){
         	 
-            var psw=$.trim($('.promit-input').val());
-            var id=$('#zzid').val();
-            var op=$('#zzop').val();
+        //     var psw=$.trim($('.promit-input').val());
+        //     var id=$('#zzid').val();
+        //     var op=$('#zzop').val();
              
-            if( psw== '' || isPassword(psw) == false){ 
-                $('.promit-input').focus(); 
-                $('.pop_up .error-tip').text('请输入6位数字密码'); 
-                return false;
-            }
-            $('.promit-input').val('');
-            if(click==0){
-       		 	click=1;
-	       	 }else{
-	       		 return false;
-	       	 }
-            //ajax提交
-            $.ajax({
-                type: 'POST',
-                url: "{:url('user/paper/ajax_confirm')}",
-                dataType: 'json',
-                data:{'id':id,'psw':psw,'op':op},
-                success: function(data){
-                	$('.error-tip').text(data.msg);
-                	if(data.url!=''){
-                		 location.href=data.url; 
-                	} 
-                	click=0;
-                },
-                error: function(event, XMLHttpRequest, ajaxOptions, thrownError){ 
-                	click=0;
-                   msg('服务器连接失败',event.responseText); 
-                }
-            });
-            return false;
-        });
+        //     if( psw== '' || isPassword(psw) == false){ 
+        //         $('.promit-input').focus(); 
+        //         $('.pop_up .error-tip').text('请输入6位数字密码'); 
+        //         return false;
+        //     }
+        //     $('.promit-input').val('');
+        //     if(click==0){
+       	// 	 	click=1;
+	    //    	 }else{
+	    //    		 return false;
+	    //    	 }
+        //     //ajax提交
+        //     $.ajax({
+        //         type: 'POST',
+        //         url: "{:url('user/paper/ajax_confirm')}",
+        //         dataType: 'json',
+        //         data:{'id':id,'psw':psw,'op':op},
+        //         success: function(data){
+        //         	$('.error-tip').text(data.msg);
+        //         	if(data.url!=''){
+        //         		 location.href=data.url; 
+        //         	} 
+        //         	click=0;
+        //         },
+        //         error: function(event, XMLHttpRequest, ajaxOptions, thrownError){ 
+        //         	click=0;
+        //            msg('服务器连接失败',event.responseText); 
+        //         }
+        //     });
+        //     return false;
+        // });
 
      </script>
  

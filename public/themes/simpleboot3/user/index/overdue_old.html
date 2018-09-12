@@ -1,4 +1,38 @@
-<include file="public@user_head" />
+<include file="public@head" />
+</head>
+
+<body>
+    <div class="hasNav">
+        <div class="person_head backg-white person_index">
+            <div class="home-btn">
+                <a href="{:url('user/info/index')}"><span class='glyphicon glyphicon-cog'></span>设置</a>
+            </div>
+            <div class="person_herd_mess">
+                <a href="{:url('user/index/index')}">
+                    <img src="{:cmf_get_image_url($user.avatar)}" alt="头像">
+                </a>
+                <div>
+                    <span>{$user.user_nickname}</span>
+                </div>
+
+            </div>
+        </div>
+        <div class="backg-whiteb daihuai">
+            <ul class="group-person-second group-white">
+                <li class="backg-tblue">
+                    <a href="{:url('user/info/borrower')}">
+                        <span class='text'>待还金额</span>
+                        <b>{$user.back}</b>
+                    </a>
+                </li>
+                <li class="backg-jblue">
+                    <a href="{:url('user/info/lender')}">
+                        <span class='text'>待收金额</span>
+                        <b>{$user.send}</b>
+                    </a>
+                </li>
+            </ul>
+        </div>
      <!-- 个人中心 --> 
       <div class="content">
             <ul class="content_nav">
@@ -11,24 +45,42 @@
                  <li class='confirm_items'>
                         <ol class="cofirm_con_third clearfix">
                             <li> 姓名</li>
-                            <li>逾期金额</li>
+                            <li>身份证号</li>
                             <li>逾期天数</li>
+                            <li>服务状态</li>
                         </ol>
                     </li>
                 <foreach name="list_overdue_old" item="vo">
-                   <li class='confirm_items'>
-                         <ol class="cofirm_con_third clearfix">
-                            <li>{$vo.borrower_name}</li>
-                            <li>{$vo.money}</li>
-                            <li>{$vo.overdue_day}</li>
-                        </ol>
-                    </li> 
+                <li class='confirm_items'>
+                    <ol class="cofirm_con_third clearfix">
+                        <li>{$vo.uname}</li>
+                        <li>{$vo.idcard}</li>
+                        <li>{$vo.overdue_day}</li>
+                        <li>{$user_paper[$vo.is_paper]}</li>
+                    </ol>
+                </li>
                  </foreach>
                      
                 </ul> 
             </div>
         </div>    
     </div>
+    <!-- <div id="prompts_div">
+        <div id="prompts">
+            <div class="prompt_title">
+                <p>提示</p>
+            </div>
+            <div>
+                <p>1.</p>
+                <p>2.</p>
+                <p>3.</p>
+            </div>
+            <div class="prompt_cancal">
+                我知道了
+            </div>
+        </div>
+    </div> -->
+   
       <include file="public@user_foot" />  
         <script>
         dropSroll("{:url('user/index/ajax_overdue_old')}","{$Think.config.mobile_page}");

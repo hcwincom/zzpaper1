@@ -66,15 +66,23 @@ class IndexController extends UserBaseController
     public function overdue()
     {
         
-        $list_overdue=Db::name('paper') 
-        ->where(['status'=>5])
+        
+        
+        $list_overdue_old=Db::name('paper')
+        ->alias('po')
+        ->join('cmf_user u','u.id=po.borrower_id')
+        ->where(['status'=>5,'overdue_day'=>['gt',2]])
         ->order('overdue_day asc,id desc')
         ->limit(0,config('mobile_page'))
-        ->column('');
+        ->column('po.id,u.user_login as idcard,u.user_nickname as uname,po.overdue_day,u.is_paper');
         
-        $this->assign('list_overdue',$list_overdue); 
-        $this->assign('html_page','overdue'); 
-        $this->assign('html_title','失信大厅');
+        foreach($list_overdue_old as $k=>$v){
+            $list_overdue_old[$k]['idcard']=substr($v['idcard'],0,4).'*******'.substr($v['idcard'],-4);
+        }
+        $this->assign('list_overdue',$list_overdue_old);
+        $this->assign('html_page','overdue');
+        $this->assign('html_title','逾期');
+        $this->assign('user_paper',[0=>'限制借条',1=>'正常服务']);
         return $this->fetch();
         
     }
@@ -84,31 +92,48 @@ class IndexController extends UserBaseController
     public function ajax_overdue()
     {
         
+       
         $page_list=config('mobile_page');
         $page=$this->request->param('page',1,'intval');
-        $list_overdue=Db::name('paper')
-        ->where(['status'=>5])
+        $list_overdue_old=Db::name('paper')
+        ->alias('po')
+        ->join('cmf_user u','u.id=po.borrower_id')
+        ->where(['status'=>5,'overdue_day'=>['gt',2]])
         ->order('overdue_day asc,id desc')
-        ->limit(($page-1)*$page_list,$page_list)->column('');
-        $this->success('返回成功','',$list_overdue);
-         
+        ->limit(($page-1)*$page_list,$page_list)
+        ->column('po.id,u.user_login as idcard,u.user_nickname as uname,po.overdue_day,u.is_paper');
+        
+        foreach($list_overdue_old as $k=>$v){
+            $list_overdue_old[$k]['idcard']=substr($v['idcard'],0,4).'*******'.substr($v['idcard'],-4);
+        }
+        
+        
+        $this->success('返回成功','',$list_overdue_old);
         
     }
-    /**
+
+    
+     /**
      * 逾期追回
      */
     public function overdue_old()
     {
         
         $list_overdue_old=Db::name('paper_old')
+        ->alias('po')
+        ->join('cmf_user u','u.id=po.borrower_id')
         ->where(['overdue_day'=>['gt',0]])
         ->order('overdue_day asc,id desc')
         ->limit(0,config('mobile_page'))
-        ->column('');
+        ->column('po.id,u.user_login as idcard,u.user_nickname as uname,po.overdue_day,u.is_paper');
         
+        foreach($list_overdue_old as $k=>$v){
+            $list_overdue_old[$k]['idcard']=substr($v['idcard'],0,4).'*******'.substr($v['idcard'],-4);
+        }
         $this->assign('list_overdue_old',$list_overdue_old);
         $this->assign('html_page','overdue_old'); 
         $this->assign('html_title','逾期追回');
+        $this->assign('user_paper',[0=>'限制借条',1=>'正常服务']);
         return $this->fetch();
         
     }
@@ -121,9 +146,18 @@ class IndexController extends UserBaseController
         $page_list=config('mobile_page');
         $page=$this->request->param('page',1,'intval');
         $list_overdue_old=Db::name('paper_old')
+        ->alias('po')
+        ->join('cmf_user u','u.id=po.borrower_id')
         ->where(['overdue_day'=>['gt',0]])
         ->order('overdue_day asc,id desc')
-        ->limit(($page-1)*$page_list,$page_list)->column('');
+        ->limit(($page-1)*$page_list,$page_list)
+        ->column('po.id,u.user_login as idcard,u.user_nickname as uname,po.overdue_day,u.is_paper');
+        
+        foreach($list_overdue_old as $k=>$v){
+            $list_overdue_old[$k]['idcard']=substr($v['idcard'],0,4).'*******'.substr($v['idcard'],-4);
+        }
+        
+       
         $this->success('返回成功','',$list_overdue_old);
         
         

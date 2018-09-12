@@ -53,6 +53,14 @@
 					<input type="text" class="form-control"  value="{$info.weixin}" readonly /> 
 				</div>
 			</div>
+			<div class="form-group fleft">
+				<label class="col-sm-2 control-label">微信openid</label>
+				<div class="col-md-6 col-sm-10">
+					<input type="text" class="form-control"  value="{$info.openid}" readonly />
+					<a class="js-ajax-delete" data-msg="确认清除吗？清楚后用户需重新登录才能绑定" href="{:url('admin/wx_config/clear',['id'=>$info.id])}">清除微信关联</a> 
+					 
+				</div>
+			</div>
 			<div style="clear: both"></div>
 			<div class="form-group ">
 				<label class="col-sm-2 control-label">微信信息详情</label>
@@ -141,6 +149,12 @@
 				<label class="col-sm-2 control-label">累计收益</label>
 				<div class="col-md-6 col-sm-10">
 					<input type="text" class="form-control"  value="{$info.money}" readonly /> 
+				</div>
+			</div>
+			<div class="form-group fleft">
+				<label class="col-sm-2 control-label">借条服务</label>
+				<div class="col-md-6 col-sm-10">
+					<input type="text" class="form-control"  value="{$user_paper[$info.is_paper]}" readonly /> 
 				</div>
 			</div>
 			<div style="clear: both"></div>

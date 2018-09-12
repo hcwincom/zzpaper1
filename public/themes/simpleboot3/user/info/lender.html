@@ -3,19 +3,34 @@
 <body>
      <!-- 个人中心 -->
      <div class="hasFixedTop">
-        <include file="public@person_head" />
+        <div class="person_head  backg-blue">
+            <div class="home-btn">
+                <a href="{:url('user/info/index')}"><span class='glyphicon glyphicon-cog'></span>设置</a>
+            </div>
+            <div class="person_herd_mess">
+                <a href="{:url('user/index/index')}">
+                    <img src="{:cmf_get_image_url($user.avatar)}" alt="头像">
+                </a>
+                <div>
+                    <span>{$user.user_nickname}</span>
+                    <span>待收总额¥{$user.send}元</span>
+                </div>
+        
+            </div>
+        
+        </div>
         <div class="person_con ">
-            <div class="backg-blue daihuai">
+            <div class="backg-whiteb daihuai">
                 <ul class="group-person-second group-white">
-                    <li>
+                    <!-- <li class="backg-tblue">
                         <span class="text">待收金额</span>    
                         <b>{$user.send}</b>
-                    </li>
-                    <li>
+                    </li> -->
+                    <li class="backg-tblue">
                         <span class="text">累计收益</span>    
                         <b>{$user.money}</b>
                     </li>
-                    <li>
+                    <li class="backg-jblue">
                         <span class="text">累计出借</span>    
                         <b>{$user.lender_money}</b>
                     </li>
@@ -28,64 +43,77 @@
                     </form>
                 </div>
                 <div class="search_con">
-                    <div class='search_con_ul_div'>
-                        <dl>
+                    <div class='search_con_ul_div border_tb'>
+                        <dl class="back_tigray">
                             <dd class=''>借款人</dd>
-                            <dd class=''>借出金额</dd>
-                            <dd class=''>还款期限</dd>
+                            <dd class=''>代收金额</dd>
+                            <dd class=''>收款期限</dd>
                         </dl>
                     </div>   
                     <ul class='search_con_ul'>
                     <foreach name="list" item="vo">  
-                        <li class="search_con_ulLi">
-                            <div class='search_con_ul_div'>
-                                <dl>
-                                    <!-- <dd class=''>{$vo.borrower_name}</dd> -->
-                                    <dd><a href="javascript:void(0);">{$vo.borrower_name}</a></dd>
-                                    <dd class='paper_money'><span>{$vo.money}</span></dd>
-                                    <dd class='paper_color{$vo.status}'>
-                                    <switch name="vo.status">
-                                    	<case value="3"><span>今日到期</span></case>
-				                   		<case value="4"><span>还剩{$vo.expire_day}天</span></case>
-				                   		<case value="5"><span>逾期{$vo.overdue_day}天</span></case>
-				                   		<default>未生效</default>
-				                    </switch>
-                                    </dd>
-                                     
-                                </dl>
-                            </div>
-                            <ol class="ul_2nd">
+                        <li>
+                            <a href="{:url('user/info/paper',['oid'=>$vo.oid])}">
+                                <div class='search_con_ul_div'>
+                                    <dl>
+                                        <!-- <dd class=''>{$vo.borrower_name}</dd> -->
+                                        <dd>
+                                            <img src="{:cmf_get_image_url($vo.avatar)}" alt="头像">
+                                            <em>{$vo.borrower_name}</em>
+                                        </dd>
+                                        <dd class='paper_money'><span>¥{$vo.money}</span></dd>
+                                        <dd class='paper_color{$vo.status}' style="position:relative;">
+                                            <switch name="vo.status">
+                                                <case value="3"><span>今日到期</span></case>
+                                                <case value="4"><span>还剩{$vo.expire_day}天</span></case>
+                                                <case value="5"><span>逾期{$vo.overdue_day}天</span></case>
+                                                <default>未生效</default>
+                                            </switch>
+                                            <!-- <div class="greenColor paper_date">延期</div> -->
+                                        </dd>   
+                                    </dl>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </a>      
+                            <!-- <ol class="ul_2nd">
                                 <li>
                                     <img src="{:cmf_get_image_url($vo.avatar)}" alt="头像">
                                 </li>
                                 <li><a href="{:url('user/info/paper',['oid'=>$vo.oid])}">借款详情</a></li>
                                 <li><a href="{:url('user/info/protocol',['oid'=>$vo.oid])}">查看协议</a></li>
-                            </ol>
+                            </ol> -->
                         </li>
                      </foreach>  
                     <foreach name="list_old" item="vo">  
-                        <li class="search_con_ulLi">
-                            <div class='search_con_ul_div'>
-                                <dl>
-                                    <dd><a href="javascript:void(0);">{$vo.borrower_name}</a></dd>
-                                    <dd class='paper_money'><span>{$vo.money}</span></dd>
-                                    <dd class='paper_color6'> 
-                                        <div>
-                                             已还款|
-                                            <eq name="vo.overdue_day" value="0">未逾期
-                                                <else/>逾期{$vo.overdue_day}天</eq>
-                                        </div>
-				                  	    	
-                                    </dd> 
-                                </dl>
-                            </div>
-                            <ol class="ul_2nd">
-                                <li>
-                                    <img src="{:cmf_get_image_url($vo.avatar)}" alt="头像">
-                                </li>
-                                <li><a href="{:url('user/info/paper_old',['oid'=>$vo.oid])}">查看详情</a></li>
-                                <li><a href="{:url('user/info/protocol',['oid'=>$vo.oid])}">查看协议</a></li>
-                            </ol>
+                        <li>
+                            <a href="{:url('user/info/paper_old',['oid'=>$vo.oid])}">
+                                <div class='search_con_ul_div'>
+                                    <dl>
+                                        <dd>
+                                            <img src="{:cmf_get_image_url($vo.avatar)}" alt="头像">
+                                            <em>{$vo.borrower_name}</em>
+                                        </dd>
+                                        <dd class='paper_money'><span>¥{$vo.money}</span></dd>
+                                        <dd class='paper_color6' style="position:relative;"> 
+                                            <div>
+                                                 已还
+                                                <eq name="vo.overdue_day" value="0">
+                                                <else/>|逾期{$vo.overdue_day}天</eq>
+                                            </div>  
+                                            <!-- <strong class="greenColor paper_date">延期</strong> -->
+                                        </dd>    
+                                    </dl>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <!-- <ol class="ul_2nd">
+                                        <li>
+                                            <img src="{:cmf_get_image_url($vo.avatar)}" alt="头像">
+                                        </li>
+                                        <li><a href="{:url('user/info/paper_old',['oid'=>$vo.oid])}">查看详情</a></li>
+                                        <li><a href="{:url('user/info/protocol',['oid'=>$vo.oid])}">查看协议</a></li>
+                                    </ol> -->
+                            </a>
+                           
                         </li>
                      </foreach>  
                         

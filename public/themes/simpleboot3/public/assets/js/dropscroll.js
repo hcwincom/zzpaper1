@@ -1,5 +1,7 @@
   function dropSroll(url,pageSize){
     var page=0;
+    var user_paper=['限制借条','正常服务'];
+   
     var dropload=$('.content_div').dropload({
         
         domUp : {
@@ -86,14 +88,17 @@
                             result += " <li class='confirm_items'>"+
                                     "<ol class='cofirm_con_third clearfix'>"+
                                         "<li>"+
-                                                lists[i].borrower_name +
+                                                lists[i].uname +
                                         "</li>"+
                                         "<li>"+
-                                                lists[i].money +
+                                                lists[i].idcard +
                                         "</li>"+
                                         "<li>"+
                                                 lists[i].overdue_day +
                                         "</li>"+
+                                        "<li>" +
+                                        user_paper[lists[i].is_paper] +
+                                        "</li>" +
                                     "</ol>"+
                                 "</li>";
                             

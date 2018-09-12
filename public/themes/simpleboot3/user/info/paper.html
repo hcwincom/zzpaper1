@@ -1,18 +1,25 @@
   <include file="public@head" />  
 </head>
-<body>
+<body class="back_tigray">
     <section class=''>
+        <div class="dainfo backg-tblue">
+            <p>
+                <eq name="paper.back" value="0">待还款详情
+                    <else/>待收款详情
+                </eq>
+            </p>
+        </div>
         <div class="hasBottomFixed">
             <form action="" id='loan_detail'>
                 <ul class='box form-box box-right main'>
-                    <li class="box-img">
+                    <!-- <li class="box-img">
                        
                          <img src="{:cmf_get_image_url($paper.avatar)}" alt="{$paper.name}" class="box-conImg">
-                    </li>
+                    </li> -->
                     <li class="box-li padding-all">
                         <div class='box-tit'>借款人姓名：</div>
                         <div class='box-con'>
-                         	<a href="{:url('user/paper/search_paper',['oid'=>$paper.oid])}" class="box-cona">负债查询</a>
+                         	<!-- <a href="{:url('user/paper/search_paper',['oid'=>$paper.oid])}" class="box-cona">负债查询</a> -->
                         	<input type="text" value='{$paper.borrower_name}' readonly>
                         </div>
                     </li>
@@ -34,7 +41,7 @@
                         <div class='box-con'><input type="text" name='date_borrowing'  id='date' value="{$paper.start_time|date='Y-m-d',###}"  readonly></div>
                     </li>
                     <li class="box-li padding-all">
-                        <div class='box-tit'>还款期限：</div>
+                        <div class='box-tit'>还款日期：</div>
                         <div class='box-con'><input type="text" name='repayment_date' id='date2'  value="{$paper.end_time|date='Y-m-d',###}" readonly></div>
                     </li>
                     <li class="box-li padding-all">
@@ -46,14 +53,20 @@
                         <div class='box-tit'>借款用途：</div>
                         <div class='box-con'><span class='drop_down_btn'>{$paper.use}</span> </div>
                     </li>
-                    <li class="box-li padding-all box-li-long">
+                    <!-- <li class="box-li padding-all box-li-long">
                         <div class='box-tit'>借条状态：</div>
                         <div class='box-con'><input type="text" name='identity_name' value='{$paper.status_name}' class='red' readonly></div>
+                    </li> -->
+                    <li class="box-li Liabilities">
+                        <div>
+                            <a href="{:url('user/paper/search_paper',['oid'=>$paper.oid])}" class="box-cona">负债详情查询</a>
+                        </div>
                     </li>
                     <li class="box-li padding-all">
                         <div class='box-tit '>相关申请<empty name="replys">-无</empty></div>
                     </li>
-           <foreach name="replys" item="vo">
+   
+                <foreach name="replys" item="vo">
             		<li class="box-li padding-all box-li-long  box-li-to-long">
                         <div class='box-tit gray'>
                         	{$reply_types[$vo.type]}
@@ -64,7 +77,6 @@
                         		<a href="{:url('user/paper/confirm',['id'=>$vo.id])}">|去确认</a>
                         	</if>
                         	 
-                        	）
                         </div>
                         <div class='box-con'><span class='icon icon-mess icon-mess7 btn-show-siblings'></span></div>
                     </li>
@@ -109,15 +121,29 @@
                		</case>
                </switch>
                
-           </foreach>
-                    
-                    
+           </foreach>   
                     <!-- 错误提示 -->
                     <p class='red'></p>
                     <!-- <p class='blue-text'>已成功</p> -->
                 </ul>
-          
-                <ul class="bottom-fixed">
+                <ul class="bottom-flexed">
+                    <li>
+                        <a href="javascript:void(0);" class='back-alert'>
+                             {$paper.status_name}
+                            <!-- <eq name="paper.back" value="0">申请还款
+                                <else/>已还款
+                            </eq> -->
+                        </a>
+                        <!-- <a href="javascript:void(0)">待收</a>      -->
+                    </li>
+                    <li class="delay_single">
+                        <div>
+                            <span>延期</span>|<span>还款</span>
+                        </div>
+                    </li>
+                </ul>
+
+                <!-- <ul class="bottom-fixed">
                      
                     <li class=''>
                         <a href="javascript:void(0);" class='red delay-alert'>
@@ -131,15 +157,13 @@
                         </a>
                     </li>
                      
-                </ul>
+                </ul> -->
          
             </form>
         </div>
         
- 		<include file="public@psw"/>
-    
         <!--延期 -->
-        <div class="pop_up pop_up3 border-radius-10 pop_up_inputs" style='display:none;'>
+        <!-- <div class="pop_up pop_up3 border-radius-10 pop_up_inputs" style='display:none;'>
             <p class="error-tip red">提示</p>
             <p class='promit-p'><span>延期还款日</span><input type="text" name='delay_date' id="delay_date" class='promit-input tet-right' readonly/></p>
              <p class='promit-p'><span>密码</span><input type="password" name='password' value='' placeholder='请输入6位数密码' class='tet-right promit-input'></p>
@@ -147,9 +171,30 @@
                 <li><a href="javascript:psw_hide();" class='blue-text'>取消</a></li>
                 <li><a href="javascript:void(0);" class='blue-text delay-btn '>确定</a></li>
             </ul>
-        </div> 
+        </div>  -->
     </section>
-
+      <!-- 点击延期和消单弹出 -->
+         <div id="drop_down" class="drop_down">
+           <div class="drop_down_menu">
+                <div class="drop_down_list">
+                    <ul>
+                        <li><a href="{:url('postpone',['oid'=>$paper.oid,'end_time'=>$paper.end_time])}">申请延期</a></li>
+                        <li>
+                            <a href="{:url('reimbursemen',['oid'=>$paper.oid,'back'=>$paper.back,'final_money'=>$paper.final_money])}">
+                                <eq name="paper.back" value="0">
+                                    申请还款
+                                <else/>
+                                    消单
+                                </eq>
+                            </a>   
+                        </li>
+                    </ul>
+                </div>
+                <div class="drop_down_head">
+                    <input type="button" value="取消">
+                </div>
+           </div>
+         </div>
        <include file="public@foot" />  
         <script type="text/javascript" src="__TMPL__/public/assets/js/laydate/laydate.js"></script>
     <script>
@@ -181,118 +226,119 @@
 	    }       
 	    var click=0;
     	var oid="{$paper.oid}";
-    	var back="{$paper.back}";
+        var back="{$paper.back}";
+        console.log(back);
     	var final_money="{$paper.final_money}"; 
-         $('.back-alert').click(function(){
-        	 $('.error-tip').text('提示'); 
-        	 if(back=='0'){
-        		 $('.pop_up1 .promit-html').text('你确定要申请还款吗？应还'+final_money+'元');
-        	 }else{
-        		 $('.pop_up1 .promit-html').text('你确定对方已还款吗？对方应还'+final_money+'元');
-        	 }
-        	 click=0;
-            $('.pop_up').hide();
-            $('.pop_up1').show();
-        });
+        //  $('.back-alert').click(function(){
+        // 	 $('.error-tip').text('提示'); 
+        // 	 if(back=='0'){
+        // 		 $('.pop_up1 .promit-html').text('你确定要申请还款吗？应还'+final_money+'元');
+        // 	 }else{
+        // 		 $('.pop_up1 .promit-html').text('你确定对方已还款吗？对方应还'+final_money+'元');
+        // 	 }
+        // 	 click=0;
+        //     $('.pop_up').hide();
+        //     $('.pop_up1').show();
+        // });
  
-        $('.delay-alert').click(function(){
-        	click=0;
-        	$('.error-tip').text('提示');
-            $('.pop_up').hide();
-            $('.pop_up3').show();
-        });
+        // $('.delay-alert').click(function(){
+        // 	click=0;
+        // 	$('.error-tip').text('提示');
+        //     $('.pop_up').hide();
+        //     $('.pop_up3').show();
+        // });
 
         // 输入密码，确定
-        $('.sure-btn-2').click(function(){
+        // $('.sure-btn-2').click(function(){
         	 
-        	if(click==0){
-       		 	click=1;
-	       	 }else{
-	       		 return false;
-	       	 }
-            $('.error-tip').text('正在提交，请勿重复操作!');
+        // 	if(click==0){
+       	// 	 	click=1;
+	    //    	 }else{
+	    //    		 return false;
+	    //    	 }
+        //     $('.error-tip').text('正在提交，请勿重复操作!');
            
-            var psw=$.trim($('.pop_up1 .promit-input').val());
+        //     var psw=$.trim($('.pop_up1 .promit-input').val());
            
-    		 if(!isPassword(psw)){
-    			 $('.error-tip').text('请输入6位数字密码');
-    			 return false;
-    		 }
-    		 $.ajax({
-                 type: 'POST',
-                 url: "{:url('user/info/ajax_reply')}",
-                 dataType: 'json',
-                 data:{'oid':oid,'psw':psw,'final_money':final_money,'type':'back'},
-                 success: function(data){ 
-                 	$('.error-tip').text(data.msg);
-                 	if(data.code==1){
-                 		click=1;
-                 	}else{
-                 		click=0;
-                 	}
-                 	if(data.url!=''){
-                 		if(back=='1' && data.code==1){
-                 			location.href=data.url; 
-	                   	 }else{
-	                   		setTimeout(function(){
-	                 			location.href=data.url;
-	                         },2000);
-	                   	 } 
-                 	} 
-                 },
-                 error: function(event, XMLHttpRequest, ajaxOptions, thrownError){ 
-                  	 msg('服务器连接失败',event.responseText); 
-                 }
-             });
-    		 return false;
+    	// 	 if(!isPassword(psw)){
+    	// 		 $('.error-tip').text('请输入6位数字密码');
+    	// 		 return false;
+    	// 	 }
+    	// 	 $.ajax({
+        //          type: 'POST',
+        //          url: "{:url('user/info/ajax_reply')}",
+        //          dataType: 'json',
+        //          data:{'oid':oid,'psw':psw,'final_money':final_money,'type':'back'},
+        //          success: function(data){ 
+        //          	$('.error-tip').text(data.msg);
+        //          	if(data.code==1){
+        //          		click=1;
+        //          	}else{
+        //          		click=0;
+        //          	}
+        //          	if(data.url!=''){
+        //          		if(back=='1' && data.code==1){
+        //          			location.href=data.url; 
+	    //                	 }else{
+	    //                		setTimeout(function(){
+	    //              			location.href=data.url;
+	    //                      },2000);
+	    //                	 } 
+        //          	} 
+        //          },
+        //          error: function(event, XMLHttpRequest, ajaxOptions, thrownError){ 
+        //           	 msg('服务器连接失败',event.responseText); 
+        //          }
+        //      });
+    	// 	 return false;
             
-        });
+        // });
 
         // 延期
-        $('.delay-btn').click(function(){
-        	if(click==0){
-       		 	click=1;
-	       	 }else{
-	       		 return false;
-	       	 }
-        	 $('.error-tip').text('正在提交，请勿重复操作!');
+        // $('.delay-btn').click(function(){
+        // 	if(click==0){
+       	// 	 	click=1;
+	    //    	 }else{
+	    //    		 return false;
+	    //    	 }
+        // 	 $('.error-tip').text('正在提交，请勿重复操作!');
            
-            var day=$.trim($('.pop_up3  input[name="delay_date"]').val());
-            var psw=$.trim($('.pop_up3  input[name="password"]').val());
+        //     var day=$.trim($('.pop_up3  input[name="delay_date"]').val());
+        //     var psw=$.trim($('.pop_up3  input[name="password"]').val());
            
-    		 if(!isPassword(psw)){
-    			 $('.error-tip').text('请输入6位数字密码');
-    			 return false;
-    		 }
-    		 $.ajax({
-                 type: 'POST',
-                 url: "{:url('user/info/ajax_reply')}",
-                 dataType: 'json',
-                 data:{'oid':oid,'psw':psw,'day':day,'type':'delay'},
-                 success: function(data){
-                	 if(data.code==1){
-                  		click=1;
-                  	}else{
-                  		click=0;
-                  	}
-                 	$('.error-tip').text(data.msg);
-                 	if(data.url!=''){
-                 		setTimeout(function(){
-                 			location.href=data.url;
-                         },2000);
-                 	}
+    	// 	 if(!isPassword(psw)){
+    	// 		 $('.error-tip').text('请输入6位数字密码');
+    	// 		 return false;
+    	// 	 }
+    	// 	 $.ajax({
+        //          type: 'POST',
+        //          url: "{:url('user/info/ajax_reply')}",
+        //          dataType: 'json',
+        //          data:{'oid':oid,'psw':psw,'day':day,'type':'delay'},
+        //          success: function(data){
+        //         	 if(data.code==1){
+        //           		click=1;
+        //           	}else{
+        //           		click=0;
+        //           	}
+        //          	$('.error-tip').text(data.msg);
+        //          	if(data.url!=''){
+        //          		setTimeout(function(){
+        //          			location.href=data.url;
+        //                  },2000);
+        //          	}
                  	 
-                 },
+        //          },
                  
-                 error: function(event, XMLHttpRequest, ajaxOptions, thrownError){
+        //          error: function(event, XMLHttpRequest, ajaxOptions, thrownError){
                  	 
-                 	click=0;
-                 	 msg('服务器连接失败',event.responseText);
+        //          	click=0;
+        //          	 msg('服务器连接失败',event.responseText);
                   
-                 }
-             });
-    		 return false;
-        });
+        //          }
+        //      });
+    	// 	 return false;
+        // });
 
 
         // 借条详情
@@ -305,6 +351,14 @@
                 $(this).removeClass('icon-mess8').addClass('icon-mess7')
             }
         
+        });
+
+        // 点击出现延期和消单
+        $(".delay_single").click(function () {
+            $("#drop_down").fadeIn();
+        });
+        $(".drop_down_head").click(function () {
+             $("#drop_down").fadeOut();
         });
 
      </script>

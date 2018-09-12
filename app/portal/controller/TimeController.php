@@ -98,14 +98,14 @@ class TimeController extends HomeBaseController
             'action'=>'更新了借条逾期天数'.$rows.'条',
         ];
         zz_log('更新了借条逾期天数'.$rows.'条','time.log');
-        
+         
         //3更新用户逾期7天的次数,还有金额
-        $list_overdue7=$m_paper->field('borrower_id,money')->where(['status'=>5,'overdue_day'=>7])->column('');
+        $list_overdue7=$m_paper->where(['status'=>5,'overdue_day'=>7])->column('borrower_id,money');
         $sql_overdue7='insert into cmf_user(id,overdue7,overdue7_money) values';
         $tmp='';
         $rows=0;
-        foreach($list_overdue7 as $v){ 
-            $tmp.=',('.$v['borrower_id'].',1,'.$v['money'].')';
+        foreach($list_overdue7 as $key=>$v){ 
+            $tmp.=',('.$key.',1,'.$v.')';
         } 
         if(!empty($tmp)){
             $tmp=substr($tmp, 1);
@@ -124,12 +124,12 @@ class TimeController extends HomeBaseController
         
         //4更新用户逾期累计和今日到期为逾期
         //昨日到期的就是新的逾期
-        $list_overdue1=$m_paper->field('borrower_id,money')->where(['status'=>3])->column('');
+        $list_overdue1=$m_paper->where(['status'=>3])->column('borrower_id,money');
         $sql_overdue1='insert into cmf_user(id,overdue1,overdue1_money) values';
         $tmp='';
         $rows=0;
-        foreach($list_overdue1 as $v){
-            $tmp.=',('.$v['borrower_id'].',1,'.$v['money'].')';
+        foreach($list_overdue1 as $k=>$v){
+            $tmp.=',('.$k.',1,'.$v.')';
         }
         if(!empty($tmp)){
             $tmp=substr($tmp, 1);
@@ -195,14 +195,24 @@ class TimeController extends HomeBaseController
         ];
         zz_log('更新借条发起和借条不同意为过期'.$rows.'条','time.log');
         Db::name('action')->insertAll($data_action);
+        
+        //2018-9-10新增，逾期超过3天的不能补借条
+        $list_overdue3=$m_paper->where(['status'=>5,'overdue_day'=>3])->column('borrower_id');
+        if(!empty($list_overdue3)){
+            $rows=$m_user->where('id','in',$list_overdue3)->update(['is_paper'=>0]);
+            $data_action[]=[
+                'aid'=>1,
+                'time'=>time(),
+                'ip'=>$ip,
+                'type'=>'system',
+                'action'=>'更新用户借条逾期超过3天的不能补借条'.$rows.'条',
+            ];
+            zz_log('更新用户借条逾期超过3天的不能补借条'.$rows.'条','time.log');
+            Db::name('action')->insertAll($data_action);
+        } 
         zz_log('end','time.log');
         $mysqli->close();
-//         $sleep=$time+3600*24+2-time();
-//         zz_log("sleep时间".($sleep/3600)."小时",'time.log');
-        
-//         sleep($sleep);
-//         $url=url('portal/time/time','',true,true);
-//         file_get_contents($url);
+ 
        exit('执行结束');
     }
     /*定时获取微信的access_tocken,crontab每小时30分钟执行 */
@@ -261,6 +271,33 @@ class TimeController extends HomeBaseController
         Db::name('action')->insert($data_action); 
         exit('执行结束');
         
+    }
+    
+    //手动执行
+    public function check(){
+        $ip=get_client_ip();
+        set_time_limit(600);
+        $data_action=[];
+        //借条处理
+        $m_paper=Db::name('paper');
+        $m_user=Db::name('user');
+        
+        //2018-9-10新增，逾期超过3天的不能补借条
+        $list_overdue3=$m_paper->where(['status'=>['eq',5],'overdue_day'=>['gt',2]])->column('borrower_id');
+        if(!empty($list_overdue3)){
+            $rows=$m_user->where('id','in',$list_overdue3)->update(['is_paper'=>0]);
+            $data_action[]=[
+                'aid'=>1,
+                'time'=>time(),
+                'ip'=>$ip,
+                'type'=>'system',
+                'action'=>'更新用户借条逾期超过3天的不能补借条'.$rows.'条',
+            ];
+            zz_log('更新用户借条逾期超过3天的不能补借条'.$rows.'条','time.log');
+            Db::name('action')->insertAll($data_action);
+        } 
+        
+        exit('执行结束');
     }
      
 }

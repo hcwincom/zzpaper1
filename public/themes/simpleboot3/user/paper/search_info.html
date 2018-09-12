@@ -2,9 +2,61 @@
 </head>
 <body>
      <!-- 个人中心 -->
-     <div class="hasNav">
-         <div class="loan">
-            <div class="loan_mess border-radius-10">
+    <div class="dainfo backg-tblue">
+        <p>
+           信用报告
+        </p>
+    </div>
+     <div class="backg-whiteb loan_cont">
+         <div class="loan_report">
+             <div class="loan_title">
+                 <p><span class="glyphicon glyphicon-list-alt"></span>借贷记录(数据源于负债查询)</p>
+             </div>
+             <div class="loan_info">
+                 <ul class="clearfix">
+                    <li>类型</li>
+                    <li>借入</li>
+                    <li>借出</li>
+                 </ul>
+                 <ul>
+                     <li>累计笔数</li>
+                     <li>{$info.borrow_num}</li>
+                     <li>0</li>
+                 </ul>
+                 <ul>
+                     <li>累计人数</li>
+                     <li>{$info.borrow_man}</li>
+                    <li>0</li>
+                 </ul>
+                 <ul>
+                     <li>待还金额</li>
+                     <li>￥{$info.borrow_money}</li>
+                     <li>￥{$info.back}</li>
+                 </ul>
+                 <div class="line"></div>
+             </div>
+            <div class="loan_title">
+                <p><span class="glyphicon glyphicon-dashboard"></span>逾期记录(数据源于负债查询)</p>
+            </div>
+            <div class="loan_info">
+                <ul>
+                    <li>类型</li>
+                    <li>金额</li>
+                    <li>次数</li>
+                </ul>
+                <ul>
+                    <li>逾期次数</li>
+                    <li>￥{$info.overdue1_money}</li>
+                    <li>{$info.overdue1}</li>
+                </ul>
+                <ul>
+                    <li>≥7天逾期</li>
+                    <li>￥{$info.overdue7_money}</li>
+                    <li>{$info.overdue7}</li>
+                </ul>
+            </div>
+
+            <!-- <div class="loan_mess border-radius-10">
                 <ul class='clearfix ' >
                     <li>累计借入金额：￥{$info.borrow_money} </li>
                     <li>待还总金额：￥{$info.back}</li>
@@ -21,19 +73,19 @@
                     <li>逾期七天金额：￥{$info.overdue7_money} </li>
                     <li>逾期七天次数：{$info.overdue7}</li>
                 </ul>
-            </div>
-            <div class="person_head  ">
+            </div> -->
+            <!-- <div class="person_head  ">
                 <div class="person_herd_mess">
                     <a href="javascript:void(0);">
                         <img src="{:cmf_get_image_url('')}/{$info.avatar|default='self.jpg'}" alt="头像">
             			<span>{$info.user_nickname}</span>
                     </a> 
                 </div>
-            </div>
+            </div> -->
          </div>
         
         <div class="jiekuan_history">
-            <p class='btn-red btn-big'>借款历史</p>
+            <p class='backg-tblue btn-big'>借款历史</p>
             <ul class='history-list'>
                 <li>
                     <span class='list1'>出借人</span>

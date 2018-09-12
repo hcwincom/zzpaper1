@@ -1,0 +1,75 @@
+<include file="public@head" />
+</head>
+
+<body class="backg-whiteb">
+    <section>
+        <form action="" method="POST">
+            <div class="affirm_title backg-tblue">
+                <p>借款金额</p>
+                <p class="affirm_money">
+                    ￥{$money}元
+                </p>
+            </div>
+            <div class="affirm_main">
+                <div class="affirm_input">
+                    <input type="password" placeholder='请输入支付密码' class='promit-input'>
+                </div>
+                <div class="affirm_promit">
+                    <div>
+                        <p>温馨提示：</p>
+                    </div>
+                    <p class="affirm_content">请确认保你们已经线下达成借贷合意或已交易完毕，输入密码后借款人将会收到操作通知！</p>
+                </div>
+
+                <p class="error-tip red errorTxt"></p>
+                <div class="backg-tblue affirm_btn">
+                    <a href="javascript:void(0);" class='blue-text sure-btn-2'>
+                        <eq name="op" value="1">
+                            确认支付
+                            <else/> 确认驳回
+                        </eq>
+                    </a>
+                </div>
+            </div>
+
+        </form>
+
+    </section>
+
+    <include file="public@foot" />
+    <script>
+        var id = "{$id}";
+        var op = "{$op}";
+        console.log(op);
+        var money = "{$money}";
+         $(".sure-btn-2").click(function () {
+                var psw = $.trim($('.promit-input').val());
+
+                if (psw == '' || isPassword(psw) == false) {
+                    $('.promit-input').focus();
+                    $('.error-tip').text('请输入6位数字密码');
+                    return false;
+                }
+                $('.promit-input').val('');
+
+                //ajax提交
+                $.ajax({
+                    type: 'POST',
+                    url: "{:url('user/paper/ajax_confirm')}",
+                    dataType: 'json',
+                    data: { 'id': id, 'psw': psw, 'op': op,'money': money },
+                    success: function (data) {
+                        
+                       $('.error-tip').text(data.msg);
+                        if (data.url != '') {
+                            location.href = data.url;
+                        }
+                    },
+                    error: function (event, XMLHttpRequest, ajaxOptions, thrownError) {
+                     
+                        msg('服务器连接失败', event.responseText);
+                    }
+                });
+                return false;
+            });
+    </script>

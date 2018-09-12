@@ -34,8 +34,9 @@
                 <th>{:lang('LAST_LOGIN_TIME')}</th>
                 <th>{:lang('LAST_LOGIN_IP')}</th> 
                  
-                <th>{:lang('STATUS')}</th>
-                <th>{:lang('ACTIONS')}</th>
+                <th>登录状态</th>
+                <th>借条状态</th>
+                <th style="width:150px;">{:lang('ACTIONS')}</th>
             </tr>
             </thead>
             <tbody>
@@ -61,6 +62,7 @@
                     <td>{:date('Y-m-d H:i',$vo['last_login_time'])}</td>
                     <td>{$vo.last_login_ip}</td>
                     <td>{$user_statuses[$vo['user_status']]}</td>
+                     <td>{$user_paper[$vo['is_paper']]}</td>
                     <td>
                    
                         <a href="{:url('delete',array('id'=>$vo['id']))}"  class="js-ajax-delete"

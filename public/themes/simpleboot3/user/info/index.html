@@ -2,7 +2,23 @@
 </head>
 <body>
      <!-- 个人中心 -->
-      <include file="public@person_head" />
+    <div class="person_head backg-blue person_infoindex">
+        <div class="home-btn">
+            <a href="{:url('user/info/index')}"><span class='glyphicon glyphicon-cog'></span>设置</a>
+        </div>
+        <div class="person_herd_mess">
+            <a href="{:url('user/index/index')}">
+                <img src="{:cmf_get_image_url($user.avatar)}" alt="头像">
+            </a>
+            <div>
+                <span>{$user.user_nickname}</span>
+            </div>
+    
+        </div>
+    </div>
+
+
+
     <div class="person_con">
         <ul class="group-person-second">
             <li>
@@ -14,7 +30,7 @@
             <li>
              <a href="{:url('user/info/lender')}">
                 <span class='icon icon_arr'></span>
-                                        待收<strong>{$user.send}</strong>
+                    待收<strong>{$user.send}</strong>
              </a>
             </li>
         </ul>

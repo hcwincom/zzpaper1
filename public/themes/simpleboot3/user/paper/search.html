@@ -2,17 +2,17 @@
 </head>
 <body>
      <!-- 个人中心 -->
-     <div class="hasNav">
+     <div class="backg-whiteb">
         <form action="{:url('search')}" method="post">
             <ul class='box form-box pad-top-1' >
-                <li class="box-searp">
+                <li class="box-searp backg-tblue">
                     <p>信用查询</p>
                 </li>   
-                <li class="box-li padding-all backg-white">
-                    <div class='box-tit'>身份证：</div>
-                    <div class='box-con'><input type="text" name='identity_num' value="{$idcard|default=''}" placeholder='请输入身份证号' required></div>
+                <li class="box-li padding-all back-grayx">
+                    <!-- <div class='box-tit'>身份证：</div> -->
+                    <div class='box-con'><input class="back-grayx width-identity" type="text" name='identity_num' value="{$idcard|default=''}" placeholder='请输入查询对象身份证号' required></div>
                 </li> 
-                 <p class='box-p  padding-all'>&nbsp;&nbsp;<span class="error-tip red"></span></p>
+                 <p class='box-p padding-all'>&nbsp;&nbsp;<span class="error-tip red"></span></p>
                  <!-- <li class="box-li padding-all backg-white">
                     <div class='box-tit'>手机号码：</div>
                     <div class='box-con'>
@@ -20,21 +20,21 @@
                     </div>
                  </li>
                  <p class="box-p padding-all box-pinfo">确保客户资料安全 必须输入手机号接受验证码</p> -->
-                 <li class="box-li padding-all backg-white">
-                    <div class='box-tit'>验证码：</div>
-                    <div class='box-con '>
-                        <input type="text" name='sms' placeholder='请输入验证码' required>
+                 <!-- <li class="box-li padding-all back-grayx"> -->
+                    <!-- <div class='box-tit'>验证码：</div> -->
+                    <!-- <div class='box-con '>
+                        <input class="back-grayx width-identity" type="text" name='sms' placeholder='请输入验证码' required>
                         <div class="identifying box-conabatn">
-                            <a href="javascript:void(0);" class="btn-small btn-red">发送短信</a>
+                            <a href="javascript:void(0);" class="btn-small backg-tblue">发送短信</a>
                             <a href="javascript:void(0);" class="btn-small backg-gray" style="display:none;">已发送<span id="sms_msg">120</span>s</a>
                         </div>
-                    </div>
-                 </li>
+                    </div> -->
+                 <!-- </li> -->
                 <p class='box-p  padding-all'>&nbsp;&nbsp;<span class="error-tip1 red">{$error}</span></p>
             </ul>
             
-            <div class="btn-red  btn-middle border-radius-10 ">
-                <button type="submit"/>查询</button>
+            <div class="backg-tblue btn-middle border-radius-10 ">
+                <button type="submit"/>查询信用记录</button>
             </div>
         </form>
      
@@ -42,35 +42,36 @@
   <include file="public@user_foot"  /> 
 <script>
    
-$('a.btn-red').click(function(){ 
+$('a.backg-tblue').click(function(){ 
 	$('.error-tip1').text('');
    var num = $.trim($('input[name="identity_num"]').val());
     var code = $.trim($('input[name=sms]').val());
    if(num == "" || isCardNo(num) == false){
        $('.error-tip').text('提示：请输入正确的身份证号码');
        return false;
-   } else if (code == "" || isSms(code) == false) {
-        $('input[name="sms"]').focus();
-        $('.error-tip1').html('提示：请输入正确验证码');
-        return false;
-    } 
+   } 
+    // if (code == "" || isSms(code) == false) {
+    //     $('input[name="sms"]').focus();
+    //     $('.error-tip1').html('提示：请输入正确验证码');
+    //     return false;
+    // } 
 	$.ajax({
         type: 'POST',
         url: "{:url('user/register/msg_check')}",
         dataType: 'json',
         data:{'type':'search'},
         success: function(data){ 
-        	if(data.msg=='success'){ 
-                $('.error-tip1').text('短信码发送成功');
-                $('.btn-small').hide();
-                $('.backg-gray').show();
-                sms_msg();
-        	}else{
+        	// if(data.msg=='success'){ 
+            //     $('.error-tip1').text('短信码发送成功');
+            //     $('.btn-small').hide();
+            //     $('.backg-gray').show();
+            //     sms_msg();
+        	// }else{
                 $('.error-tip1').text(data.msg);  
                 if (data.url != '') {
                     location.href = data.url;
                 }
-        	} 
+        	// } 
         },
         error: function(){
         	$('.error-tip1').text('服务器连接失败'); 
