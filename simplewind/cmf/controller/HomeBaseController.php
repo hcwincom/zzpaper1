@@ -25,6 +25,7 @@ class HomeBaseController extends BaseController
         $siteInfo = cmf_get_site_info();
         View::share('site_info', $siteInfo);
         View::share('zztitle',config('zztitle'));
+        View::share('version',config('version'));
     }
 
     public function _initializeView()
