@@ -115,6 +115,25 @@ img{transform:scale(1) translateZ(0)}
     padding:0 .7rem;
     
 }
+.boxli_border{
+    margin-top: 5rem;
+}
+.boxli_border>li{
+  border: 0.01rem solid #f8f8f8;
+  margin-bottom: 1rem;
+  background-color: #f8f8f8;
+}
+.boxli_border>li .identifying{
+    top:-0.1rem;
+    right: -4.5rem;
+}
+.boxli_border>li>.box-con>input{
+    background: none;
+}
+
+
+
+
 .box-right>.padding-all{
     border-bottom: 1px solid #ddd;
     /* border-radius: 0.5rem; */

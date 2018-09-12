@@ -1,19 +1,19 @@
 <include file="public@head" />
 </head>
 <body>
-    <section class='main'>
+    <section class='main login_main'>
         <form action="" id="zzlogin">
-            <ul class='box form-box'>
+            <ul class='box form-box boxli_border'>
                 <li class="box-li padding-all">
-                    <div class='box-tit'>手机号：</div>
+                    <div class='box-tit boxtit_new'>手机号：</div>
                     <div class='box-con'><input type="text" name='tel' placeholder='请输入正确手机号' required></div>
                 </li>
                 <li class="box-li padding-all">
-                    <div class='box-tit'>密码：</div>
+                    <div class='box-tit boxtit_new'>密码：</div>
                     <div class='box-con'><input type="password" name='password' placeholder='请输入6位数字密码' maxlength="6" required></div>
                 </li>
                 <li class="box-li padding-all box-con-relative">
-                    <div class='box-tit'>验证码：</div>
+                    <div class='box-tit boxtit_new'>验证码：</div>
                     <div class='box-con '>
                         <input type="text" name='identifying_code' placeholder='请输入验证码' required>
                       
@@ -26,9 +26,14 @@
                 <p class='error-tip box-p red'></p>
             </ul>
             
-            <div class="btn-red  btn-middle border-radius-10 ">
+            <div class="btn-middle">
                 <button type="submit" for="zzlogin"/>立即登录</button>
             </div>
+            <div class="btn-middle">
+               <a href="{:url('user/register/register')}"> 注册新用户</a>
+            </div>
+           
+            
         </form>
     </section>
  <include file="public@foot" />

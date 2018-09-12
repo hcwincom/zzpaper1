@@ -62,7 +62,12 @@
     color:#333;
     width:9rem;
 }
-
+.boxtit_new{
+    font-size:1em;
+    color:#333;
+    width:5rem;
+    text-align: right;
+}
 .box-con{
     width:-webkit-calc(100% - 9rem);
     width:-moz-calc(100% - 9rem);
@@ -183,7 +188,7 @@
 .btn-big{
     margin-bottom: 1rem;
 }
-.btn-big button,.btn-middle button{
+.btn-big button,.btn-middle button,.login_main .btn-middle a{
     width:100%;
     display:block;
     text-align:center;
@@ -192,10 +197,16 @@
     color:#fff; 
     font-size:15px;  
 }
-.btn-middle button{
+.login_main .btn-middle{
+    margin-top: 3rem;
+}
+.btn-middle button,.login_main .btn-middle a{
    line-height: 4rem;
    font-size: 1.8rem;
    letter-spacing: 0.2rem;
+}
+.login_main .btn-middle button,.login_main .btn-middle a{
+    border-radius: 0.8rem;
 }
 .form-box {
     margin-bottom:5rem;
@@ -371,13 +382,16 @@
     border-radius: .8rem;
     /* border-bottom:1px solid #ddd; */
 }
-/* .group-person-second li:not(:first-child){
-    border-left:1px solid #ddd;
-} */
 .group-person-mess .icon-mess6{
    float:right;
 }
-
+.boeder_group{
+    border-bottom: 0.1rem solid #e5e5e5;
+}
+.boeder_group>li:last-child{
+    border-left: 0.1rem solid #e5e5e5;
+    border-radius: 0;
+}
 /* 个人中心导航 */
 
 /* 底部导航固定 */
