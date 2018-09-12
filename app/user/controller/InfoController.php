@@ -189,36 +189,31 @@ class InfoController extends UserBaseController
     }
     // 延期
     public function postpone(){
-        $oid=$this->request->param('oid');
-        $this->assign('oid',$oid);
+        $data=$this->request->param();
+        $this->assign($data);
         return $this->fetch();
     }
 
     // 延期确认
     public function postpone_sure(){
+         $data=$this->request->param();
+        $this->assign($data);
         return $this->fetch();
     }
 
     // 消单
     public function single_elimination(){
-        
+         $data=$this->request->param();
+        $this->assign($data);
         return $this->fetch();
     }
 
     // 申请还款
     public function reimbursemen()
     {
-        $oid=$this->request->param('oid');
-        $where_paper=['oid'=>['eq',$oid]];
-        $where_paper['status']=['in',[3,4,5]];
-        $paper=Db::name('paper')->where($where_paper)->find();
-        if(empty($paper)){
-            $this->redirect(url('paper_old',['oid'=>$oid]));
-        }
-        
-        //未完成的计算最终还款金额
-        $paper['final_money']=zz_get_money_overdue($paper['real_money'],$paper['money'],config('rate_overdue'),$paper['overdue_day']);
-        $this->assign('paper',$paper);
+         $data=$this->request->param();
+        $this->assign($data);
+       
         return $this->fetch();
     }
 
