@@ -71,7 +71,7 @@ class IndexController extends UserBaseController
         $list_overdue_old=Db::name('paper')
         ->alias('po')
         ->join('cmf_user u','u.id=po.borrower_id')
-        ->where(['status'=>5,'overdue_day'=>['gt',2]])
+        ->where(['status'=>5,'overdue_day'=>['gt',4]])
         ->order('overdue_day asc,id desc')
         ->limit(0,config('mobile_page'))
         ->column('po.id,u.user_login as idcard,u.user_nickname as uname,po.overdue_day,u.is_paper');
@@ -98,7 +98,7 @@ class IndexController extends UserBaseController
         $list_overdue_old=Db::name('paper')
         ->alias('po')
         ->join('cmf_user u','u.id=po.borrower_id')
-        ->where(['status'=>5,'overdue_day'=>['gt',2]])
+        ->where(['status'=>5,'overdue_day'=>['gt',4]])
         ->order('overdue_day asc,id desc')
         ->limit(($page-1)*$page_list,$page_list)
         ->column('po.id,u.user_login as idcard,u.user_nickname as uname,po.overdue_day,u.is_paper');

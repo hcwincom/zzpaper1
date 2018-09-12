@@ -196,7 +196,7 @@ class TimeController extends HomeBaseController
         zz_log('更新借条发起和借条不同意为过期'.$rows.'条','time.log');
         Db::name('action')->insertAll($data_action);
         
-        //2018-9-10新增，逾期超过3天的不能补借条
+       /*  //2018-9-10新增，逾期超过3天的不能补借条
         $list_overdue3=$m_paper->where(['status'=>5,'overdue_day'=>3])->column('borrower_id');
         if(!empty($list_overdue3)){
             $rows=$m_user->where('id','in',$list_overdue3)->update(['is_paper'=>0]);
@@ -209,7 +209,7 @@ class TimeController extends HomeBaseController
             ];
             zz_log('更新用户借条逾期超过3天的不能补借条'.$rows.'条','time.log');
             Db::name('action')->insertAll($data_action);
-        } 
+        }  */
         zz_log('end','time.log');
         $mysqli->close();
  
@@ -275,27 +275,6 @@ class TimeController extends HomeBaseController
     
     //手动执行
     public function check(){
-        $ip=get_client_ip();
-        set_time_limit(600);
-        $data_action=[];
-        //借条处理
-        $m_paper=Db::name('paper');
-        $m_user=Db::name('user');
-        
-        //2018-9-10新增，逾期超过3天的不能补借条
-        $list_overdue3=$m_paper->where(['status'=>['eq',5],'overdue_day'=>['gt',2]])->column('borrower_id');
-        if(!empty($list_overdue3)){
-            $rows=$m_user->where('id','in',$list_overdue3)->update(['is_paper'=>0]);
-            $data_action[]=[
-                'aid'=>1,
-                'time'=>time(),
-                'ip'=>$ip,
-                'type'=>'system',
-                'action'=>'更新用户借条逾期超过3天的不能补借条'.$rows.'条',
-            ];
-            zz_log('更新用户借条逾期超过3天的不能补借条'.$rows.'条','time.log');
-            Db::name('action')->insertAll($data_action);
-        } 
         
         exit('执行结束');
     }

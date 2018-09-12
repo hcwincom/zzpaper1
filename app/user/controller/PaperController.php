@@ -531,7 +531,7 @@ class PaperController extends UserBaseController
                     $rates=bcsub($info_paper['final_money'],$info_paper['money'],2);
                     $data_user2['money']=bcadd($user2['money'],$rates,2);
                     $data_user1['money']=bcsub($user1['money'],$rates,2);
-                    //判断user1是否有逾期3天
+                  /*   //判断user1是否有逾期3天
                     if($info_paper['overdue_day']>2){
                         $where_tmp=[
                             'borrower_id'>['eq',$info_paper['borrower_id']],
@@ -542,7 +542,7 @@ class PaperController extends UserBaseController
                         if(empty($tmp_paper)){
                             $data_user1['is_paper']=1;
                         }
-                    }
+                    } */
 
                     $m_user->where('id',$user1['id'])->update($data_user1);
                     $m_user->where('id',$user2['id'])->update($data_user2);
