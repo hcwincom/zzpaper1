@@ -96,10 +96,7 @@
                                         "<li>"+
                                                 lists[i].overdue_day +
                                         "</li>"+
-                                        "<li>" +
-                                        // user_paper[lists[i].is_paper] 
-                                             已公示 +
-                                        "</li>" +
+                                        "<li>已公示</li>" +
                                     "</ol>"+
                                 "</li>";
                             
