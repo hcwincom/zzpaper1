@@ -1,6 +1,6 @@
   function dropSroll(url,pageSize){
     var page=0;
-    var user_paper=['限制借条','正常服务'];
+    // var user_paper=['限制借条','正常服务'];
    
     var dropload=$('.content_div').dropload({
         
@@ -97,7 +97,8 @@
                                                 lists[i].overdue_day +
                                         "</li>"+
                                         "<li>" +
-                                        user_paper[lists[i].is_paper] +
+                                        // user_paper[lists[i].is_paper] 
+                                             已公示 +
                                         "</li>" +
                                     "</ol>"+
                                 "</li>";

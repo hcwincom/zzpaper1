@@ -37,7 +37,7 @@
     <script>
         var oid = "{$oid}";
         var day = "{$day}";   
-        $(".sure-btn-2").click(function () {
+        $(".affirm_btn").click(function () {
             var psw = $.trim($('.affirm_input input[name="password"]').val());
             if (!isPassword(psw)) {
                 $('.error-tip').text('请输入6位数字密码');
