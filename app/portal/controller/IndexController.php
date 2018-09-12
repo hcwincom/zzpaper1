@@ -79,7 +79,7 @@ class IndexController extends HomeBaseController
                     }else{
                         session('wx',$userinfo); 
                         session('redirect',null);
-                        $this->redirect(url('user/register/register'));
+                        $this->redirect(url('user/login/login'));
                     }
                 }else{
                     session('user',$user);

@@ -203,6 +203,11 @@ class RegisterController extends HomeBaseController
             } else {
                //保存微信头像为本地
                 $wx=session('wx');
+                $m_user=Db::name('user');
+                $tmp=$m_user->where(['openid'=>$wx['openid']])->find();
+                if(!empty($tmp)){
+                    $this->error('该微信已有绑定账号，请登录或联系管理员删除账号');
+                }
                 //定义头像名,有微信头像就获取，没有就指定默认
                 $data['avatar']='avatar/'.md5($data['user_login']).'.jpg';
                 //$imgSrc='http://wx.qlogo.cn/mmopen/vi_32/NtItl7iciafpn9B8zHC4Zhy0hsvYCvibbSeTlQpkDH44Il4RRZ4kwQ36l1PZ2DkMiaU0xibD3OeJxOLS6IY8u1pNTrQ/132';
@@ -222,9 +227,9 @@ class RegisterController extends HomeBaseController
                     '所在地'=>$wx['country'].'-'.$wx['province'].'-'.$wx['city'],
                     '头像'=>$wx['headimgurl']
                 ];
-                
+              
                 $data['more']=json_encode($wx0);
-                $result             = Db::name('user')->insertGetId($data);
+                $result             = $m_user->insertGetId($data);
                 if ($result !== false) {
                     $data   = Db::name("user")->where('id', $result)->find();
                     cmf_update_current_user($data);
