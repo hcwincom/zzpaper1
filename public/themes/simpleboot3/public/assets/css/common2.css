@@ -126,7 +126,7 @@ img{transform:scale(1) translateZ(0)}
 }
 .boxli_border>li .identifying{
     top:-0.1rem;
-    right: -2.8rem;
+    right: 0.4rem;
 }
 .boxli_border>li>.box-con>input{
     background: none;
