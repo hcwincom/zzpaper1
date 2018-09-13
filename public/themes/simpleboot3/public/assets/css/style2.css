@@ -84,6 +84,14 @@
     width:calc(100% - 9rem);
     position: relative;
 }
+.boxcon_new{
+    width:-webkit-calc(100% - 7rem);
+    width:-moz-calc(100% - 7rem);
+    width:-ms-calc(100% - 7rem);
+    width:-o-calc(100% - 7rem);
+    width:calc(100% - 7rem);
+    position: relative;
+}
 .box-con-relative .box-con{
     position:relative;
 }

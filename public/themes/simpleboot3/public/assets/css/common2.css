@@ -122,6 +122,7 @@ img{transform:scale(1) translateZ(0)}
   border: 0.01rem solid #f8f8f8;
   margin-bottom: 1rem;
   background-color: #f8f8f8;
+  padding: 1.5rem 0;
 }
 .boxli_border>li .identifying{
     top:-0.1rem;
@@ -129,6 +130,8 @@ img{transform:scale(1) translateZ(0)}
 }
 .boxli_border>li>.box-con>input{
     background: none;
+    width: 100%;
+    padding: 0 0.3rem;
 }
 
 
@@ -346,7 +349,8 @@ img{transform:scale(1) translateZ(0)}
 }
 .affirm_input>.promit-input{
     width: 100%;
-   border: 0.01rem solid #25a2ff;
+    border: 0.01rem solid #25a2ff;
+    padding: 0.3rem 0 0.3rem 0.4rem;
 }
 .affirm_promit div{
     margin-top: 0.8rem;
@@ -358,15 +362,15 @@ img{transform:scale(1) translateZ(0)}
 }
 .affirm_promit>div>p{
     font-size: 1.5rem;
-    font-weight: 500;
+    font-weight: 600;
     letter-spacing: 0.1rem;
 }
 .affirm_content{
-    font-size:1rem;
-    color: #999;
-   margin-top: 1rem;
-   padding-left: 0.3rem;
-   letter-spacing: 0.02rem;
+    font-size:1.4rem;
+    margin-top: 1rem;
+    font-weight: 500;
+    padding-left: 0.3rem;
+    letter-spacing: 0.05rem;
 }
 .affirm_btn{
     width: 86%;
