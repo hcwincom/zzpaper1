@@ -32,10 +32,12 @@ class PaperController extends UserBaseController
             $this->assign('error','没有实名认证，不能查信用');
             return $this->fetch();
         } 
-        $idcard=$this->request->param('identity_num','','trim');
+        $idcard=$this->request->param('identity_num','');
         if(empty($idcard)){
             $this->assign('error','');
             return $this->fetch();
+        }else{
+            $idcard=trim($idcard);
         }
         $this->assign('idcard',$idcard); 
         // $codes=$this->request->param('sms','','trim');
