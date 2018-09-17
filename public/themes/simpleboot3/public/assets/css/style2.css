@@ -1279,12 +1279,12 @@ input[type='hidden']{
     border-bottom: 0.2rem solid #e4e4e4;
     height: 4rem;
 }
-.Liabilities div{
+.Liabilities div a{
     border: 0.01rem solid #25a2ff;
-    margin: 0.5rem 0;
+    margin-right: 0.5rem;
 }
 .Liabilities div a{
-    padding: 0.2rem 1rem;
+    padding: 0.5rem 1rem;
 }
 .bottom-flexed li{
     width: 50%;
