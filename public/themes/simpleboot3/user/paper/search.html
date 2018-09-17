@@ -34,7 +34,7 @@
             </ul>
             
             <div class="backg-tblue btn-middle border-radius-10 ">
-                <button type="submit"/>查询信用记录</button>
+                <button type="submit" id="btnsubm"/>查询信用记录</button>
             </div>
         </form>
      
@@ -80,11 +80,11 @@
 // });
  
 $("#btnsubm").click(function () {
-    formIdentity(form);
+    formIdentity();
 });
 
 // 查信用 
-function formIdentity(form){
+function formIdentity(){
     var num = $.trim($('input[name="identity_num"]').val());
     // var code = $.trim($('input[name=sms]').val());
     if (num == "" || isCardNo(num) == false) {
