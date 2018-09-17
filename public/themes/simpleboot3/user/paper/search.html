@@ -42,63 +42,61 @@
   <include file="public@user_foot"  /> 
 <script>
    
-$('a.backg-tblue').click(function(){ 
-	$('.error-tip1').text('');
-   var num = $.trim($('input[name="identity_num"]').val());
-    var code = $.trim($('input[name=sms]').val());
-   if(num == "" || isCardNo(num) == false){
-       $('.error-tip').text('提示：请输入正确的身份证号码');
-       return false;
-   } 
-    // if (code == "" || isSms(code) == false) {
-    //     $('input[name="sms"]').focus();
-    //     $('.error-tip1').html('提示：请输入正确验证码');
-    //     return false;
-    // } 
-	$.ajax({
-        type: 'POST',
-        url: "{:url('user/register/msg_check')}",
-        dataType: 'json',
-        data:{'type':'search'},
-        success: function(data){ 
-        	// if(data.msg=='success'){ 
-            //     $('.error-tip1').text('短信码发送成功');
-            //     $('.btn-small').hide();
-            //     $('.backg-gray').show();
-            //     sms_msg();
-        	// }else{
-                $('.error-tip1').text(data.msg);  
-                if (data.url != '') {
-                    location.href = data.url;
-                }
-        	// } 
-        },
-        error: function(){
-        	$('.error-tip1').text('服务器连接失败'); 
-        }
-    });
-});
- 
-// $("#btnsubm").click(function () {
-//     formIdentity(form);
-// });
-
-
-
-// 查信用 
-// function formIdentity(form){
-//     var num = $.trim($('input[name="identity_num"]').val());
+// $('a.backg-tblue').click(function(){ 
+// 	$('.error-tip1').text('');
+//    var num = $.trim($('input[name="identity_num"]').val());
 //     var code = $.trim($('input[name=sms]').val());
-//     if (num == "" || isCardNo(num) == false) {
-//         $('.error-tip').text('提示：请输入正确的身份证号码');
-//         return false;
-//     } 
-//     else if (code == "" || isSms(code) == false) {
+//    if(num == "" || isCardNo(num) == false){
+//        $('.error-tip').text('提示：请输入正确的身份证号码');
+//        return false;
+//    } 
+//     if (code == "" || isSms(code) == false) {
 //         $('input[name="sms"]').focus();
 //         $('.error-tip1').html('提示：请输入正确验证码');
 //         return false;
 //     } 
-// }
+// 	$.ajax({
+//         type: 'POST',
+//         url: "{:url('user/register/msg_check')}",
+//         dataType: 'json',
+//         data:{'type':'search'},
+//         success: function(data){ 
+//         	if(data.msg=='success'){ 
+//                 $('.error-tip1').text('短信码发送成功');
+//                 $('.btn-small').hide();
+//                 $('.backg-gray').show();
+//                 sms_msg();
+//         	}else{
+//                 $('.error-tip1').text(data.msg);  
+//                 if (data.url != '') {
+//                     location.href = data.url;
+//                 }
+//         	} 
+//         },
+//         error: function(){
+//         	$('.error-tip1').text('服务器连接失败'); 
+//         }
+//     });
+// });
+ 
+$("#btnsubm").click(function () {
+    formIdentity(form);
+});
+
+// 查信用 
+function formIdentity(form){
+    var num = $.trim($('input[name="identity_num"]').val());
+    // var code = $.trim($('input[name=sms]').val());
+    if (num == "" || isCardNo(num) == false) {
+        $('.error-tip').text('提示：请输入正确的身份证号码');
+        return false;
+    } 
+    // else if (code == "" || isSms(code) == false) {
+    //     $('input[name="sms"]').focus();
+    //     $('.error-tip1').html('提示：请输入正确验证码');
+    //     return false;
+    // } 
+}
 
 
 </script>
