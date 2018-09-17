@@ -189,7 +189,7 @@ class PaperController extends UserBaseController
         $data['real_money']=zz_get_money($data['money'],$data['rate'],$data['expire_day']);
         
         //判断姓名格式
-        $names=explode('-',$data0['name']);
+        $names=explode('@',$data0['name']);
         $where_user11=['user_type'=>2,'user_nickname'=>$names[0]];
         if(!empty($names[1])){
             if(preg_match(config('reg_mobile'),$names[1])!=1){
@@ -203,7 +203,7 @@ class PaperController extends UserBaseController
             $this->error('对方姓名不存在');
         }
         if(!empty($user11[1])){
-            $this->error('姓名有重复，请在姓名后加上手机号，用-分隔，如张三-15211112222');
+            $this->error('姓名有重复，请在姓名后加上手机号，用@分隔，如张三@15211112222');
         }  
         $user1=$user11[0];
         if(empty($user1['is_name'])){
