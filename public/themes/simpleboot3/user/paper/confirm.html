@@ -152,73 +152,7 @@
             </ul>
      		
         </form>
-       <!-- 同意确认操作 -->
-       <!-- <div class="pop_up pop_up1 border-radius-10 " style='display:none;'>
-            <p>&nbsp;&nbsp;<span class="error-tip red"></span></p>
-            <input type="hidden" id="zzid" value="{$info_reply.id}"/>
-            <input type="hidden" id="zzop" value="1"/>
-            <p class='promit-html'>你确定要同意吗</p>
-            <p class='promit-p'><input type="password"  placeholder='请输入密码' name='password' class='promit-input'></p>
-            <ul class="pop_up_ul">
-                <li><a href="" class='blue-text'>取消</a></li>
-               
-                <li><a href="javascript:void(0);" class='blue-text sure-btn-2'>确定</a></li>
-            </ul>
-        </div>  -->
-
+      
    <include file="public@foot" />    
-    <script>
-    // var click=0;
-    //     $('.sure_alert').click(function(){ 
-    //     	click=0;
-    //         $('#zzop').val('1');
-    //         $('.promit-html').text('你确定要同意吗');
-    //         $('.pop_up').show();
-    //     });
-    //     $('.cancal_alert').click(function(){
-    //     	click=0;
-    //     	$('#zzop').val('0');
-    //         $('.promit-html').text('你确定要驳回吗');
-    //         $('.pop_up').show();
-    //     });
-        // 输入密码，确定
-        // $('.sure-btn-2').click(function(){
-        	 
-        //     var psw=$.trim($('.promit-input').val());
-        //     var id=$('#zzid').val();
-        //     var op=$('#zzop').val();
-             
-        //     if( psw== '' || isPassword(psw) == false){ 
-        //         $('.promit-input').focus(); 
-        //         $('.pop_up .error-tip').text('请输入6位数字密码'); 
-        //         return false;
-        //     }
-        //     $('.promit-input').val('');
-        //     if(click==0){
-       	// 	 	click=1;
-	    //    	 }else{
-	    //    		 return false;
-	    //    	 }
-        //     //ajax提交
-        //     $.ajax({
-        //         type: 'POST',
-        //         url: "{:url('user/paper/ajax_confirm')}",
-        //         dataType: 'json',
-        //         data:{'id':id,'psw':psw,'op':op},
-        //         success: function(data){
-        //         	$('.error-tip').text(data.msg);
-        //         	if(data.url!=''){
-        //         		 location.href=data.url; 
-        //         	} 
-        //         	click=0;
-        //         },
-        //         error: function(event, XMLHttpRequest, ajaxOptions, thrownError){ 
-        //         	click=0;
-        //            msg('服务器连接失败',event.responseText); 
-        //         }
-        //     });
-        //     return false;
-        // });
-
-     </script>
+   
  

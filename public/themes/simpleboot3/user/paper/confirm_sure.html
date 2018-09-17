@@ -66,8 +66,8 @@
                         }
                     },
                     error: function (event, XMLHttpRequest, ajaxOptions, thrownError) {
-                     
-                        msg('服务器连接失败', event.responseText);
+                      $('.error-tip').text('服务器连接失败');
+                        // msg('服务器连接失败', event.responseText);
                     }
                 });
                 return false;
